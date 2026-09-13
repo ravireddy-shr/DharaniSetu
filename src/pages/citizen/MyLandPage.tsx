@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { PageLayout, PageHeader, PageContent } from '../../components/layout/PageLayout';
 import { useAuthStore } from '../../store/authStore';
 import { useAppStore } from '../../store/appStore';
-import { DEMO_PARCELS, DEMO_STATES, getParcelsForCitizen } from '../../data/demoData';
-import { Map, MapPin, Info, CheckCircle2, Search, Filter, User } from 'lucide-react';
+import { DEMO_PARCELS, getParcelsForCitizen } from '../../data/demoData';
+import { Map, MapPin, Info, Search, User } from 'lucide-react';
 import { cn } from '../../utils';
 
 export function MyLandPage() {
@@ -14,16 +14,12 @@ export function MyLandPage() {
   const { user } = useAuthStore();
   const storeParcels = useAppStore(state => state.parcels);
   const [selected, setSelected] = useState<string | null>(null);
-  const [viewScope, setViewScope] = useState<'my' | 'all'>('my');
-  const [stateFilter, setStateFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const allParcelsPool = storeParcels.length > 0 ? storeParcels : DEMO_PARCELS;
   const myOwnedParcels = user ? getParcelsForCitizen(user.state, user.name, user.email, allParcelsPool) : [];
-  const baseParcels = viewScope === 'my' ? myOwnedParcels : allParcelsPool;
 
-  const parcels = baseParcels.filter(p => {
-    if (viewScope === 'all' && stateFilter !== 'all' && p.stateId !== stateFilter) return false;
+  const parcels = myOwnedParcels.filter(p => {
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       return (
@@ -43,38 +39,18 @@ export function MyLandPage() {
     <PageLayout role="citizen">
       <PageHeader
         title={t('land.myLandTitle', 'Registered Land Parcels Repository')}
-        subtitle="View, verify and inspect cadastral records across Andhra Pradesh, Telangana, Tamil Nadu, and Chandigarh"
+        subtitle="View, verify and inspect cadastral records for your registered land parcels"
         breadcrumb={[{ label: 'Home', path: '/citizen/dashboard' }, { label: t('nav.myLand', 'My Land') }]}
       />
       <PageContent>
-        {/* Scope Toggle & State Filter Buttons & Search */}
+        {/* Search & My Land Header */}
         <div className="flex flex-col gap-3 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <button
-                onClick={() => setViewScope('my')}
-                className={cn(
-                  'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5',
-                  viewScope === 'my'
-                    ? 'bg-emerald-700 text-white shadow-xs'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                )}
-              >
+              <div className="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-emerald-700 text-white shadow-xs flex items-center gap-1.5">
                 <User size={13} />
                 <span>My Registered Land ({myOwnedParcels.length})</span>
-              </button>
-              <button
-                onClick={() => setViewScope('all')}
-                className={cn(
-                  'px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5',
-                  viewScope === 'all'
-                    ? 'bg-emerald-700 text-white shadow-xs'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                )}
-              >
-                <MapPin size={13} />
-                <span>All Cadastral Records ({allParcelsPool.length})</span>
-              </button>
+              </div>
             </div>
 
             <div className="relative w-full sm:w-64">
@@ -88,40 +64,6 @@ export function MyLandPage() {
               />
             </div>
           </div>
-
-          {viewScope === 'all' && (
-            <div className="flex items-center gap-1.5 flex-wrap pt-1">
-              <span className="text-slate-400 font-bold uppercase text-[10px] mr-1 flex items-center gap-1">
-                <Filter size={12} /> State:
-              </span>
-              <button
-                onClick={() => setStateFilter('all')}
-                className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
-                  stateFilter === 'all'
-                    ? 'bg-emerald-700 text-white shadow-xs'
-                    : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                }`}
-              >
-                All States ({allParcelsPool.length})
-              </button>
-              {DEMO_STATES.map(s => {
-                const count = allParcelsPool.filter(p => p.stateId === s.id).length;
-                return (
-                  <button
-                    key={s.id}
-                    onClick={() => setStateFilter(s.id)}
-                    className={`px-3 py-1 rounded-xl text-xs font-bold transition-all ${
-                      stateFilter === s.id
-                        ? 'bg-emerald-700 text-white shadow-xs'
-                        : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
-                    }`}
-                  >
-                    {s.name} ({count})
-                  </button>
-                );
-              })}
-            </div>
-          )}
         </div>
 
         {parcels.length === 0 ? (
