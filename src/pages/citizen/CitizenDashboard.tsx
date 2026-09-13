@@ -67,25 +67,25 @@ export function CitizenDashboard() {
 
       <PageContent>
         {/* Personalized Welcome Banner */}
-        <div className="bg-gradient-to-r from-emerald-600 via-emerald-700 to-teal-800 text-white rounded-3xl p-6 sm:p-7 shadow-md relative overflow-hidden">
+        <div className="bg-gradient-to-r from-[#1D0A69] via-[#160854] to-[#115E59] text-white rounded-3xl p-6 sm:p-7 shadow-md relative overflow-hidden">
           <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-white/5 backdrop-blur-3xl -skew-x-12 pointer-events-none" />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-emerald-100 text-xs font-semibold mb-2.5 backdrop-blur-xs">
-                <ShieldCheck size={14} className="text-emerald-300" />
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/15 text-white text-xs font-semibold mb-2.5 backdrop-blur-xs">
+                <ShieldCheck size={14} className="text-[#D97706]" />
                 <span>{t('dashboard.verifiedIdentity', 'Verified Landholder · Digital Identity Active')}</span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black tracking-tight text-white">
                 Namaste, {user?.name || 'Citizen'}
               </h2>
-              <p className="text-xs sm:text-sm text-emerald-100/90 max-w-2xl mt-1 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-200 max-w-2xl mt-1 leading-relaxed">
                 {t('dashboard.welcomeCitizenMsg', 'Access your digitized land records, cadastral survey boundaries, mutation requests, and statutory certificates directly online.')}
               </p>
             </div>
             <div className="flex items-center gap-2.5 flex-wrap">
               <Link
                 to="/citizen/my-land"
-                className="bg-white text-emerald-800 hover:bg-emerald-50 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-1.5"
+                className="bg-white text-[#115E59] hover:bg-slate-50 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold shadow-sm transition-all flex items-center gap-1.5"
               >
                 <MapPin size={15} />
                 <span>{t('dashboard.myLandRecords', 'My Land Records')}</span>

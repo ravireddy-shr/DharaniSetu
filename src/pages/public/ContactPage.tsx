@@ -84,20 +84,20 @@ export function ContactPage() {
   const faqs = Array.isArray(translatedFaqs) && translatedFaqs.length > 0 ? translatedFaqs : defaultFaqs;
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans text-[#0F172A]">
       <Header />
 
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         {/* Page Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-xs font-bold border border-emerald-200 mb-3 shadow-xs">
-            <Shield size={14} className="text-emerald-600" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F0FDFA] text-[#115E59] text-xs font-bold border border-[#99F6E4] mb-3 shadow-xs">
+            <Shield size={14} className="text-[#115E59]" />
             <span>{t('contact.badge', '24x7 Citizen Support & Statutory Revenue Grievance Helpdesk')}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-[32px] font-bold text-[#1D0A69] tracking-tight">
             {t('contact.title', 'How Can We Assist You?')}
           </h1>
-          <p className="text-sm sm:text-base text-slate-600 mt-2 leading-relaxed">
+          <p className="text-base text-slate-600 mt-2 leading-relaxed font-normal">
             {t('contact.subtitle', 'Contact your local Tahsildar office, state nodal helpdesk, or submit a formal inquiry to the National Land Governance Public Infrastructure Team.')}
           </p>
         </div>
@@ -107,17 +107,17 @@ export function ContactPage() {
           {stateHelplines.map((h) => (
             <div
               key={h.code}
-              className="bg-white rounded-2xl border border-slate-200/80 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+              className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-800 border border-emerald-200">
+                  <span className="text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-lg bg-[#F0FDFA] text-[#115E59] border border-[#99F6E4]">
                     {h.code} {t('admin.managedStates', 'State')}
                   </span>
-                  <Phone size={16} className="text-emerald-600" />
+                  <Phone size={16} className="text-[#115E59]" />
                 </div>
-                <h3 className="text-base font-bold text-slate-900">{h.state}</h3>
-                <p className="text-lg font-black font-mono text-emerald-700 mt-1">{h.helpline}</p>
+                <h3 className="text-[18px] font-semibold text-[#0F172A]">{h.state}</h3>
+                <p className="text-lg font-bold font-mono text-[#115E59] mt-1">{h.helpline}</p>
                 <p className="text-xs text-slate-500 mt-2 flex items-center gap-1.5">
                   <Mail size={13} className="text-slate-400" />
                   <span className="truncate">{h.email}</span>
@@ -127,7 +127,7 @@ export function ContactPage() {
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1 text-[11px] text-slate-500">
+              <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-1 text-xs text-slate-500">
                 <Clock size={12} className="text-slate-400" />
                 <span>{h.hours}</span>
               </div>
@@ -138,27 +138,27 @@ export function ContactPage() {
         {/* Contact Form & FAQs Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Inquiry Form (7 cols) */}
-          <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-sm">
+          <div className="lg:col-span-7 bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-sm">
             <div className="flex items-center gap-2.5 mb-5 pb-3 border-b border-slate-100">
-              <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold">
+              <div className="w-10 h-10 rounded-xl bg-[#F0FDFA] text-[#115E59] flex items-center justify-center font-bold">
                 <MessageSquare size={20} />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-slate-900">{t('contact.sendInquiryTitle', 'Send an Inquiry or Grievance')}</h2>
-                <p className="text-xs text-slate-500">{t('contact.sendInquirySubtitle', 'Tickets are directly monitored by the District Collectorate')}</p>
+                <h2 className="text-[20px] font-semibold text-[#0F172A]">{t('contact.sendInquiryTitle', 'Send an Inquiry or Grievance')}</h2>
+                <p className="text-sm text-slate-500">{t('contact.sendInquirySubtitle', 'Tickets are directly monitored by the District Collectorate')}</p>
               </div>
             </div>
 
             {submitted ? (
-              <div className="p-8 text-center bg-emerald-50 rounded-2xl border border-emerald-200">
-                <CheckCircle2 size={48} className="text-emerald-600 mx-auto mb-3" />
-                <h3 className="text-lg font-bold text-emerald-950">{t('contact.ticketCreated', 'Grievance Ticket Created')}</h3>
-                <p className="text-xs sm:text-sm text-emerald-800 mt-1 max-w-md mx-auto">
+              <div className="p-8 text-center bg-[#F0FDFA] rounded-2xl border border-[#99F6E4]">
+                <CheckCircle2 size={48} className="text-[#16A34A] mx-auto mb-3" />
+                <h3 className="text-lg font-bold text-[#0F172A]">{t('contact.ticketCreated', 'Grievance Ticket Created')}</h3>
+                <p className="text-base text-slate-700 mt-1 max-w-md mx-auto">
                   {t('contact.ticketAssigned', 'Your inquiry has been assigned Ticket ID #GRV-2026-8942. A nodal revenue officer will respond within 48 business hours.')}
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-5 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-sm transition-all"
+                  className="mt-5 px-5 py-2.5 bg-[#115E59] hover:bg-[#0D4845] text-white rounded-xl text-base font-semibold shadow-sm transition-all"
                 >
                   {t('contact.submitAnother', 'Submit Another Inquiry')}
                 </button>
@@ -238,7 +238,7 @@ export function ContactPage() {
 
                 <button
                   type="submit"
-                  className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-bold text-sm shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2"
+                  className="w-full bg-[#115E59] hover:bg-[#0D4845] text-white py-3 rounded-xl font-bold text-base shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-2"
                 >
                   <Send size={16} />
                   <span>{t('contact.submitButton', 'Submit Statutory Grievance')}</span>
@@ -249,30 +249,30 @@ export function ContactPage() {
 
           {/* FAQs Accordion (5 cols) */}
           <div className="lg:col-span-5 space-y-4">
-            <div className="bg-white rounded-3xl border border-slate-200/80 p-6 shadow-sm">
+            <div className="bg-white rounded-3xl border border-slate-200 p-6 shadow-sm">
               <div className="flex items-center gap-2 mb-4">
-                <HelpCircle size={20} className="text-emerald-600" />
-                <h3 className="text-base font-bold text-slate-900">{t('contact.faqsTitle', 'Frequently Asked Questions')}</h3>
+                <HelpCircle size={20} className="text-[#115E59]" />
+                <h3 className="text-[20px] font-semibold text-[#0F172A]">{t('contact.faqsTitle', 'Frequently Asked Questions')}</h3>
               </div>
 
               <div className="space-y-3">
                 {faqs.map((faq, i) => (
                   <div
                     key={i}
-                    className="border border-slate-200/70 rounded-2xl overflow-hidden transition-all"
+                    className="border border-slate-200 rounded-2xl overflow-hidden transition-all"
                   >
                     <button
                       onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                      className="w-full p-4 text-left font-bold text-xs sm:text-sm text-slate-800 hover:text-emerald-700 flex items-center justify-between gap-3 bg-slate-50/50"
+                      className="w-full p-4 text-left font-semibold text-sm text-[#0F172A] hover:text-[#115E59] flex items-center justify-between gap-3 bg-slate-50/50"
                     >
                       <span>{faq.q}</span>
                       <ChevronDown
                         size={16}
-                        className={`text-slate-400 transition-transform ${openFaq === i ? 'rotate-180 text-emerald-600' : ''}`}
+                        className={`text-slate-400 transition-transform ${openFaq === i ? 'rotate-180 text-[#115E59]' : ''}`}
                       />
                     </button>
                     {openFaq === i && (
-                      <div className="p-4 text-xs text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
+                      <div className="p-4 text-sm text-slate-600 bg-white border-t border-slate-100 leading-relaxed">
                         {faq.a}
                       </div>
                     )}
@@ -282,14 +282,14 @@ export function ContactPage() {
             </div>
 
             {/* National Toll-Free Box */}
-            <div className="bg-gradient-to-br from-slate-900 to-emerald-950 text-white rounded-3xl p-6 shadow-md">
-              <h4 className="text-sm font-bold text-emerald-400 uppercase tracking-wider">
+            <div className="bg-gradient-to-br from-[#1D0A69] to-[#115E59] text-white rounded-3xl p-6 shadow-md">
+              <h4 className="text-xs font-bold text-[#D97706] uppercase tracking-wider">
                 {t('contact.tollFreeBadge', 'National Toll-Free Control Room')}
               </h4>
               <p className="text-2xl font-black font-mono mt-1 text-white">
                 {t('contact.tollFreeNumber', '1800-DHARANI-SETU')}
               </p>
-              <p className="text-xs text-slate-300 mt-2 leading-relaxed">
+              <p className="text-sm text-slate-200 mt-2 leading-relaxed">
                 {t('contact.tollFreeDesc', 'Integrated Digital Public Infrastructure for Land Governance. Dedicated team for multi-state cadastral queries and citizen grievances.')}
               </p>
             </div>

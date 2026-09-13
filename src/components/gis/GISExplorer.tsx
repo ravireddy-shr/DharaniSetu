@@ -59,10 +59,10 @@ const SIMULATED_SHIFTED_PARCELS: {
 const redPinIcon = L.divIcon({
   className: 'custom-pin',
   html: `<div style="display: flex; flex-direction: column; align-items: center; transform: translate(-50%, -100%);">
-    <div style="background: #ef4444; color: white; padding: 3px 8px; border-radius: 9999px; font-weight: bold; font-size: 11px; font-family: Arial, sans-serif; box-shadow: 0 2px 5px rgba(0,0,0,0.3); white-space: nowrap; margin-bottom: 2px;">
+    <div style="background: #DC2626; color: white; padding: 3px 8px; border-radius: 9999px; font-weight: bold; font-size: 11px; font-family: Inter, Roboto, sans-serif; box-shadow: 0 2px 5px rgba(0,0,0,0.3); white-space: nowrap; margin-bottom: 2px;">
       📍 Selected
     </div>
-    <div style="width: 14px; height: 14px; background: #ef4444; border: 2px solid white; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.4);"></div>
+    <div style="width: 14px; height: 14px; background: #DC2626; border: 2px solid white; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.4);"></div>
   </div>`,
   iconSize: [0, 0],
 });
@@ -352,9 +352,9 @@ export function GISExplorer({
 
     if (isFlaggedShift) {
       return {
-        color: '#f59e0b',
+        color: '#EA580C',
         weight: 3,
-        fillColor: '#fef3c7',
+        fillColor: '#EA580C',
         fillOpacity: 0.35,
         dashArray: '4, 4',
         opacity: 1,
@@ -362,9 +362,9 @@ export function GISExplorer({
     }
 
     return {
-      color: isSelected ? '#22c55e' : '#16a34a',
+      color: isSelected ? '#115E59' : '#16A34A',
       weight: isSelected ? 4 : 2,
-      fillColor: isSelected ? '#22c55e' : '#15803d',
+      fillColor: isSelected ? '#115E59' : '#16A34A',
       fillOpacity: isSelected ? 0.38 : 0.18,
       dashArray: isSelected ? undefined : '4, 4',
       opacity: 1,
@@ -540,9 +540,9 @@ export function GISExplorer({
               geometry: sp.geometry,
             } as any}
             style={() => ({
-              color: '#f43f5e',
+              color: '#DC2626',
               weight: 3,
-              fillColor: '#f43f5e',
+              fillColor: '#DC2626',
               fillOpacity: 0.32,
               dashArray: '6, 6',
             })}
@@ -620,7 +620,7 @@ export function GISExplorer({
             ) : (
               L.divIcon({
                 className: 'mini-dot',
-                html: `<div style="width: 8px; height: 8px; background: #059669; border: 1.5px solid white; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.4); transform: translate(-50%, -50%); cursor: pointer;"></div>`,
+                html: `<div style="width: 8px; height: 8px; background: #115E59; border: 1.5px solid white; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.4); transform: translate(-50%, -50%); cursor: pointer;"></div>`,
                 iconSize: [0, 0],
               })
             )}
@@ -643,7 +643,7 @@ export function GISExplorer({
             position={[pt[1], pt[0]]}
             icon={L.divIcon({
               className: 'survey-stone',
-              html: `<div style="width: 8px; height: 8px; background: #ffffff; border: 2px solid #059669; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.5); transform: translate(-50%, -50%);"></div>`,
+              html: `<div style="width: 8px; height: 8px; background: #ffffff; border: 2px solid #115E59; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.5); transform: translate(-50%, -50%);"></div>`,
               iconSize: [0, 0],
             })}
           >

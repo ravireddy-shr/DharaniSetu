@@ -102,23 +102,23 @@ export function LoginPage() {
         : '/admin/dashboard';
 
     return (
-      <div className="min-h-screen bg-[#F7F9F8] flex flex-col font-sans items-center justify-center p-4">
+      <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans items-center justify-center p-4">
         <div className="w-full max-w-sm bg-white rounded-3xl border border-slate-200 shadow-xl p-8 text-center space-y-5">
-          <div className="w-14 h-14 mx-auto rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+          <div className="w-14 h-14 mx-auto rounded-full bg-[#F0FDFA] text-[#115E59] flex items-center justify-center">
             <ShieldCheck size={32} />
           </div>
 
           <div>
-            <h2 className="text-xl font-bold text-slate-800">{t('auth.activeSession', 'Active Session')}</h2>
-            <p className="text-xs text-slate-500 mt-1">
-              {t('auth.currentlySignedIn', 'Currently signed in as')} <strong className="text-slate-700">{user.name}</strong> ({user.role})
+            <h2 className="text-xl font-bold text-[#0F172A]">{t('auth.activeSession', 'Active Session')}</h2>
+            <p className="text-sm text-slate-600 mt-1">
+              {t('auth.currentlySignedIn', 'Currently signed in as')} <strong className="text-[#0F172A]">{user.name}</strong> ({user.role})
             </p>
           </div>
 
           <div className="space-y-3 pt-2">
             <button
               onClick={() => navigate(userRoleDashboard)}
-              className="w-full py-3 rounded-full bg-[#10B981] hover:bg-emerald-600 text-white text-sm font-bold shadow-md transition-all uppercase"
+              className="w-full py-3 rounded-full bg-[#115E59] hover:bg-[#0D4845] text-white text-base font-bold shadow-md transition-all uppercase"
             >
               {t('auth.continueToDashboard', 'Continue to Dashboard')}
             </button>
@@ -128,7 +128,7 @@ export function LoginPage() {
                 logout();
                 toast('info', t('auth.signedOut', 'Signed Out'), t('auth.signedOutMsg', 'You have been signed out.'));
               }}
-              className="w-full py-2.5 rounded-full border border-slate-300 text-slate-600 hover:bg-slate-50 text-xs font-semibold transition-all"
+              className="w-full py-2.5 rounded-full border-[1.5px] border-[#94A3B8] text-slate-700 hover:bg-[#F8FAFC] text-sm font-semibold transition-all"
             >
               {t('auth.signInAnother', 'Sign In with Another Account')}
             </button>
@@ -139,17 +139,17 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F9F8] flex flex-col font-sans justify-between items-center py-6 px-4">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans justify-between items-center py-6 px-4">
       {/* Top spacer */}
       <div className="w-full flex items-center justify-center">
         {/* DharaniSetu Logo + Branding styled like reference header */}
         <Link to="/" className="flex flex-col items-center group">
           <div className="flex items-center gap-2">
-            <span className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-800">
-              <span className="italic font-serif text-[#10B981]">e</span>Dharani<span className="text-[#10B981]">Setu</span>
+            <span className="text-2xl sm:text-3xl font-black tracking-tight text-[#1D0A69]">
+              Dharani<span className="text-[#D97706] ml-0.5">Setu</span>
             </span>
           </div>
-          <p className="text-[11px] sm:text-xs text-slate-500 font-semibold tracking-wider uppercase mt-0.5">
+          <p className="text-xs text-slate-600 font-semibold tracking-wider uppercase mt-0.5">
             Sustainable Growth • Sustainable Future
           </p>
         </Link>
@@ -157,7 +157,7 @@ export function LoginPage() {
 
       {/* Center Login Container matching reference screenshot */}
       <div className="w-full max-w-[360px] sm:max-w-[400px] flex flex-col items-center my-auto">
-        {/* Illustrated plant foliage art (replicates reference artwork) */}
+        {/* Illustrated plant foliage art in Forest Teal & Navy palette */}
         <div className="w-48 h-24 relative flex items-end justify-center mb-1 select-none pointer-events-none">
           <svg
             viewBox="0 0 200 100"
@@ -166,84 +166,67 @@ export function LoginPage() {
             className="w-full h-full drop-shadow-xs"
           >
             {/* Soft decorative background dots/sparks */}
-            <circle cx="60" cy="30" r="2.5" fill="#A7F3D0" />
-            <circle cx="140" cy="25" r="2" fill="#6EE7B7" />
-            <circle cx="100" cy="15" r="3" fill="#A7F3D0" />
-            <path d="M50 40 L54 44 M50 44 L54 40" stroke="#6EE7B7" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M150 35 L154 39 M150 39 L154 35" stroke="#6EE7B7" strokeWidth="1.5" strokeLinecap="round" />
+            <circle cx="60" cy="30" r="2.5" fill="#99F6E4" />
+            <circle cx="140" cy="25" r="2" fill="#5EEAD4" />
+            <circle cx="100" cy="15" r="3" fill="#D97706" />
+            <path d="M50 40 L54 44 M50 44 L54 40" stroke="#115E59" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M150 35 L154 39 M150 39 L154 35" stroke="#115E59" strokeWidth="1.5" strokeLinecap="round" />
 
-            {/* Lush leaves layer */}
-            {/* Left background tall blade */}
+            {/* Lush leaves layer in Forest Teal (#115E59) and accents */}
             <path
               d="M65 95 C60 65 65 35 78 20 C76 38 78 68 85 95 Z"
-              fill="#059669"
+              fill="#0D4845"
             />
-            {/* Right background tall blade */}
             <path
               d="M135 95 C140 65 135 35 122 20 C124 38 122 68 115 95 Z"
-              fill="#059669"
+              fill="#0D4845"
             />
-            {/* Far left spiky leaf */}
             <path
               d="M45 95 C40 75 42 50 56 35 C52 52 56 75 62 95 Z"
-              fill="#10B981"
+              fill="#115E59"
             />
-            {/* Far right spiky leaf */}
             <path
               d="M155 95 C160 75 158 50 144 35 C148 52 144 75 138 95 Z"
-              fill="#10B981"
+              fill="#115E59"
             />
-            {/* Center broad leaf with stem */}
             <path
               d="M100 95 C90 70 85 45 100 15 C115 45 110 70 100 95 Z"
-              fill="#34D399"
+              fill="#134E48"
             />
             <path
               d="M100 95 L100 25"
-              stroke="#059669"
+              stroke="#0D4845"
               strokeWidth="1.5"
               strokeLinecap="round"
             />
-            {/* Left broad leaf */}
             <path
               d="M80 95 C65 75 68 55 86 38 C94 58 88 80 82 95 Z"
-              fill="#10B981"
+              fill="#115E59"
             />
-            {/* Right broad leaf */}
             <path
               d="M120 95 C135 75 132 55 114 38 C106 58 112 80 118 95 Z"
-              fill="#10B981"
+              fill="#115E59"
             />
-            {/* Foreground small fresh leaves */}
-            <path
-              d="M75 95 C65 85 68 70 80 62 C85 75 82 88 78 95 Z"
-              fill="#6EE7B7"
-            />
-            <path
-              d="M125 95 C135 85 132 70 120 62 C115 75 118 88 122 95 Z"
-              fill="#6EE7B7"
-            />
-            {/* Vine sprays / dots */}
-            <circle cx="150" cy="55" r="3" fill="#34D399" />
-            <circle cx="158" cy="48" r="2.5" fill="#10B981" />
-            <circle cx="50" cy="55" r="3" fill="#34D399" />
-            <circle cx="42" cy="48" r="2.5" fill="#10B981" />
+            <circle cx="150" cy="55" r="3" fill="#D97706" />
+            <circle cx="158" cy="48" r="2.5" fill="#115E59" />
+            <circle cx="50" cy="55" r="3" fill="#D97706" />
+            <circle cx="42" cy="48" r="2.5" fill="#115E59" />
           </svg>
         </div>
 
-        {/* Heading matching screenshot */}
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#10B981] tracking-tight text-center">
+        {/* Heading: H1 32px bold #1D0A69 */}
+        <h1 className="text-[32px] font-bold text-[#1D0A69] tracking-tight text-center">
           Login
         </h1>
-        <p className="text-sm text-slate-500 font-medium text-center mt-1 mb-7">
+        <p className="text-base text-slate-600 font-normal text-center mt-1 mb-6">
           Sign in to continue
         </p>
 
-        {/* Form Fields matching screenshot */}
+        {/* Form Fields matching outdoor sunlight visibility */}
         <form onSubmit={handleLogin} className="w-full space-y-4">
           {/* User ID Field */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1.5 ml-3">
+            <label className="block text-sm font-semibold text-[#0F172A] mb-1.5 ml-3">
               {t('auth.userId', 'User ID')}
             </label>
             <div className="relative">
@@ -252,16 +235,16 @@ export function LoginPage() {
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
                 placeholder={t('auth.userIdOrEmail', 'User ID or Email')}
-                className="w-full rounded-full border border-slate-300 bg-white px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#10B981] focus:ring-3 focus:ring-[#10B981]/20 transition-all shadow-xs"
+                className="w-full rounded-full border-[1.5px] border-[#94A3B8] bg-white px-5 py-3 text-base text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#115E59] focus:ring-2 focus:ring-[#115E59]/25 transition-all shadow-xs"
                 autoComplete="username"
               />
-              <Mail size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none" />
+              <Mail size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
             </div>
           </div>
 
           {/* Password Field */}
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1.5 ml-3">
+            <label className="block text-sm font-semibold text-[#0F172A] mb-1.5 ml-3">
               {t('auth.password', 'Password')}
             </label>
             <div className="relative">
@@ -270,26 +253,26 @@ export function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full rounded-full border border-slate-300 bg-white px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#10B981] focus:ring-3 focus:ring-[#10B981]/20 transition-all shadow-xs"
+                className="w-full rounded-full border-[1.5px] border-[#94A3B8] bg-white px-5 py-3 text-base text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#115E59] focus:ring-2 focus:ring-[#115E59]/25 transition-all shadow-xs"
                 autoComplete="current-password"
               />
-              <Lock size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none" />
+              <Lock size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none" />
             </div>
           </div>
 
           {/* Error message */}
           {error && (
-            <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold text-center leading-snug">
+            <div className="p-3 rounded-2xl bg-red-50 border border-red-200 text-[#DC2626] text-sm font-semibold text-center leading-snug">
               {error}
             </div>
           )}
 
-          {/* Green pill LOGIN button matching screenshot */}
+          {/* CTA LOGIN button in Secondary (Forest Teal #115E59) */}
           <div className="pt-2">
             <button
               type="submit"
               disabled={loading}
-              className="w-full rounded-full bg-[#10B981] hover:bg-[#059669] active:scale-[0.99] text-white font-bold tracking-wider py-3.5 text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase"
+              className="w-full rounded-full bg-[#115E59] hover:bg-[#0D4845] active:scale-[0.99] text-white font-bold tracking-wider py-3.5 text-base shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase"
             >
               {loading ? t('auth.loggingIn', 'LOGGING IN...') : t('auth.loginBtn', 'LOGIN')}
             </button>
@@ -301,25 +284,25 @@ export function LoginPage() {
           <button
             type="button"
             onClick={() => setShowDirectoryModal(true)}
-            className="text-xs sm:text-sm font-semibold text-[#059669] hover:text-[#047857] hover:underline flex items-center gap-1.5 transition-colors"
+            className="text-sm font-semibold text-[#115E59] hover:text-[#0D4845] hover:underline flex items-center gap-1.5 transition-colors"
           >
-            <Users size={15} />
+            <Users size={16} />
             <span>{t('auth.browseDirectory', 'Browse 144 Citizen Logins & Official Directory')}</span>
           </button>
 
-          <div className="bg-slate-100/80 px-3.5 py-2 rounded-full border border-slate-200/60 text-[11px] text-slate-500 font-medium">
-            {t('auth.defaultPasswords', 'Default Passwords:')} <span className="text-slate-800 font-bold">citizen123</span> ({t('nav.publicCitizen', 'Citizen')}) · <span className="text-slate-800 font-bold">officer123</span> ({t('roles.officer', 'Officer')}) · <span className="text-slate-800 font-bold">admin123</span> ({t('roles.admin', 'Admin')})
+          <div className="bg-slate-100/80 px-3.5 py-2 rounded-full border border-slate-200/60 text-xs text-slate-600 font-medium">
+            {t('auth.defaultPasswords', 'Default Passwords:')} <span className="text-[#0F172A] font-bold">citizen123</span> ({t('nav.publicCitizen', 'Citizen')}) · <span className="text-[#0F172A] font-bold">officer123</span> ({t('roles.officer', 'Officer')}) · <span className="text-[#0F172A] font-bold">admin123</span> ({t('roles.admin', 'Admin')})
           </div>
         </div>
       </div>
 
       {/* Bottom status text matching "Can't reach server? Update Server" style */}
-      <div className="text-xs text-slate-400 text-center mt-6">
+      <div className="text-xs text-slate-500 text-center mt-6">
         <span>{t('auth.needAssistance', 'Need assistance?')} </span>
         <button
           type="button"
           onClick={() => setShowDirectoryModal(true)}
-          className="text-[#10B981] hover:underline font-medium"
+          className="text-[#115E59] hover:underline font-semibold"
         >
           {t('auth.viewDirectory', 'View Verified User Directory')}
         </button>
@@ -353,44 +336,44 @@ export function LoginPage() {
             </div>
 
             {/* Quick Officer Logins Section */}
-            <div className="p-3 bg-emerald-50/70 border-b border-emerald-100 px-5 space-y-2">
+            <div className="p-3 bg-[#F0FDFA] border-b border-[#CCFBF1] px-5 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-emerald-950">Quick Government Officer Logins:</span>
-                <span className="text-[10px] text-emerald-700 font-semibold">Password: officer123</span>
+                <span className="text-xs font-bold text-[#115E59]">Quick Government Officer Logins:</span>
+                <span className="text-[10px] text-slate-500 font-semibold">Password: officer123</span>
               </div>
               <div className="flex items-center gap-1.5 flex-wrap">
                 <button
                   type="button"
                   onClick={() => handleSelectOfficerCredentials('tahsildar@dharanisetu.gov.in', 'Tahsildar')}
-                  className="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-800 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                  className="px-2.5 py-1 bg-[#1D0A69] hover:bg-[#160854] text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
                 >
                   <span>🏛️ Tahsildar</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOfficerCredentials('vro@dharanisetu.gov.in', 'Revenue Officer (VRO)')}
-                  className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                  className="px-2.5 py-1 bg-[#115E59] hover:bg-[#0D4845] text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
                 >
                   <span>📋 Revenue (VRO)</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOfficerCredentials('surveyor@dharanisetu.gov.in', 'Cadastral Surveyor')}
-                  className="px-2.5 py-1 bg-teal-600 hover:bg-teal-700 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                  className="px-2.5 py-1 bg-[#0D4845] hover:bg-[#08302E] text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
                 >
                   <span>📐 Surveyor</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOfficerCredentials('subregistrar@dharanisetu.gov.in', 'Sub-Registrar')}
-                  className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                  className="px-2.5 py-1 bg-indigo-700 hover:bg-indigo-800 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
                 >
                   <span>📜 Sub-Registrar</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => handleSelectOfficerCredentials('planner@dharanisetu.gov.in', 'Town Planner')}
-                  className="px-2.5 py-1 bg-amber-700 hover:bg-amber-800 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                  className="px-2.5 py-1 bg-[#D97706] hover:bg-[#B45309] text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
                 >
                   <span>🏗️ Town Planner</span>
                 </button>
@@ -405,15 +388,15 @@ export function LoginPage() {
             </div>
 
             {/* Directory Tabs: Citizens vs Government Officers */}
-            <div className="px-5 pt-3 pb-2 border-b border-slate-200 bg-slate-50/50 flex items-center gap-2">
+            <div className="px-5 pt-3 pb-2 border-b border-slate-200 bg-[#F8FAFC] flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => setDirectoryTab('citizens')}
                 className={cn(
-                  'px-4 py-1.5 rounded-xl text-xs font-extrabold transition-all',
+                  'px-4 py-1.5 rounded-xl text-xs font-bold transition-all',
                   directoryTab === 'citizens'
-                    ? 'bg-[#10B981] text-white shadow-xs'
-                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                    ? 'bg-[#115E59] text-white shadow-xs'
+                    : 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-100'
                 )}
               >
                 144 Citizens Directory
@@ -422,10 +405,10 @@ export function LoginPage() {
                 type="button"
                 onClick={() => setDirectoryTab('officers')}
                 className={cn(
-                  'px-4 py-1.5 rounded-xl text-xs font-extrabold transition-all',
+                  'px-4 py-1.5 rounded-xl text-xs font-bold transition-all',
                   directoryTab === 'officers'
-                    ? 'bg-slate-800 text-white shadow-xs'
-                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                    ? 'bg-[#1D0A69] text-white shadow-xs'
+                    : 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-100'
                 )}
               >
                 Government Officers Directory ({DEMO_OFFICERS.length})
@@ -443,7 +426,7 @@ export function LoginPage() {
                       value={citizenSearch}
                       onChange={(e) => setCitizenSearch(e.target.value)}
                       placeholder="Search by citizen name, survey no, village..."
-                      className="w-full pl-9 pr-4 py-2 rounded-full border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-[#10B981] outline-none"
+                      className="w-full pl-9 pr-4 py-2 rounded-full border-[1.5px] border-[#94A3B8] text-xs font-medium focus:ring-2 focus:ring-[#115E59]/25 focus:border-[#115E59] outline-none"
                       autoFocus
                     />
                   </div>
@@ -457,7 +440,7 @@ export function LoginPage() {
                         className={cn(
                           'px-3 py-1 rounded-full text-xs font-bold transition-all',
                           citizenStateFilter === st
-                            ? 'bg-[#10B981] text-white shadow-xs'
+                            ? 'bg-[#115E59] text-white shadow-xs'
                             : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                         )}
                       >
@@ -482,16 +465,16 @@ export function LoginPage() {
                   }).map((citizen, idx) => (
                     <div
                       key={citizen.id}
-                      className="pt-2.5 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl hover:bg-emerald-50/40 transition-colors border border-transparent hover:border-emerald-200"
+                      className="pt-2.5 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl hover:bg-[#F0FDFA] transition-colors border border-transparent hover:border-[#99F6E4]"
                     >
                       <div className="flex items-start gap-3 min-w-0">
-                        <div className="w-8 h-8 rounded-full bg-emerald-100 text-[#059669] font-bold flex items-center justify-center text-xs flex-shrink-0">
+                        <div className="w-8 h-8 rounded-full bg-[#F0FDFA] text-[#115E59] font-bold flex items-center justify-center text-xs flex-shrink-0">
                           {idx + 1}
                         </div>
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-sm font-bold text-slate-900">{citizen.name}</span>
-                            <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100/70 text-[#059669]">
+                            <span className="text-sm font-bold text-[#0F172A]">{citizen.name}</span>
+                            <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#F0FDFA] text-[#115E59] border border-[#99F6E4]">
                               Survey #{citizen.surveyNumber}
                             </span>
                             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
@@ -499,7 +482,7 @@ export function LoginPage() {
                             </span>
                           </div>
                           <div className="flex items-center gap-3 text-xs text-slate-500 mt-1 flex-wrap font-mono">
-                            <span className="text-[#059669] font-semibold">{citizen.email}</span>
+                            <span className="text-[#115E59] font-semibold">{citizen.email}</span>
                             <span>·</span>
                             <span>{citizen.village} ({citizen.state})</span>
                             <span>·</span>
@@ -512,7 +495,7 @@ export function LoginPage() {
 
                       <button
                         onClick={() => handleSelectCitizenCredentials(citizen)}
-                        className="px-4 py-2 bg-[#10B981] hover:bg-[#059669] text-white rounded-full text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 flex-shrink-0"
+                        className="px-4 py-2 bg-[#115E59] hover:bg-[#0D4845] text-white rounded-full text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 flex-shrink-0"
                       >
                         <span>Use Credentials</span>
                         <ArrowRight size={13} />
@@ -532,7 +515,7 @@ export function LoginPage() {
                       value={officerSearch}
                       onChange={(e) => setOfficerSearch(e.target.value)}
                       placeholder="Search by officer name, designation, department..."
-                      className="w-full pl-9 pr-4 py-2 rounded-full border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-slate-800 outline-none"
+                      className="w-full pl-9 pr-4 py-2 rounded-full border-[1.5px] border-[#94A3B8] text-xs font-medium focus:ring-2 focus:ring-[#1D0A69]/25 focus:border-[#1D0A69] outline-none"
                     />
                   </div>
 
@@ -545,7 +528,7 @@ export function LoginPage() {
                         className={cn(
                           'px-3 py-1 rounded-full text-xs font-bold transition-all',
                           officerDeptFilter === dept
-                            ? 'bg-slate-800 text-white shadow-xs'
+                            ? 'bg-[#1D0A69] text-white shadow-xs'
                             : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                         )}
                       >
@@ -570,16 +553,16 @@ export function LoginPage() {
                   }).map((officer, idx) => (
                     <div
                       key={officer.id}
-                      className="pt-2.5 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200"
+                      className="pt-2.5 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl hover:bg-[#F3F0FC]/50 transition-colors border border-transparent hover:border-[#DDD6FE]"
                     >
                       <div className="flex items-start gap-3 min-w-0">
-                        <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center text-xs flex-shrink-0">
+                        <div className="w-8 h-8 rounded-full bg-[#F3F0FC] text-[#1D0A69] font-bold flex items-center justify-center text-xs flex-shrink-0">
                           {idx + 1}
                         </div>
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-sm font-bold text-slate-900">{officer.name}</span>
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                            <span className="text-sm font-bold text-[#0F172A]">{officer.name}</span>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#F0FDFA] text-[#115E59] border border-[#99F6E4]">
                               {officer.department}
                             </span>
                             <span className="text-[10px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">
@@ -598,7 +581,7 @@ export function LoginPage() {
 
                       <button
                         onClick={() => handleSelectOfficerCredentials(officer.email, officer.designation)}
-                        className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-full text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 flex-shrink-0"
+                        className="px-4 py-2 bg-[#1D0A69] hover:bg-[#160854] text-white rounded-full text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 flex-shrink-0"
                       >
                         <span>Use Credentials</span>
                         <ArrowRight size={13} />
@@ -610,8 +593,8 @@ export function LoginPage() {
             )}
 
             {/* Modal Footer Note */}
-            <div className="p-3 bg-slate-50 border-t border-slate-200 text-center text-xs text-slate-500">
-              Clicking <strong className="text-slate-700">"Use Credentials"</strong> fills that user's email and password into the login page. Then, click <strong className="text-[#059669]">LOGIN</strong> to sign in.
+            <div className="p-3 bg-[#F8FAFC] border-t border-slate-200 text-center text-xs text-slate-500">
+              Clicking <strong className="text-slate-700">"Use Credentials"</strong> fills that user's email and password into the login page. Then, click <strong className="text-[#115E59]">LOGIN</strong> to sign in.
             </div>
           </div>
         </div>

@@ -55,29 +55,29 @@ export function OfficerDashboard() {
       <PageContent>
         {/* Officer / Tahsildar Executive Profile Strip */}
         {officer && (
-          <div className="bg-gradient-to-r from-slate-950 via-slate-900 to-emerald-950 text-white rounded-3xl p-6 sm:p-7 shadow-lg border border-slate-800 relative overflow-hidden">
-            <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="bg-gradient-to-r from-[#1D0A69] via-[#160854] to-[#115E59] text-white rounded-3xl p-6 sm:p-7 shadow-lg border border-slate-800 relative overflow-hidden">
+            <div className="absolute right-0 top-0 bottom-0 w-1/3 bg-white/5 backdrop-blur-3xl -skew-x-12 pointer-events-none" />
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center font-black text-xl flex-shrink-0 shadow-md border border-white/20">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#115E59] to-[#1D0A69] text-white flex items-center justify-center font-black text-xl flex-shrink-0 shadow-md border border-white/20">
                   {officer.name?.[0] || 'O'}
                 </div>
                 <div>
                   <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <span className="text-xs font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                    <span className="text-xs font-bold uppercase tracking-wider bg-white/15 text-[#D97706] px-2.5 py-0.5 rounded-full border border-[#D97706]/30">
                       {officer.department || 'Revenue'} Department
                     </span>
-                    <span className="text-xs font-bold uppercase tracking-wider bg-blue-500/20 text-blue-300 px-2.5 py-0.5 rounded-full border border-blue-500/30">
+                    <span className="text-xs font-bold uppercase tracking-wider bg-white/10 text-white px-2.5 py-0.5 rounded-full border border-white/20">
                       {officer.designation}
                     </span>
-                    <span className="text-xs font-mono text-slate-400">
+                    <span className="text-xs font-mono text-slate-300">
                       ID: {officer.officerId}
                     </span>
                   </div>
                   <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
                     {officer.name}
                   </h2>
-                  <p className="text-xs sm:text-sm text-slate-300 mt-0.5">
+                  <p className="text-xs sm:text-sm text-slate-200 mt-0.5">
                     {officer.designation} · {officer.department} Department
                   </p>
                 </div>
@@ -86,16 +86,16 @@ export function OfficerDashboard() {
               {/* Jurisdiction Cards */}
               <div className="grid grid-cols-3 gap-3 text-center">
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{t('common.state', 'State')}</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-300 tracking-wider">{t('common.state', 'State')}</p>
                   <p className="text-xs sm:text-sm font-bold text-white mt-0.5 truncate">{officer.jurisdictionState}</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{t('common.district', 'District')}</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-300 tracking-wider">{t('common.district', 'District')}</p>
                   <p className="text-xs sm:text-sm font-bold text-white mt-0.5 truncate">{officer.jurisdictionDistrict?.split('-').pop()}</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{t('common.mandal', 'Mandal')}</p>
-                  <p className="text-xs sm:text-sm font-bold text-emerald-300 mt-0.5 truncate">{officer.jurisdictionMandal?.split('-').pop()}</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-300 tracking-wider">{t('common.mandal', 'Mandal')}</p>
+                  <p className="text-xs sm:text-sm font-bold text-[#D97706] mt-0.5 truncate">{officer.jurisdictionMandal?.split('-').pop()}</p>
                 </div>
               </div>
             </div>

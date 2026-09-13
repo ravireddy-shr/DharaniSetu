@@ -73,10 +73,10 @@ export function Sidebar({ role, isOpen, onClose }: SidebarProps) {
     : t('nav.officerPortal', 'Officer Portal');
 
   const roleMeta = role === 'citizen' 
-    ? { title: t('nav.citizenPortal', 'Citizen Portal'), badge: t('nav.publicCitizen', 'Public Citizen'), bg: 'bg-sky-50', text: 'text-sky-800', border: 'border-sky-200' }
+    ? { title: t('nav.citizenPortal', 'Citizen Portal'), badge: t('nav.publicCitizen', 'Public Citizen'), bg: 'bg-[#F0FDFA]', text: 'text-[#115E59]', border: 'border-[#99F6E4]' }
     : role === 'officer' 
-    ? { title: officerTitle, badge: officerBadge, bg: 'bg-emerald-50', text: 'text-emerald-800', border: 'border-emerald-200' }
-    : { title: t('nav.adminPortal', 'Admin Portal'), badge: t('nav.systemAdministrator', 'System Administrator'), bg: 'bg-purple-50', text: 'text-purple-800', border: 'border-purple-200' };
+    ? { title: officerTitle, badge: officerBadge, bg: 'bg-[#F3F0FC]', text: 'text-[#1D0A69]', border: 'border-[#DDD6FE]' }
+    : { title: t('nav.adminPortal', 'Admin Portal'), badge: t('nav.systemAdministrator', 'System Administrator'), bg: 'bg-[#FEF3C7]', text: 'text-[#92400E]', border: 'border-[#FDE68A]' };
 
   return (
     <>
@@ -90,17 +90,17 @@ export function Sidebar({ role, isOpen, onClose }: SidebarProps) {
 
       {/* Sidebar */}
       <aside className={cn(
-        'fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-slate-200/80 overflow-y-auto z-30 transition-transform duration-200 flex flex-col font-sans shadow-xs',
+        'fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-slate-200 overflow-y-auto z-30 transition-transform duration-200 flex flex-col font-sans shadow-xs',
         isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       )}>
         {/* Role tag card */}
         <div className="p-4 border-b border-slate-100 flex-shrink-0">
-          <div className={cn('px-3.5 py-2 rounded-xl border flex items-center justify-between gap-2', roleMeta.bg, roleMeta.border)}>
+          <div className={cn('px-3.5 py-2.5 rounded-xl border flex items-center justify-between gap-2', roleMeta.bg, roleMeta.border)}>
             <div>
               <p className={cn('text-xs font-black uppercase tracking-wider', roleMeta.text)}>{roleMeta.title}</p>
-              <p className="text-[11px] text-slate-500 font-medium">{roleMeta.badge}</p>
+              <p className="text-xs text-slate-600 font-medium mt-0.5">{roleMeta.badge}</p>
             </div>
-            <div className={cn('w-2 h-2 rounded-full animate-pulse', role === 'officer' ? 'bg-emerald-500' : role === 'citizen' ? 'bg-sky-500' : 'bg-purple-500')} />
+            <div className={cn('w-2.5 h-2.5 rounded-full', role === 'officer' ? 'bg-[#1D0A69]' : role === 'citizen' ? 'bg-[#115E59]' : 'bg-[#D97706]')} />
           </div>
         </div>
 
@@ -112,10 +112,10 @@ export function Sidebar({ role, isOpen, onClose }: SidebarProps) {
               to={item.path}
               onClick={onClose}
               className={({ isActive }) => cn(
-                'flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all',
+                'flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-base font-medium transition-all',
                 isActive 
-                  ? 'bg-emerald-50 text-emerald-700 font-bold border-l-4 border-emerald-600 shadow-xs pl-3' 
-                  : 'text-slate-600 hover:text-emerald-700 hover:bg-slate-50'
+                  ? 'bg-[#F0FDFA] text-[#115E59] font-bold border-l-4 border-[#115E59] shadow-xs pl-3' 
+                  : 'text-[#0F172A] hover:text-[#115E59] hover:bg-[#F8FAFC]'
               )}
             >
               <span className="flex-shrink-0">{item.icon}</span>
@@ -125,12 +125,12 @@ export function Sidebar({ role, isOpen, onClose }: SidebarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-slate-100 flex-shrink-0 bg-slate-50/50">
+        <div className="p-4 border-t border-slate-100 flex-shrink-0 bg-[#F8FAFC]">
           <div className="flex items-center gap-2">
-            <Layers size={14} className="text-emerald-600" />
-            <span className="text-xs font-bold text-slate-800">{t('nav.version', 'DharaniSetu v1.0')}</span>
+            <Layers size={16} className="text-[#115E59]" />
+            <span className="text-sm font-bold text-[#0F172A]">{t('nav.version', 'DharaniSetu v1.0')}</span>
           </div>
-          <p className="text-[11px] text-slate-500 mt-0.5">{t('nav.dpiSubtitle', 'National Land Governance DPI')}</p>
+          <p className="text-xs text-slate-500 mt-0.5">{t('nav.dpiSubtitle', 'National Land Governance DPI')}</p>
         </div>
       </aside>
     </>

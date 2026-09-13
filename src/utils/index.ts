@@ -26,17 +26,17 @@ export function formatFileSize(bytes: number): string {
 }
 
 export const STATUS_CONFIG: Record<ApplicationStatus, { label: string; color: string; bg: string }> = {
-  SUBMITTED:                      { label: 'Submitted',                   color: 'text-blue-700',   bg: 'bg-blue-50' },
-  ROUTED:                         { label: 'Routed',                      color: 'text-purple-700', bg: 'bg-purple-50' },
-  DOCUMENT_VERIFICATION:          { label: 'Document Verification',       color: 'text-yellow-700', bg: 'bg-yellow-50' },
-  GIS_VERIFICATION:               { label: 'GIS Verification',            color: 'text-orange-700', bg: 'bg-orange-50' },
-  FIELD_VERIFICATION:             { label: 'Field Verification',          color: 'text-orange-700', bg: 'bg-orange-50' },
-  OFFICER_REVIEW:                 { label: 'Officer Review',              color: 'text-indigo-700', bg: 'bg-indigo-50' },
-  APPROVED:                       { label: 'Approved',                    color: 'text-green-700',  bg: 'bg-green-50' },
-  REJECTED:                       { label: 'Rejected',                    color: 'text-red-700',    bg: 'bg-red-50' },
-  RECORD_UPDATE:                  { label: 'Record Update',               color: 'text-teal-700',   bg: 'bg-teal-50' },
-  COMPLETED:                      { label: 'Completed',                   color: 'text-green-800',  bg: 'bg-green-100' },
-  ADDITIONAL_INFORMATION_REQUIRED:{ label: 'Additional Info Required',    color: 'text-amber-700',  bg: 'bg-amber-50' },
+  SUBMITTED:                      { label: 'Submitted',                   color: 'text-slate-800',  bg: 'bg-slate-100' },
+  ROUTED:                         { label: 'Routed',                      color: 'text-[#1D0A69]',  bg: 'bg-[#F3F0FC]' },
+  DOCUMENT_VERIFICATION:          { label: 'Document Verification',       color: 'text-[#D97706]',  bg: 'bg-[#FEF3C7]' },
+  GIS_VERIFICATION:               { label: 'GIS Verification',            color: 'text-[#EA580C]',  bg: 'bg-[#FFF7ED]' },
+  FIELD_VERIFICATION:             { label: 'Field Verification',          color: 'text-[#EA580C]',  bg: 'bg-[#FFF7ED]' },
+  OFFICER_REVIEW:                 { label: 'Officer Review',              color: 'text-[#1D0A69]',  bg: 'bg-[#F3F0FC]' },
+  APPROVED:                       { label: 'Approved',                    color: 'text-[#16A34A]',  bg: 'bg-[#DCFCE7]' },
+  REJECTED:                       { label: 'Rejected',                    color: 'text-[#DC2626]',  bg: 'bg-[#FEE2E2]' },
+  RECORD_UPDATE:                  { label: 'Record Update',               color: 'text-[#115E59]',  bg: 'bg-[#F0FDFA]' },
+  COMPLETED:                      { label: 'Completed',                   color: 'text-[#16A34A]',  bg: 'bg-[#DCFCE7]' },
+  ADDITIONAL_INFORMATION_REQUIRED:{ label: 'Additional Info Required',    color: 'text-[#EA580C]',  bg: 'bg-[#FFF7ED]' },
 };
 
 export const APPLICATION_STATUS_FLOW: ApplicationStatus[] = [

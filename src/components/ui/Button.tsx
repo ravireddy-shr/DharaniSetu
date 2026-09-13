@@ -1,4 +1,4 @@
-﻿import { cn } from '../../utils';
+import { cn } from '../../utils';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 type Variant = 'primary' | 'secondary' | 'danger' | 'success' | 'ghost';
@@ -17,13 +17,13 @@ const variantClass: Record<Variant, string> = {
   secondary: 'gov-btn-secondary',
   danger:    'gov-btn-danger',
   success:   'gov-btn-success',
-  ghost:     'bg-transparent text-brand-navy hover:bg-brand-light px-3 py-1.5 rounded text-sm transition-colors',
+  ghost:     'bg-transparent text-[#1D0A69] hover:bg-[#F0FDFA] hover:text-[#115E59] px-4 py-2 rounded-lg text-base font-semibold transition-colors',
 };
 
 const sizeClass: Record<Size, string> = {
-  sm: 'text-xs px-3 py-1.5',
-  md: '',
-  lg: 'text-base px-6 py-3',
+  sm: 'text-sm px-3.5 py-2',
+  md: 'text-base px-5 py-2.5',
+  lg: 'text-lg px-6 py-3.5',
 };
 
 export function Button({

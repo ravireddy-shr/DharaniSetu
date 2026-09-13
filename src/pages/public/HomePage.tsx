@@ -139,10 +139,10 @@ export function HomePage() {
       <Header />
 
       {/* Hero Section matching Top-Left panel of reference */}
-      <section className="relative bg-gradient-to-b from-[#103E26] via-[#1E5638] to-[#2E6B47] text-white pt-12 sm:pt-16 pb-20 sm:pb-24 overflow-hidden">
+      <section className="relative bg-gradient-to-b from-[#1D0A69] via-[#160854] to-[#115E59] text-white pt-12 sm:pt-16 pb-20 sm:pb-24 overflow-hidden">
         {/* Landscape photo backdrop with green fields and mountains */}
         <div
-          className="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-35 pointer-events-none"
+          className="absolute inset-0 bg-cover bg-center mix-blend-overlay opacity-30 pointer-events-none"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1920&auto=format&fit=crop')`,
           }}
@@ -152,19 +152,19 @@ export function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Bold Typography & Search Pill */}
             <div className="lg:col-span-8 text-left">
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
                 {t('home.heroTitle1', 'Your Land.')}<br />
                 {t('home.heroTitle2', 'All Services.')}<br />
-                <span className="text-emerald-300">{t('home.heroTitle3', 'In One Place.')}</span>
+                <span className="text-[#D97706]">{t('home.heroTitle3', 'In One Place.')}</span>
               </h1>
-              <p className="text-base sm:text-lg text-emerald-100 font-medium mt-3 tracking-wide">
+              <p className="text-base sm:text-lg text-slate-200 font-normal mt-3 tracking-wide">
                 {t('home.heroSubtitle', 'Transparent • Integrated • Citizen Friendly')}
               </p>
 
               {/* Large Search Pill Bar */}
               <form
                 onSubmit={handleHeroSearch}
-                className="mt-6 sm:mt-8 max-w-2xl bg-white rounded-full p-2 shadow-2xl flex items-center gap-2 border-2 border-white/80"
+                className="mt-6 sm:mt-8 max-w-2xl bg-white rounded-full p-2 shadow-2xl flex items-center gap-2 border-2 border-white/90"
               >
                 <div className="pl-4 text-slate-400">
                   <Search size={20} />
@@ -174,11 +174,11 @@ export function HomePage() {
                   value={heroSearch}
                   onChange={e => setHeroSearch(e.target.value)}
                   placeholder={t('home.heroSearchPlaceholder', 'Search by Survey No. / Patta No. / Address')}
-                  className="w-full bg-transparent text-slate-800 placeholder:text-slate-400 text-sm sm:text-base font-semibold focus:outline-none px-2"
+                  className="w-full bg-transparent text-[#0F172A] placeholder:text-slate-400 text-base font-medium focus:outline-none px-2"
                 />
                 <button
                   type="submit"
-                  className="w-11 h-11 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center flex-shrink-0 transition-transform active:scale-95 shadow-md"
+                  className="w-11 h-11 rounded-full bg-[#115E59] hover:bg-[#0D4845] text-white flex items-center justify-center flex-shrink-0 transition-transform active:scale-95 shadow-md"
                 >
                   <ArrowRight size={20} />
                 </button>
@@ -188,13 +188,13 @@ export function HomePage() {
             {/* Right Column: "People Land Progress" State Outline Badge */}
             <div className="lg:col-span-4 hidden lg:flex justify-end">
               <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 shadow-2xl max-w-xs text-center transform rotate-1 hover:rotate-0 transition-transform">
-                <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center mx-auto mb-3">
+                <div className="w-16 h-16 rounded-full bg-[#D97706]/20 border-2 border-[#D97706] flex items-center justify-center mx-auto mb-3">
                   <span className="text-2xl">🌱</span>
                 </div>
-                <h3 className="text-2xl font-black text-white italic tracking-wide">
+                <h3 className="text-2xl font-bold text-white italic tracking-wide">
                   {t('home.peopleLandProgress', 'People Land Progress')}
                 </h3>
-                <p className="text-xs text-emerald-200 mt-2 font-medium">
+                <p className="text-xs text-slate-200 mt-2 font-medium">
                   {t('home.dpiSubtitle', 'Digital Public Infrastructure for Real-Time Cadastral Governance')}
                 </p>
               </div>
@@ -206,12 +206,12 @@ export function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-20 mt-10 sm:mt-14">
           <div className="bg-white rounded-2xl p-4 sm:p-5 shadow-2xl border border-slate-200 grid grid-cols-3 sm:grid-cols-6 gap-3 text-center">
             {[
-              { label: t('home.build', 'Build'), icon: <Building2 size={22} className="text-blue-600" />, link: '/citizen/services' },
-              { label: t('home.convertLandUse', 'Convert Land Use'), icon: <RefreshCw size={22} className="text-emerald-600" />, link: '/citizen/services' },
-              { label: t('home.transferMutation', 'Transfer (Mutation)'), icon: <FileText size={22} className="text-orange-600" />, link: '/citizen/services' },
-              { label: t('home.surveyBoundary', 'Survey & Boundary'), icon: <MapPin size={22} className="text-rose-600" />, link: '/citizen/services' },
-              { label: t('home.getCertificates', 'Get Certificates'), icon: <Award size={22} className="text-emerald-600" />, link: '/citizen/services' },
-              { label: t('home.raiseGrievance', 'Raise Grievance'), icon: <ShieldAlert size={22} className="text-purple-600" />, link: '/citizen/services' },
+              { label: t('home.build', 'Build'), icon: <Building2 size={22} className="text-[#1D0A69]" />, link: '/citizen/services' },
+              { label: t('home.convertLandUse', 'Convert Land Use'), icon: <RefreshCw size={22} className="text-[#115E59]" />, link: '/citizen/services' },
+              { label: t('home.transferMutation', 'Transfer (Mutation)'), icon: <FileText size={22} className="text-[#D97706]" />, link: '/citizen/services' },
+              { label: t('home.surveyBoundary', 'Survey & Boundary'), icon: <MapPin size={22} className="text-[#DC2626]" />, link: '/citizen/services' },
+              { label: t('home.getCertificates', 'Get Certificates'), icon: <Award size={22} className="text-[#115E59]" />, link: '/citizen/services' },
+              { label: t('home.raiseGrievance', 'Raise Grievance'), icon: <ShieldAlert size={22} className="text-[#EA580C]" />, link: '/citizen/services' },
             ].map(act => (
               <button
                 key={act.label}
@@ -221,7 +221,7 @@ export function HomePage() {
                 <div className="w-12 h-12 rounded-xl bg-slate-100 group-hover:bg-white group-hover:shadow-md flex items-center justify-center transition-all">
                   {act.icon}
                 </div>
-                <span className="text-xs sm:text-sm font-bold text-slate-800 mt-2 group-hover:text-emerald-700">
+                <span className="text-sm font-semibold text-[#0F172A] mt-2 group-hover:text-[#115E59]">
                   {act.label}
                 </span>
               </button>
@@ -234,10 +234,10 @@ export function HomePage() {
       <section id="services-section" className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+            <h2 className="text-[24px] font-semibold text-[#0F172A]">
               {t('home.landServices', 'Land Services')}
             </h2>
-            <p className="text-sm text-slate-500 font-medium mt-1">
+            <p className="text-base text-slate-600 font-normal mt-1">
               {t('home.landServicesSub', 'Apply online. Track easily. No more multiple visits.')}
             </p>
           </div>
@@ -250,7 +250,7 @@ export function HomePage() {
               value={serviceSearch}
               onChange={e => setServiceSearch(e.target.value)}
               placeholder={t('home.searchServicePlaceholder', 'Search a service...')}
-              className="w-full bg-white border border-slate-300 rounded-xl pl-9 pr-4 py-2 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-sm"
+              className="w-full bg-white border-[1.5px] border-[#94A3B8] rounded-xl pl-9 pr-4 py-2 text-base font-normal text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#115E59]/25 focus:border-[#115E59] shadow-xs"
             />
           </div>
         </div>
@@ -267,10 +267,10 @@ export function HomePage() {
                 <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center mb-3">
                   {svc.icon}
                 </div>
-                <h3 className="text-base font-bold text-slate-900 group-hover:text-emerald-800 transition-colors">
+                <h3 className="text-[18px] font-semibold text-[#0F172A] group-hover:text-[#115E59] transition-colors">
                   {svc.title}
                 </h3>
-                <p className="text-xs text-slate-500 mt-1 font-medium leading-relaxed">
+                <p className="text-sm text-slate-600 mt-1 font-normal leading-relaxed">
                   {svc.subtitle}
                 </p>
               </div>
@@ -286,27 +286,27 @@ export function HomePage() {
       </section>
 
       {/* GIS Cadastral Map Section matching Middle-Left panel of reference */}
-      <section id="gis-section" className="bg-white border-y border-slate-200 py-12">
+      <section id="gis-section" className="bg-[#F8FAFC] border-y border-slate-200 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 block mb-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#115E59] block mb-1">
                 {t('home.spatialVerification', 'Real-time Spatial Verification')}
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-slate-900">
+              <h2 className="text-[24px] sm:text-[28px] font-semibold text-[#0F172A]">
                 {t('home.cadastralGis', 'Land Information & Cadastral GIS')}
               </h2>
-              <p className="text-sm text-slate-500 font-medium mt-1">
+              <p className="text-base text-slate-600 font-normal mt-1">
                 {t('home.cadastralGisSub', 'Search survey numbers, inspect parcel boundaries on high-resolution satellite imagery, and verify registered title records.')}
               </p>
             </div>
 
             <Link
               to={isAuthenticated && user?.role === 'citizen' ? '/citizen/gis' : '/login'}
-              className="gov-btn-primary text-xs sm:text-sm flex items-center gap-2 self-start sm:self-auto"
+              className="gov-btn-primary text-base flex items-center gap-2 self-start sm:self-auto"
             >
               <span>{t('home.launchGis', 'Launch Full GIS Explorer')}</span>
-              <ArrowRight size={15} />
+              <ArrowRight size={16} />
             </Link>
           </div>
 
@@ -322,10 +322,10 @@ export function HomePage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Track Box */}
           <div className="lg:col-span-7 bg-white p-6 sm:p-7 rounded-2xl border border-slate-200 shadow-sm">
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900 mb-1">
+            <h2 className="text-[24px] font-semibold text-[#0F172A] mb-1">
               {t('home.trackApplication', 'Track Your Application')}
             </h2>
-            <p className="text-xs sm:text-sm text-slate-500 font-medium mb-4">
+            <p className="text-base text-slate-600 font-normal mb-4">
               {t('home.trackApplicationSub', 'Enter your statutory token to see current review stage, assigned officer, and estimated completion date.')}
             </p>
 
@@ -337,12 +337,12 @@ export function HomePage() {
                   value={trackToken}
                   onChange={e => setTrackToken(e.target.value)}
                   placeholder={t('home.enterAppNumber', 'Enter Application Number (e.g. DS-AP-2026-000124)')}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-4 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
+                  className="w-full bg-white border-[1.5px] border-[#94A3B8] rounded-xl pl-9 pr-4 py-2.5 text-base font-medium text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#115E59]/25 focus:border-[#115E59] font-mono"
                 />
               </div>
               <button
                 type="submit"
-                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold text-sm flex items-center gap-1.5 transition-colors shadow-sm"
+                className="px-5 py-2.5 bg-[#115E59] hover:bg-[#0D4845] text-white rounded-xl font-semibold text-base flex items-center gap-1.5 transition-colors shadow-sm"
               >
                 <Search size={16} />
                 <span className="hidden sm:inline">{t('home.track', 'Track')}</span>
@@ -361,7 +361,7 @@ export function HomePage() {
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
+                <span className="px-3 py-1 rounded-full bg-[#FFF7ED] text-[#EA580C] text-xs font-bold border border-[#FFEDD5]">
                   {t('home.inProgress', 'In Progress')}
                 </span>
                 <ChevronRight size={18} className="text-slate-400" />
@@ -370,23 +370,23 @@ export function HomePage() {
           </div>
 
           {/* Real-time alerts card */}
-          <div className="lg:col-span-5 bg-gradient-to-br from-blue-50 to-indigo-50/70 p-6 sm:p-7 rounded-2xl border border-blue-100 flex flex-col justify-between h-full">
+          <div className="lg:col-span-5 bg-[#F3F0FC] p-6 sm:p-7 rounded-2xl border border-[#DDD6FE] flex flex-col justify-between h-full">
             <div>
-              <div className="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md mb-3">
+              <div className="w-12 h-12 rounded-2xl bg-[#1D0A69] text-white flex items-center justify-center shadow-md mb-3">
                 <span className="text-2xl">🔔</span>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">
+              <h3 className="text-[20px] font-semibold text-[#1D0A69]">
                 {t('home.realtimeUpdates', 'Get real-time updates')}
               </h3>
-              <p className="text-sm text-slate-600 mt-1 font-medium leading-relaxed">
+              <p className="text-base text-slate-700 mt-1 font-normal leading-relaxed">
                 {t('home.realtimeUpdatesSub', 'We will notify you on every statutory status change, document verification, and officer directive via SMS & Email.')}
               </p>
             </div>
 
-            <div className="mt-6 pt-4 border-t border-blue-200/60 flex items-center justify-between text-xs font-bold text-blue-900">
+            <div className="mt-6 pt-4 border-t border-[#DDD6FE] flex items-center justify-between text-sm font-bold text-[#1D0A69]">
               <span>{t('home.dispatchAlerts', 'Automated Dispatch Alerts')}</span>
-              <span className="text-emerald-700 font-semibold flex items-center gap-1">
-                <CheckCircle2 size={14} /> {t('home.active', 'Active')}
+              <span className="text-[#16A34A] font-semibold flex items-center gap-1">
+                <CheckCircle2 size={16} /> {t('home.active', 'Active')}
               </span>
             </div>
           </div>
@@ -398,23 +398,23 @@ export function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Quick Actions Card */}
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <h3 className="text-base font-bold text-slate-900 mb-4">{t('home.quickActions', 'Quick Actions')}</h3>
+            <h3 className="text-[20px] font-semibold text-[#0F172A] mb-4">{t('home.quickActions', 'Quick Actions')}</h3>
             <div className="grid grid-cols-2 gap-3">
               {[
-                { label: t('nav.trackApplication', 'Track Application'), icon: <Search size={18} className="text-blue-600" />, path: '/citizen/track' },
-                { label: t('home.viewMap', 'View Map'), icon: <Compass size={18} className="text-emerald-600" />, path: '/citizen/gis' },
-                { label: t('home.downloadCertificate', 'Download Certificate'), icon: <Download size={18} className="text-blue-600" />, path: '/citizen/documents' },
-                { label: t('home.raiseGrievance', 'Raise Grievance'), icon: <ShieldAlert size={18} className="text-purple-600" />, path: '/citizen/services' },
+                { label: t('nav.trackApplication', 'Track Application'), icon: <Search size={18} className="text-[#1D0A69]" />, path: '/citizen/track' },
+                { label: t('home.viewMap', 'View Map'), icon: <Compass size={18} className="text-[#115E59]" />, path: '/citizen/gis' },
+                { label: t('home.downloadCertificate', 'Download Certificate'), icon: <Download size={18} className="text-[#D97706]" />, path: '/citizen/documents' },
+                { label: t('home.raiseGrievance', 'Raise Grievance'), icon: <ShieldAlert size={18} className="text-[#EA580C]" />, path: '/citizen/services' },
               ].map(q => (
                 <Link
                   key={q.path + q.label}
                   to={q.path}
-                  className="p-3 bg-slate-50 hover:bg-emerald-50/50 rounded-xl border border-slate-200/80 hover:border-emerald-300 transition-all text-center flex flex-col items-center justify-center gap-1.5 group"
+                  className="p-3 bg-slate-50 hover:bg-[#F0FDFA] rounded-xl border border-slate-200 hover:border-[#99F6E4] transition-all text-center flex flex-col items-center justify-center gap-1.5 group"
                 >
                   <div className="p-2 rounded-lg bg-white shadow-xs group-hover:scale-110 transition-transform">
                     {q.icon}
                   </div>
-                  <span className="text-xs font-bold text-slate-800 group-hover:text-emerald-800">
+                  <span className="text-sm font-semibold text-[#0F172A] group-hover:text-[#115E59]">
                     {q.label}
                   </span>
                 </Link>
@@ -424,12 +424,12 @@ export function HomePage() {
 
           {/* Need Help Card */}
           <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-            <h3 className="text-base font-bold text-slate-900 mb-4">{t('home.needHelp', 'Need Help?')}</h3>
+            <h3 className="text-[20px] font-semibold text-[#0F172A] mb-4">{t('home.needHelp', 'Need Help?')}</h3>
             <div className="grid grid-cols-3 gap-3">
               {[
-                { label: t('home.faqs', 'FAQs'), icon: <HelpCircle size={20} className="text-amber-600" />, bg: 'bg-amber-50', border: 'border-amber-200', link: '/contact' },
-                { label: t('home.guidelines', 'Guidelines'), icon: <BookOpen size={20} className="text-blue-600" />, bg: 'bg-blue-50', border: 'border-blue-200', link: '/contact' },
-                { label: t('home.contactUs', 'Contact Us'), icon: <Headphones size={20} className="text-emerald-600" />, bg: 'bg-emerald-50', border: 'border-emerald-200', link: '/contact' },
+                { label: t('home.faqs', 'FAQs'), icon: <HelpCircle size={20} className="text-[#D97706]" />, bg: 'bg-amber-50', border: 'border-amber-200', link: '/contact' },
+                { label: t('home.guidelines', 'Guidelines'), icon: <BookOpen size={20} className="text-[#1D0A69]" />, bg: 'bg-blue-50', border: 'border-blue-200', link: '/contact' },
+                { label: t('home.contactUs', 'Contact Us'), icon: <Headphones size={20} className="text-[#115E59]" />, bg: 'bg-emerald-50', border: 'border-emerald-200', link: '/contact' },
               ].map(h => (
                 <Link
                   key={h.label}
@@ -439,23 +439,23 @@ export function HomePage() {
                   <div className="w-10 h-10 rounded-full bg-white shadow-xs flex items-center justify-center">
                     {h.icon}
                   </div>
-                  <span className="text-xs font-bold text-slate-800">{h.label}</span>
+                  <span className="text-sm font-semibold text-[#0F172A]">{h.label}</span>
                 </Link>
               ))}
             </div>
           </div>
 
-          {/* Promo Card: Green field banner */}
+          {/* Promo Card: Field banner */}
           <div
             className="rounded-2xl p-6 relative overflow-hidden shadow-sm flex flex-col justify-end min-h-[180px] bg-cover bg-center border border-slate-200 text-white"
             style={{
-              backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 60%, transparent 100%), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800&auto=format&fit=crop')`,
+              backgroundImage: `linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.3) 60%, transparent 100%), url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800&auto=format&fit=crop')`,
             }}
           >
-            <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-300">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#D97706]">
               Transparent Land Governance
             </span>
-            <h4 className="text-lg font-black text-white mt-0.5">
+            <h4 className="text-lg font-bold text-white mt-0.5">
               for a Better Tomorrow
             </h4>
             <p className="text-xs text-slate-200 mt-1 font-medium">
@@ -466,7 +466,7 @@ export function HomePage() {
       </section>
 
       {/* Official Government Footer */}
-      <footer className="bg-slate-900 text-slate-400 py-10 text-xs mt-auto border-t-4 border-emerald-600">
+      <footer className="bg-slate-900 text-slate-400 py-10 text-sm mt-auto border-t-4 border-[#115E59]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-4 gap-8 pb-8 border-b border-slate-800">
           <div>
             <div className="flex items-center gap-2 mb-3">
@@ -478,24 +478,24 @@ export function HomePage() {
               />
               <span className="font-extrabold text-white text-base">DharaniSetu</span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed font-medium">
+            <p className="text-sm text-slate-400 leading-relaxed font-normal">
               Integrated GIS-enabled Digital Public Infrastructure for Land Governance and Government System Interoperability.
             </p>
           </div>
 
           <div>
-            <p className="text-white font-bold text-sm mb-3">Citizen Services</p>
-            <ul className="space-y-2 text-xs font-medium">
-              <li><Link to="/citizen/gis" className="hover:text-emerald-400 transition-colors">Cadastral Satellite Explorer</Link></li>
-              <li><Link to="/citizen/my-land" className="hover:text-emerald-400 transition-colors">Record of Rights (ROR 1B)</Link></li>
-              <li><Link to="/citizen/apply" className="hover:text-emerald-400 transition-colors">Land Registration & Mutation</Link></li>
-              <li><Link to="/citizen/track" className="hover:text-emerald-400 transition-colors">Public Token Tracking</Link></li>
+            <p className="text-white font-bold text-base mb-3">Citizen Services</p>
+            <ul className="space-y-2 text-sm font-normal">
+              <li><Link to="/citizen/gis" className="hover:text-[#5EEAD4] transition-colors">Cadastral Satellite Explorer</Link></li>
+              <li><Link to="/citizen/my-land" className="hover:text-[#5EEAD4] transition-colors">Record of Rights (ROR 1B)</Link></li>
+              <li><Link to="/citizen/apply" className="hover:text-[#5EEAD4] transition-colors">Land Registration & Mutation</Link></li>
+              <li><Link to="/citizen/track" className="hover:text-[#5EEAD4] transition-colors">Public Token Tracking</Link></li>
             </ul>
           </div>
 
           <div>
-            <p className="text-white font-bold text-sm mb-3">Interoperable Networks</p>
-            <ul className="space-y-2 text-xs font-medium">
+            <p className="text-white font-bold text-base mb-3">Interoperable Networks</p>
+            <ul className="space-y-2 text-sm font-normal">
               <li><span>Department of Revenue (Bhoomi)</span></li>
               <li><span>Registration & Stamps (CARD)</span></li>
               <li><span>Survey & Settlement Directorate</span></li>
@@ -504,13 +504,13 @@ export function HomePage() {
           </div>
 
           <div>
-            <p className="text-white font-bold text-sm mb-3">Contact & Support</p>
-            <p className="text-xs text-slate-400 leading-relaxed font-medium">
+            <p className="text-white font-bold text-base mb-3">Contact & Support</p>
+            <p className="text-sm text-slate-400 leading-relaxed font-normal">
               National Land Governance Citizen Helpline:
             </p>
-            <p className="text-sm font-bold text-emerald-400 mt-1 font-mono">1800-111-555 (Toll Free)</p>
-            <p className="text-xs text-slate-400 mt-0.5">helpdesk@dharanisetu.gov.in</p>
-            <p className="text-[11px] text-amber-400 font-bold mt-3">
+            <p className="text-base font-bold text-[#5EEAD4] mt-1 font-mono">1800-111-555 (Toll Free)</p>
+            <p className="text-sm text-slate-400 mt-0.5">helpdesk@dharanisetu.gov.in</p>
+            <p className="text-xs text-[#D97706] font-bold mt-3">
               सत्यमेव जयते — People | Land | Prosperity
             </p>
           </div>

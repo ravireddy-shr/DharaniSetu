@@ -171,7 +171,7 @@ export function TrackApplicationPage() {
                 <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type="text"
-                  className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono tracking-wider"
+                  className="w-full bg-slate-50 border-[1.5px] border-[#94A3B8] rounded-xl pl-10 pr-4 py-2.5 text-base font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-[#115E59] font-mono tracking-wider"
                   placeholder="e.g. DS-AP-2026-000124"
                   value={searchToken}
                   onChange={e => setSearchToken(e.target.value)}
@@ -235,7 +235,7 @@ export function TrackApplicationPage() {
               <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                 <button
                   onClick={() => navigate(-1)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-emerald-700 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-[#115E59] transition-colors"
                 >
                   <ArrowLeft size={14} />
                   <span>{t('track.back', 'Back')}</span>
@@ -247,12 +247,12 @@ export function TrackApplicationPage() {
                   </span>
                   <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
                     isRejected
-                      ? 'bg-rose-100 text-rose-800 border border-rose-300'
+                      ? 'bg-rose-50 text-[#DC2626] border border-[#DC2626]/30'
                       : isCompleted
-                      ? 'bg-emerald-100 text-emerald-800'
+                      ? 'bg-green-50 text-[#16A34A] border border-[#16A34A]/30'
                       : app.status === 'APPROVED'
-                      ? 'bg-emerald-100 text-emerald-800'
-                      : 'bg-blue-100 text-blue-800'
+                      ? 'bg-green-50 text-[#16A34A] border border-[#16A34A]/30'
+                      : 'bg-amber-50 text-[#EA580C] border border-[#EA580C]/30'
                   }`}>
                     {isRejected
                       ? t('status.REJECTED', 'Application Rejected · Disposed')
@@ -293,13 +293,13 @@ export function TrackApplicationPage() {
                   
                   {/* Filled active connecting track */}
                   <div
-                    className={`absolute left-10 top-5 h-1 -z-0 transition-all duration-500 ${isRejected ? 'bg-rose-500' : 'bg-emerald-600'}`}
+                    className={`absolute left-10 top-5 h-1 -z-0 transition-all duration-500 ${isRejected ? 'bg-[#DC2626]' : 'bg-[#16A34A]'}`}
                     style={{ width: `${progressPercent}%` }}
                   />
 
                   {/* Step 0: Citizen Submission (Always Completed) */}
                   <div className="flex flex-col items-center relative z-10 w-36 text-center">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs bg-emerald-600 text-white shadow-sm ring-4 ring-emerald-50">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs bg-[#16A34A] text-white shadow-sm ring-4 ring-green-100">
                       <Check size={18} />
                     </div>
                     <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full mt-2.5 bg-slate-100 text-slate-800 border border-slate-200">
@@ -308,7 +308,7 @@ export function TrackApplicationPage() {
                     <p className="text-xs mt-1.5 font-bold leading-snug text-slate-900 px-1">
                       e-Filing Submitted
                     </p>
-                    <p className="text-[11px] font-semibold text-emerald-700 mt-0.5">
+                    <p className="text-[11px] font-semibold text-[#16A34A] mt-0.5">
                       Completed
                     </p>
                     <span className="text-[10px] text-slate-500 mt-0.5">
@@ -330,14 +330,14 @@ export function TrackApplicationPage() {
                         <div
                           className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs transition-all shadow-sm ${
                             isStageRejected
-                              ? 'bg-rose-600 text-white ring-4 ring-rose-100'
+                              ? 'bg-[#DC2626] text-white ring-4 ring-rose-100'
                               : isCorrection
-                              ? 'bg-amber-500 text-white ring-4 ring-amber-100'
+                              ? 'bg-[#EA580C] text-white ring-4 ring-amber-100'
                               : isStageApproved
-                              ? 'bg-emerald-600 text-white ring-4 ring-emerald-50'
+                              ? 'bg-[#16A34A] text-white ring-4 ring-green-100'
                               : isStageCurrent
-                              ? 'bg-blue-600 text-white ring-4 ring-blue-100 animate-pulse'
-                              : 'bg-white border-2 border-slate-300 text-slate-400'
+                              ? 'bg-[#115E59] text-white ring-4 ring-teal-100 animate-pulse'
+                              : 'bg-white border-2 border-[#94A3B8] text-slate-400'
                           }`}
                         >
                           {isStageApproved ? (
@@ -410,8 +410,8 @@ export function TrackApplicationPage() {
                       isRejected
                         ? 'bg-slate-200 text-slate-500'
                         : isCompleted
-                        ? 'bg-emerald-600 text-white ring-4 ring-emerald-100'
-                        : 'bg-white border-2 border-slate-300 text-slate-400'
+                        ? 'bg-[#16A34A] text-white ring-4 ring-green-100'
+                        : 'bg-white border-2 border-[#94A3B8] text-slate-400'
                     }`}>
                       {isCompleted ? <Check size={18} /> : isRejected ? '—' : <span>{totalJourneySteps}</span>}
                     </div>

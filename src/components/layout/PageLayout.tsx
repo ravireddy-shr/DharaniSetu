@@ -16,7 +16,7 @@ export function PageLayout({ role, children }: PageLayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans text-[#0F172A]">
       <Header onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
       <div className="flex flex-1 pt-0">
         <Sidebar
@@ -41,25 +41,25 @@ interface PageHeaderProps {
 
 export function PageHeader({ title, subtitle, action, breadcrumb }: PageHeaderProps) {
   return (
-    <div className="bg-white border-b border-slate-200/80 px-4 sm:px-8 py-5 shadow-xs">
+    <div className="bg-white border-b border-slate-200 px-4 sm:px-8 py-5 sm:py-6 shadow-xs">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           {breadcrumb && breadcrumb.length > 0 && (
-            <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-1.5">
+            <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-2">
               {breadcrumb.map((b, i) => (
                 <span key={i} className="flex items-center gap-1.5">
                   {i > 0 && <span className="text-slate-300">/</span>}
                   {b.path ? (
-                    <Link to={b.path} className="hover:text-emerald-700 transition-colors">{b.label}</Link>
+                    <Link to={b.path} className="hover:text-[#115E59] transition-colors">{b.label}</Link>
                   ) : (
-                    <span className={i === breadcrumb.length - 1 ? 'text-slate-900 font-bold' : ''}>{b.label}</span>
+                    <span className={i === breadcrumb.length - 1 ? 'text-[#0F172A] font-bold' : ''}>{b.label}</span>
                   )}
                 </span>
               ))}
             </nav>
           )}
-          <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">{title}</h1>
-          {subtitle && <p className="text-xs sm:text-sm text-slate-500 mt-1 font-medium">{subtitle}</p>}
+          <h1 className="text-[28px] sm:text-[32px] font-bold text-[#1D0A69] tracking-tight leading-tight">{title}</h1>
+          {subtitle && <p className="text-base text-slate-600 mt-1.5 font-normal">{subtitle}</p>}
         </div>
         {action && <div className="flex-shrink-0">{action}</div>}
       </div>

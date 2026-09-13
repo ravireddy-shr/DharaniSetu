@@ -68,14 +68,14 @@ export function Header({ onMenuToggle }: HeaderProps) {
     : 'English';
 
   return (
-    <header className="bg-white border-b border-slate-200 text-slate-800 shadow-sm sticky top-0 z-40 h-16 flex items-center font-sans">
+    <header className="bg-[#1D0A69] border-b border-[#2A158A] text-white shadow-md sticky top-0 z-40 h-16 flex items-center font-sans">
       <div className="flex items-center justify-between px-4 sm:px-6 h-full w-full max-w-7xl mx-auto">
         {/* Left: Mobile Menu & Logo */}
         <div className="flex items-center gap-3">
           {user && (
             <button
               onClick={onMenuToggle}
-              className="text-slate-600 hover:text-emerald-700 lg:hidden p-1.5 rounded-lg hover:bg-slate-100"
+              className="text-white/80 hover:text-white lg:hidden p-1.5 rounded-lg hover:bg-white/10 transition-colors"
             >
               <Menu size={22} />
             </button>
@@ -85,17 +85,17 @@ export function Header({ onMenuToggle }: HeaderProps) {
             <img
               src="/logo.png"
               alt="DharaniSetu Logo"
-              className="w-9 h-9 rounded-full object-cover border border-emerald-600/30 shadow-sm group-hover:scale-105 transition-transform"
+              className="w-9 h-9 rounded-full object-cover border-2 border-white/30 shadow-sm group-hover:scale-105 transition-transform"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.display = 'none';
               }}
             />
             <div>
               <div className="flex items-center">
-                <span className="font-extrabold text-lg tracking-tight text-slate-900">Dharani</span>
-                <span className="font-extrabold text-lg text-emerald-600">Setu</span>
+                <span className="font-black text-xl tracking-tight text-white">Dharani</span>
+                <span className="font-black text-xl text-[#D97706] ml-0.5">Setu</span>
               </div>
-              <p className="text-[11px] text-slate-500 font-medium -mt-1 hidden sm:block">
+              <p className="text-[11px] text-slate-300 font-medium -mt-1 hidden sm:block">
                 {t('nav.tagline', 'One Land. Many Services. A Safer Tomorrow.')}
               </p>
             </div>
@@ -113,11 +113,11 @@ export function Header({ onMenuToggle }: HeaderProps) {
                 className={cn(
                   'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all',
                   isActive
-                    ? 'text-emerald-700 bg-emerald-50 border-b-2 border-emerald-600'
-                    : 'text-slate-600 hover:text-emerald-700 hover:bg-slate-50'
+                    ? 'bg-[#115E59] text-white shadow-xs border-b-2 border-[#D97706]'
+                    : 'text-slate-200 hover:text-white hover:bg-white/10'
                 )}
               >
-                {item.icon}
+                <span className={isActive ? 'text-white' : 'text-[#5EEAD4]'}>{item.icon}</span>
                 <span>{item.label}</span>
               </Link>
             );
@@ -130,14 +130,14 @@ export function Header({ onMenuToggle }: HeaderProps) {
           <div className="relative">
             <button
               onClick={() => setLangOpen(!langOpen)}
-              className="flex items-center gap-1.5 text-slate-600 hover:text-slate-900 text-xs sm:text-sm font-medium px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors"
+              className="flex items-center gap-1.5 text-slate-200 hover:text-white text-xs sm:text-sm font-medium px-2.5 py-1.5 rounded-lg border border-white/20 hover:bg-white/10 transition-colors"
             >
-              <Globe size={15} className="text-emerald-600" />
+              <Globe size={15} className="text-[#5EEAD4]" />
               <span>{currentLangLabel}</span>
               <ChevronDown size={13} />
             </button>
             {langOpen && (
-              <div className="absolute right-0 top-full mt-1.5 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-200 overflow-hidden z-50 w-36 py-1">
+              <div className="absolute right-0 top-full mt-1.5 bg-white text-[#0F172A] rounded-xl shadow-xl border border-slate-200 overflow-hidden z-50 w-36 py-1">
                 {[
                   { code: 'en' as const, label: 'English' },
                   { code: 'te' as const, label: 'తెలుగు (Telugu)' },
@@ -149,7 +149,7 @@ export function Header({ onMenuToggle }: HeaderProps) {
                     onClick={() => switchLang(item.code)}
                     className={cn(
                       'w-full text-left px-3.5 py-2 text-xs sm:text-sm hover:bg-slate-50 transition-colors',
-                      i18n.language === item.code && 'font-bold text-emerald-700 bg-emerald-50'
+                      i18n.language === item.code && 'font-bold text-[#115E59] bg-[#F0FDFA]'
                     )}
                   >
                     {item.label}
@@ -163,11 +163,11 @@ export function Header({ onMenuToggle }: HeaderProps) {
           {user && (
             <Link
               to={notifPath}
-              className="relative text-slate-600 hover:text-slate-900 p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              className="relative text-slate-200 hover:text-white p-2 rounded-lg hover:bg-white/10 transition-colors"
             >
               <Bell size={18} />
               {unread > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-rose-600 text-white text-[10px] flex items-center justify-center font-bold">
+                <span className="absolute top-1 right-1 w-4 h-4 rounded-full bg-[#EA580C] text-white text-[10px] flex items-center justify-center font-bold">
                   {unread > 9 ? '9+' : unread}
                 </span>
               )}
@@ -179,26 +179,26 @@ export function Header({ onMenuToggle }: HeaderProps) {
             <div className="relative">
               <button
                 onClick={() => setUserOpen(!userOpen)}
-                className="flex items-center gap-2 text-slate-800 hover:text-emerald-700 pl-2 pr-3 py-1.5 rounded-full border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all"
+                className="flex items-center gap-2 text-white pl-2 pr-3 py-1.5 rounded-full border border-white/25 hover:border-white/40 hover:bg-white/10 transition-all"
               >
-                <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-sm">
+                <div className="w-7 h-7 rounded-full bg-[#115E59] text-white flex items-center justify-center font-bold text-xs flex-shrink-0 shadow-xs border border-white/20">
                   {user.name?.[0] || 'U'}
                 </div>
                 <span className="text-xs sm:text-sm font-semibold max-w-[110px] truncate hidden sm:inline">
                   {user.name}
                 </span>
-                <ChevronDown size={14} className="text-slate-500" />
+                <ChevronDown size={14} className="text-slate-300" />
               </button>
 
               {userOpen && (
-                <div className="absolute right-0 top-full mt-1.5 bg-white text-slate-800 rounded-xl shadow-xl border border-slate-200 overflow-hidden z-50 w-52 py-1">
-                  <div className="px-4 py-2.5 border-b border-slate-100 bg-slate-50">
-                    <p className="text-xs sm:text-sm font-bold text-slate-900 truncate">{user.name}</p>
-                    <p className="text-xs text-emerald-700 font-semibold uppercase mt-0.5">{user.role}</p>
+                <div className="absolute right-0 top-full mt-1.5 bg-white text-[#0F172A] rounded-xl shadow-xl border border-slate-200 overflow-hidden z-50 w-52 py-1">
+                  <div className="px-4 py-2.5 border-b border-slate-100 bg-[#F8FAFC]">
+                    <p className="text-xs sm:text-sm font-bold text-[#0F172A] truncate">{user.name}</p>
+                    <p className="text-xs text-[#115E59] font-semibold uppercase mt-0.5">{user.role}</p>
                   </div>
                   <button
                     onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-xs sm:text-sm text-rose-600 hover:bg-rose-50 flex items-center gap-2 font-medium"
+                    className="w-full text-left px-4 py-2 text-xs sm:text-sm text-[#DC2626] hover:bg-red-50 flex items-center gap-2 font-medium transition-colors"
                   >
                     <LogOut size={14} /> {t('nav.logout')}
                   </button>
@@ -208,7 +208,7 @@ export function Header({ onMenuToggle }: HeaderProps) {
           ) : (
             <Link
               to="/login"
-              className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold shadow-sm transition-all"
+              className="flex items-center gap-1.5 bg-[#115E59] hover:bg-[#0D4845] text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold shadow-sm transition-all"
             >
               <User size={15} />
               <span>{t('nav.login', 'Login')}</span>
