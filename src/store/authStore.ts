@@ -109,12 +109,16 @@ export const useAuthStore = create<AuthState>()(
           return { success: false, error: 'Invalid Officer password. Default password: officer123' };
         }
 
-        // 3. Check 144 Citizens & Registered Landholders
+        // 3. Check 48 Registered Farmers & Citizens
+        const cleanNorm = cleanEmail.replace(/[^a-z0-9]/g, '');
         const matchedCitizen = DEMO_REGISTERED_CITIZENS.find(
           c => c.email.toLowerCase() === cleanEmail ||
                c.id.toLowerCase() === cleanEmail ||
                c.name.toLowerCase() === cleanEmail ||
-               (c.phone && c.phone === cleanEmail)
+               (c.phone && c.phone === cleanEmail) ||
+               c.name.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanNorm ||
+               (cleanNorm.length >= 4 && (c.name.toLowerCase().replace(/[^a-z0-9]/g, '').includes(cleanNorm) || cleanNorm.includes(c.name.toLowerCase().replace(/[^a-z0-9]/g, '')))) ||
+               (c as any).legacyEmails?.some((le: string) => le.toLowerCase() === cleanEmail)
         );
         if (matchedCitizen) {
           if (cleanPass === 'farmer123' || cleanPass === 'citizen123' || cleanPass === '123456' || cleanPass === 'citizen' || cleanPass === 'farmer' || cleanPass === 'password') {

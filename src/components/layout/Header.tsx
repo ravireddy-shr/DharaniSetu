@@ -81,22 +81,28 @@ export function Header({ onMenuToggle }: HeaderProps) {
             </button>
           )}
 
-          <Link to={user ? dashboardPath : '/'} className="flex items-center gap-2.5 flex-shrink-0 group">
-            <img
-              src="/logo.png"
-              alt="DharaniSetu Logo"
-              className="w-9 h-9 rounded-full object-cover border-2 border-white/30 shadow-sm group-hover:scale-105 transition-transform"
-              onError={(e) => {
-                (e.target as HTMLImageElement).style.display = 'none';
-              }}
-            />
+          <Link to={user ? dashboardPath : '/'} className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0 group">
+            <div className="relative">
+              <img
+                src="/logo.png"
+                alt="DharaniSetu Logo - Government of India"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-contain bg-white p-0.5 border-2 border-[#D97706] shadow-sm group-hover:scale-105 transition-transform"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = '/logo.jpg';
+                }}
+              />
+            </div>
             <div>
-              <div className="flex items-center">
-                <span className="font-black text-xl tracking-tight text-white">Dharani</span>
-                <span className="font-black text-xl text-[#D97706] ml-0.5">Setu</span>
+              <div className="flex items-center gap-1.5">
+                <span className="font-black text-xl sm:text-2xl tracking-tight text-white">
+                  Dharani<span className="text-[#D97706] ml-0.5">Setu</span>
+                </span>
+                <span className="text-[9px] font-bold uppercase tracking-wider bg-white/10 text-amber-300 px-1.5 py-0.5 rounded border border-white/20 hidden lg:inline-flex">
+                  Govt of India
+                </span>
               </div>
-              <p className="text-[11px] text-slate-300 font-medium -mt-1 hidden sm:block">
-                {t('nav.tagline', 'One Land. Many Services. A Safer Tomorrow.')}
+              <p className="text-[10px] sm:text-[11px] text-amber-200 font-medium -mt-0.5 tracking-tight hidden sm:block">
+                {t('nav.tagline', 'The Bridge Between Citizen and Government')}
               </p>
             </div>
           </Link>

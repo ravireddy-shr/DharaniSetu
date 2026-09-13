@@ -5436,11 +5436,15 @@ export function getParcelsForCitizen(citizenState?: string, citizenName?: string
   // 1. If citizen has an email with a parcel ID or matching recorded owner
   if (citizenEmail) {
     const cleanEmail = citizenEmail.trim().toLowerCase();
-    const citizen = DEMO_FARMER_CITIZENS.find(f => f.email.toLowerCase() === cleanEmail);
+    const citizen = DEMO_FARMER_CITIZENS.find(f =>
+      f.email.toLowerCase() === cleanEmail ||
+      f.legacyEmails?.some(le => le.toLowerCase() === cleanEmail)
+    );
     if (citizen) {
       const citizenNorm = norm(citizen.name);
-      // Find all parcels where recordedOwner matches this citizen, or matches this citizen's primary parcelId
+      // Find all parcels where recordedOwner matches this citizen, or matches any of citizen's parcelIds
       const matches = pool.filter(p =>
+        (citizen.parcelIds && citizen.parcelIds.includes(p.id)) ||
         p.id === citizen.parcelId ||
         norm(p.recordedOwner) === citizenNorm ||
         (citizenNorm.length >= 4 && norm(p.recordedOwner).includes(citizenNorm))

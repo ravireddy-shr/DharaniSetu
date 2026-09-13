@@ -152,6 +152,10 @@ export function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             {/* Left Column: Bold Typography & Search Pill */}
             <div className="lg:col-span-8 text-left">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-amber-300 text-xs font-bold mb-4">
+                <span>🌉</span>
+                <span>{t('nav.tagline', 'The Bridge Between Citizen and Government')}</span>
+              </div>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
                 {t('home.heroTitle1', 'Your Land.')}<br />
                 {t('home.heroTitle2', 'All Services.')}<br />
@@ -185,16 +189,26 @@ export function HomePage() {
               </form>
             </div>
 
-            {/* Right Column: "People Land Progress" State Outline Badge */}
+            {/* Right Column: Official Emblem & Government Theme Card */}
             <div className="lg:col-span-4 hidden lg:flex justify-end">
               <div className="relative bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-6 shadow-2xl max-w-xs text-center transform rotate-1 hover:rotate-0 transition-transform">
-                <div className="w-16 h-16 rounded-full bg-[#D97706]/20 border-2 border-[#D97706] flex items-center justify-center mx-auto mb-3">
-                  <span className="text-2xl">🌱</span>
+                <div className="w-20 h-20 rounded-full bg-white p-1 border-2 border-[#D97706] flex items-center justify-center mx-auto mb-3 shadow-lg">
+                  <img
+                    src="/logo.png"
+                    alt="DharaniSetu Official Government Emblem"
+                    className="w-full h-full object-contain rounded-full"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = '/logo.jpg';
+                    }}
+                  />
                 </div>
-                <h3 className="text-2xl font-bold text-white italic tracking-wide">
-                  {t('home.peopleLandProgress', 'People Land Progress')}
+                <h3 className="text-lg font-bold text-white tracking-wide leading-snug">
+                  {t('nav.tagline', 'The Bridge Between Citizen and Government')}
                 </h3>
-                <p className="text-xs text-slate-200 mt-2 font-medium">
+                <p className="text-xs text-amber-300 mt-1.5 font-bold uppercase tracking-wider">
+                  Digital Land Governance
+                </p>
+                <p className="text-[11px] text-slate-200 mt-2 font-medium">
                   {t('home.dpiSubtitle', 'Digital Public Infrastructure for Real-Time Cadastral Governance')}
                 </p>
               </div>

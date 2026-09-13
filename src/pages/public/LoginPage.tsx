@@ -65,13 +65,13 @@ export function LoginPage() {
     }
   };
 
-  // Fill citizen credentials into the login form without auto-signing in
+  // Fill citizen / farmer credentials into the login form without auto-signing in
   const handleSelectCitizenCredentials = (citizen: typeof DEMO_FARMER_CITIZENS[0]) => {
     setUserId(citizen.email);
-    setPassword('citizen123');
+    setPassword('farmer123');
     setError('');
     setShowDirectoryModal(false);
-    toast('info', 'Credentials Loaded', `Loaded credentials for Citizen ${citizen.name}. Click LOGIN to continue.`);
+    toast('info', 'Credentials Loaded', `Loaded credentials for Farmer ${citizen.name} (${citizen.parcelsCount || 3} Lands). Click LOGIN to continue.`);
   };
 
   // Fill officer credentials into the login form without auto-signing in
@@ -140,86 +140,47 @@ export function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans justify-between items-center py-6 px-4">
-      {/* Top spacer */}
+      {/* Top Header Branding */}
       <div className="w-full flex items-center justify-center">
-        {/* DharaniSetu Logo + Branding styled like reference header */}
-        <Link to="/" className="flex flex-col items-center group">
+        <Link to="/" className="flex flex-col items-center group text-center">
           <div className="flex items-center gap-2">
-            <span className="text-2xl sm:text-3xl font-black tracking-tight text-[#1D0A69]">
+            <span className="text-3xl sm:text-4xl font-black tracking-tight text-[#1D0A69]">
               Dharani<span className="text-[#D97706] ml-0.5">Setu</span>
             </span>
           </div>
-          <p className="text-xs text-slate-600 font-semibold tracking-wider uppercase mt-0.5">
-            Sustainable Growth • Sustainable Future
+          {/* Theme Motto */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-[#D97706] text-xs font-bold mt-1 shadow-xs">
+            <span>🌉</span>
+            <span>{t('nav.tagline', 'The Bridge Between Citizen and Government')}</span>
+          </div>
+          <p className="text-xs text-slate-500 font-medium tracking-wide mt-1">
+            భూమి సేతు · Digital Land Governance & Statutory Registry
           </p>
         </Link>
       </div>
 
-      {/* Center Login Container matching reference screenshot */}
-      <div className="w-full max-w-[360px] sm:max-w-[400px] flex flex-col items-center my-auto">
-        {/* Illustrated plant foliage art in Forest Teal & Navy palette */}
-        <div className="w-48 h-24 relative flex items-end justify-center mb-1 select-none pointer-events-none">
-          <svg
-            viewBox="0 0 200 100"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-full drop-shadow-xs"
-          >
-            {/* Soft decorative background dots/sparks */}
-            <circle cx="60" cy="30" r="2.5" fill="#99F6E4" />
-            <circle cx="140" cy="25" r="2" fill="#5EEAD4" />
-            <circle cx="100" cy="15" r="3" fill="#D97706" />
-            <path d="M50 40 L54 44 M50 44 L54 40" stroke="#115E59" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M150 35 L154 39 M150 39 L154 35" stroke="#115E59" strokeWidth="1.5" strokeLinecap="round" />
-
-            {/* Lush leaves layer in Forest Teal (#115E59) and accents */}
-            <path
-              d="M65 95 C60 65 65 35 78 20 C76 38 78 68 85 95 Z"
-              fill="#0D4845"
+      {/* Center Login Container */}
+      <div className="w-full max-w-[420px] flex flex-col items-center my-auto pt-4">
+        {/* Official DharaniSetu Circular Emblem */}
+        <div className="relative mb-3 flex items-center justify-center">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-white shadow-xl border-2 border-[#D97706]/70 flex items-center justify-center group hover:scale-105 transition-transform">
+            <img
+              src="/logo.png"
+              alt="DharaniSetu Official Government Emblem"
+              className="w-full h-full object-contain rounded-full"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = '/logo.jpg';
+              }}
             />
-            <path
-              d="M135 95 C140 65 135 35 122 20 C124 38 122 68 115 95 Z"
-              fill="#0D4845"
-            />
-            <path
-              d="M45 95 C40 75 42 50 56 35 C52 52 56 75 62 95 Z"
-              fill="#115E59"
-            />
-            <path
-              d="M155 95 C160 75 158 50 144 35 C148 52 144 75 138 95 Z"
-              fill="#115E59"
-            />
-            <path
-              d="M100 95 C90 70 85 45 100 15 C115 45 110 70 100 95 Z"
-              fill="#134E48"
-            />
-            <path
-              d="M100 95 L100 25"
-              stroke="#0D4845"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-            <path
-              d="M80 95 C65 75 68 55 86 38 C94 58 88 80 82 95 Z"
-              fill="#115E59"
-            />
-            <path
-              d="M120 95 C135 75 132 55 114 38 C106 58 112 80 118 95 Z"
-              fill="#115E59"
-            />
-            <circle cx="150" cy="55" r="3" fill="#D97706" />
-            <circle cx="158" cy="48" r="2.5" fill="#115E59" />
-            <circle cx="50" cy="55" r="3" fill="#D97706" />
-            <circle cx="42" cy="48" r="2.5" fill="#115E59" />
-          </svg>
+          </div>
         </div>
 
         {/* Heading: H1 32px bold #1D0A69 */}
-        <h1 className="text-[32px] font-bold text-[#1D0A69] tracking-tight text-center">
-          Login
+        <h1 className="text-[26px] sm:text-[30px] font-bold text-[#1D0A69] tracking-tight text-center">
+          Farmer & Official Portal Login
         </h1>
-        <p className="text-base text-slate-600 font-normal text-center mt-1 mb-6">
-          Sign in to continue
+        <p className="text-sm text-slate-600 font-normal text-center mt-0.5 mb-5">
+          Sign in to access your landholdings, applications & cadastral maps
         </p>
 
         {/* Form Fields matching outdoor sunlight visibility */}
@@ -227,14 +188,14 @@ export function LoginPage() {
           {/* User ID Field */}
           <div>
             <label className="block text-sm font-semibold text-[#0F172A] mb-1.5 ml-3">
-              {t('auth.userId', 'User ID')}
+              {t('auth.userId', 'Farmer Mobile / Email / Name / User ID')}
             </label>
             <div className="relative">
               <input
                 type="text"
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
-                placeholder={t('auth.userIdOrEmail', 'User ID or Email')}
+                placeholder="e.g. M. Subba Reddy, 9810006137, or email"
                 className="w-full rounded-full border-[1.5px] border-[#94A3B8] bg-white px-5 py-3 text-base text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#115E59] focus:ring-2 focus:ring-[#115E59]/25 transition-all shadow-xs"
                 autoComplete="username"
               />
@@ -252,7 +213,7 @@ export function LoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="•••••••• (Default: farmer123)"
                 className="w-full rounded-full border-[1.5px] border-[#94A3B8] bg-white px-5 py-3 text-base text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#115E59] focus:ring-2 focus:ring-[#115E59]/25 transition-all shadow-xs"
                 autoComplete="current-password"
               />
@@ -268,7 +229,7 @@ export function LoginPage() {
           )}
 
           {/* CTA LOGIN button in Secondary (Forest Teal #115E59) */}
-          <div className="pt-2">
+          <div className="pt-1">
             <button
               type="submit"
               disabled={loading}
@@ -279,19 +240,62 @@ export function LoginPage() {
           </div>
         </form>
 
+        {/* Quick Farmer 1-Click Logins */}
+        <div className="w-full mt-5 pt-4 border-t border-slate-200/80">
+          <p className="text-xs font-bold text-slate-700 uppercase tracking-wider text-center mb-2.5 flex items-center justify-center gap-1.5">
+            <span>🌾</span>
+            <span>Quick Demo Logins (1 Login Per Farmer):</span>
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setUserId('m.subba.reddy@farmer.dharanisetu.in');
+                setPassword('farmer123');
+                setError('');
+                toast('info', 'Credentials Loaded', 'Loaded credentials for M. Subba Reddy (3 Lands). Click LOGIN to continue.');
+              }}
+              className="p-2.5 bg-emerald-50/70 hover:bg-emerald-100 text-emerald-950 rounded-2xl border border-emerald-200/80 text-xs font-bold text-left transition-all flex flex-col group shadow-2xs"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-slate-900 group-hover:text-emerald-800">M. Subba Reddy</span>
+                <span className="text-[10px] bg-emerald-200/80 text-emerald-900 px-1.5 py-0.2 rounded font-mono font-bold">3 Lands</span>
+              </div>
+              <span className="text-[10px] text-emerald-700 font-mono mt-0.5">2.04 Ac · Surveys 102/C, 114/C, 126/C</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setUserId('k.venkata.rao@farmer.dharanisetu.in');
+                setPassword('farmer123');
+                setError('');
+                toast('info', 'Credentials Loaded', 'Loaded credentials for K. Venkata Rao (3 Lands). Click LOGIN to continue.');
+              }}
+              className="p-2.5 bg-emerald-50/70 hover:bg-emerald-100 text-emerald-950 rounded-2xl border border-emerald-200/80 text-xs font-bold text-left transition-all flex flex-col group shadow-2xs"
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-slate-900 group-hover:text-emerald-800">K. Venkata Rao</span>
+                <span className="text-[10px] bg-emerald-200/80 text-emerald-900 px-1.5 py-0.2 rounded font-mono font-bold">3 Lands</span>
+              </div>
+              <span className="text-[10px] text-emerald-700 font-mono mt-0.5">5.53 Ac · Surveys 101/B, 113/B, 125/B</span>
+            </button>
+          </div>
+        </div>
+
         {/* Directory & Help links below the login button */}
-        <div className="mt-6 flex flex-col items-center gap-3 text-center">
+        <div className="mt-4 flex flex-col items-center gap-2 text-center w-full">
           <button
             type="button"
             onClick={() => setShowDirectoryModal(true)}
-            className="text-sm font-semibold text-[#115E59] hover:text-[#0D4845] hover:underline flex items-center gap-1.5 transition-colors"
+            className="text-sm font-bold text-[#115E59] hover:text-[#0D4845] hover:underline flex items-center gap-1.5 transition-colors"
           >
             <Users size={16} />
-            <span>{t('auth.browseDirectory', 'Browse 144 Citizen Logins & Official Directory')}</span>
+            <span>Browse All 48 Farmers & Official Directory</span>
           </button>
 
-          <div className="bg-slate-100/80 px-3.5 py-2 rounded-full border border-slate-200/60 text-xs text-slate-600 font-medium">
-            {t('auth.defaultPasswords', 'Default Passwords:')} <span className="text-[#0F172A] font-bold">citizen123</span> ({t('nav.publicCitizen', 'Citizen')}) · <span className="text-[#0F172A] font-bold">officer123</span> ({t('roles.officer', 'Officer')}) · <span className="text-[#0F172A] font-bold">admin123</span> ({t('roles.admin', 'Admin')})
+          <div className="bg-slate-100/80 px-3.5 py-1.5 rounded-full border border-slate-200/60 text-xs text-slate-600 font-medium">
+            Default Passwords: <span className="text-[#0F172A] font-bold">farmer123</span> (Farmers) · <span className="text-[#0F172A] font-bold">officer123</span> (Officers) · <span className="text-[#0F172A] font-bold">admin123</span> (Admin)
           </div>
         </div>
       </div>
@@ -320,10 +324,10 @@ export function LoginPage() {
                 </div>
                 <div>
                   <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
-                    144 Verified Citizens & Officials Directory
+                    Registered Farmers & Officials Directory
                   </h3>
                   <p className="text-xs text-slate-500">
-                    Select any citizen or government official to auto-fill their credentials into the login form
+                    48 Registered Farmers (144 Cadastral Parcels) · 1 Login Credential Per Farmer
                   </p>
                 </div>
               </div>
@@ -399,7 +403,7 @@ export function LoginPage() {
                     : 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-100'
                 )}
               >
-                144 Citizens Directory
+                48 Registered Farmers (144 Parcels)
               </button>
               <button
                 type="button"
@@ -417,7 +421,7 @@ export function LoginPage() {
 
             {directoryTab === 'citizens' ? (
               <>
-                {/* Modal Controls: Search and State Filter for 144 Citizens */}
+                {/* Modal Controls: Search and State Filter for 48 Farmers */}
                 <div className="p-4 border-b border-slate-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-3">
                   <div className="relative w-full sm:w-80">
                     <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
@@ -425,7 +429,7 @@ export function LoginPage() {
                       type="text"
                       value={citizenSearch}
                       onChange={(e) => setCitizenSearch(e.target.value)}
-                      placeholder="Search by citizen name, survey no, village..."
+                      placeholder="Search by farmer name, survey no, village, phone..."
                       className="w-full pl-9 pr-4 py-2 rounded-full border-[1.5px] border-[#94A3B8] text-xs font-medium focus:ring-2 focus:ring-[#115E59]/25 focus:border-[#115E59] outline-none"
                       autoFocus
                     />
@@ -444,7 +448,7 @@ export function LoginPage() {
                             : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                         )}
                       >
-                        {st === 'ALL' ? 'All 144 Citizens' : st}
+                        {st === 'ALL' ? 'All 48 Farmers' : st}
                       </button>
                     ))}
                   </div>
@@ -457,6 +461,9 @@ export function LoginPage() {
                     const matchSearch =
                       citizen.name.toLowerCase().includes(q) ||
                       citizen.email.toLowerCase().includes(q) ||
+                      (citizen.surveyNumbers && citizen.surveyNumbers.some(s => s.toLowerCase().includes(q))) ||
+                      (citizen.villages && citizen.villages.some(v => v.toLowerCase().includes(q))) ||
+                      (citizen.phone && citizen.phone.includes(q)) ||
                       citizen.surveyNumber.toLowerCase().includes(q) ||
                       citizen.village.toLowerCase().includes(q) ||
                       citizen.parcelId.toLowerCase().includes(q);
@@ -468,25 +475,25 @@ export function LoginPage() {
                       className="pt-2.5 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl hover:bg-[#F0FDFA] transition-colors border border-transparent hover:border-[#99F6E4]"
                     >
                       <div className="flex items-start gap-3 min-w-0">
-                        <div className="w-8 h-8 rounded-full bg-[#F0FDFA] text-[#115E59] font-bold flex items-center justify-center text-xs flex-shrink-0">
+                        <div className="w-8 h-8 rounded-full bg-[#F0FDFA] text-[#115E59] font-bold flex items-center justify-center text-xs flex-shrink-0 border border-[#99F6E4]">
                           {idx + 1}
                         </div>
                         <div className="min-w-0">
                           <div className="flex items-center gap-2 flex-wrap">
-                            <span className="text-sm font-bold text-[#0F172A]">{citizen.name}</span>
-                            <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#F0FDFA] text-[#115E59] border border-[#99F6E4]">
-                              Survey #{citizen.surveyNumber}
+                            <span className="text-sm sm:text-base font-bold text-[#0F172A]">{citizen.name}</span>
+                            <span className="font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-[#F0FDFA] text-[#115E59] border border-[#99F6E4]">
+                              🌾 {citizen.parcelsCount || 3} Lands ({citizen.totalAreaAcres} Acres)
                             </span>
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
-                              {citizen.parcelId}
+                            <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-50 text-[#D97706] border border-amber-200">
+                              Surveys: {citizen.surveyNumbers ? citizen.surveyNumbers.join(', ') : citizen.surveyNumber}
                             </span>
                           </div>
-                          <div className="flex items-center gap-3 text-xs text-slate-500 mt-1 flex-wrap font-mono">
-                            <span className="text-[#115E59] font-semibold">{citizen.email}</span>
+                          <div className="flex items-center gap-3 text-xs text-slate-600 mt-1 flex-wrap font-mono">
+                            <span className="text-[#115E59] font-bold bg-slate-50 px-2 py-0.5 rounded border border-slate-200">{citizen.email}</span>
                             <span>·</span>
-                            <span>{citizen.village} ({citizen.state})</span>
+                            <span>{citizen.villages ? citizen.villages.join(' · ') : citizen.village} ({citizen.state})</span>
                             <span>·</span>
-                            <span>{citizen.totalAreaAcres} Acres</span>
+                            <span>Mobile: {citizen.phone}</span>
                             <span>·</span>
                             <span className="text-slate-400">Passbook: {citizen.passbookNumber}</span>
                           </div>
