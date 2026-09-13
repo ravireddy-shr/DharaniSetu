@@ -131,34 +131,42 @@ export function OfficerDashboard() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <StatCard
-            label={t('officer.totalApplications', 'Total Applications')}
-            value={apps.length}
-            icon={<ClipboardList size={22} className="text-sky-700" />}
-            color="bg-sky-100/80"
-            sub={t('officer.assignedJurisdiction', 'Assigned Jurisdiction')}
-          />
-          <StatCard
-            label={t('officer.pendingVerification')}
-            value={pending}
-            icon={<CheckSquare size={22} className="text-amber-700" />}
-            color="bg-amber-100/80"
-            sub={review > 0 ? `${review} ${t('officer.awaitingSignOff', 'awaiting sign-off')}` : t('officer.inQueue', 'In Queue')}
-          />
-          <StatCard
-            label={t('officer.approved')}
-            value={approved}
-            icon={<ThumbsUp size={22} className="text-emerald-700" />}
-            color="bg-emerald-100/80"
-            sub={t('officer.digitallyEndorsed', 'Digitally Endorsed')}
-          />
-          <StatCard
-            label={t('officer.rejected')}
-            value={rejected}
-            icon={<ThumbsDown size={22} className="text-rose-700" />}
-            color="bg-rose-100/80"
-            sub={unread > 0 ? `${unread} ${t('officer.statutoryAlerts', 'statutory alerts')}` : t('officer.disposed', 'Disposed')}
-          />
+          <Link to="/officer/applications" className="block transition-transform hover:scale-[1.02]">
+            <StatCard
+              label={t('officer.totalApplications', 'Total Applications')}
+              value={apps.length}
+              icon={<ClipboardList size={22} className="text-sky-700" />}
+              color="bg-sky-100/80"
+              sub={t('officer.assignedJurisdiction', 'Assigned Jurisdiction')}
+            />
+          </Link>
+          <Link to="/officer/applications?tab=pending" className="block transition-transform hover:scale-[1.02]">
+            <StatCard
+              label={t('officer.pendingVerification')}
+              value={pending}
+              icon={<CheckSquare size={22} className="text-amber-700" />}
+              color="bg-amber-100/80"
+              sub={review > 0 ? `${review} ${t('officer.awaitingSignOff', 'awaiting sign-off')}` : t('officer.inQueue', 'In Queue')}
+            />
+          </Link>
+          <Link to="/officer/applications?tab=completed" className="block transition-transform hover:scale-[1.02]">
+            <StatCard
+              label={t('officer.approved')}
+              value={approved}
+              icon={<ThumbsUp size={22} className="text-emerald-700" />}
+              color="bg-emerald-100/80"
+              sub={t('officer.digitallyEndorsed', 'Digitally Endorsed')}
+            />
+          </Link>
+          <Link to="/officer/applications?tab=rejected" className="block transition-transform hover:scale-[1.02]">
+            <StatCard
+              label={t('officer.rejected')}
+              value={rejected}
+              icon={<ThumbsDown size={22} className="text-rose-700" />}
+              color="bg-rose-100/80"
+              sub={unread > 0 ? `${unread} ${t('officer.statutoryAlerts', 'statutory alerts')}` : t('officer.disposed', 'Disposed')}
+            />
+          </Link>
         </div>
 
         {/* Rule-Based Governance Insights Panel (Prototype) */}

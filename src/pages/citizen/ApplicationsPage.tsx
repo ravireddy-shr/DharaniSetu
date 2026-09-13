@@ -19,7 +19,7 @@ export function ApplicationsPage() {
     syncWithSupabase();
   }, [syncWithSupabase]);
 
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const [filter, setFilter] = useState<'all' | 'active' | 'completed' | 'rejected'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const allApps = user ? getApplicationsForCitizen(user.id, user.email, user.name) : [];
@@ -37,7 +37,10 @@ export function ApplicationsPage() {
       return !['COMPLETED', 'REJECTED'].includes(app.status);
     }
     if (filter === 'completed') {
-      return ['COMPLETED', 'REJECTED'].includes(app.status);
+      return ['COMPLETED', 'APPROVED'].includes(app.status);
+    }
+    if (filter === 'rejected') {
+      return app.status === 'REJECTED';
     }
     return true;
   });
@@ -96,10 +99,18 @@ export function ApplicationsPage() {
             <button
               onClick={() => setFilter('completed')}
               className={`px-3 py-1 rounded transition-colors ${
-                filter === 'completed' ? 'bg-white text-brand-navy shadow-sm font-semibold' : 'text-gray-600 hover:text-brand-navy'
+                filter === 'completed' ? 'bg-white text-emerald-800 shadow-sm font-semibold' : 'text-gray-600 hover:text-brand-navy'
               }`}
             >
-              {t('dashboard.completedApplications', 'Completed')} ({allApps.filter(a => ['COMPLETED', 'REJECTED'].includes(a.status)).length})
+              {t('dashboard.completedApplications', 'Completed')} ({allApps.filter(a => ['COMPLETED', 'APPROVED'].includes(a.status)).length})
+            </button>
+            <button
+              onClick={() => setFilter('rejected')}
+              className={`px-3 py-1 rounded transition-colors ${
+                filter === 'rejected' ? 'bg-white text-rose-800 shadow-sm font-semibold' : 'text-gray-600 hover:text-rose-700'
+              }`}
+            >
+              {t('status.rejected', 'Rejected')} ({allApps.filter(a => a.status === 'REJECTED').length})
             </button>
           </div>
         </div>

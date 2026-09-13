@@ -6,7 +6,7 @@ import { useAppStore } from '../../store/appStore';
 import { PageLayout, PageHeader, PageContent, DemoBanner } from '../../components/layout/PageLayout';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 import { formatDate } from '../../utils';
-import { ClipboardList, Search, ChevronRight, CheckSquare, Shield, FileCheck, Filter, MapPin, Lock } from 'lucide-react';
+import { ClipboardList, Search, ChevronRight, CheckSquare, Shield, FileCheck, Filter, MapPin, Lock, ThumbsDown } from 'lucide-react';
 import type { OfficerProfile, ApplicationStatus } from '../../types';
 
 export function OfficerApplicationsPage() {
@@ -20,17 +20,19 @@ export function OfficerApplicationsPage() {
     syncWithSupabase();
   }, [syncWithSupabase]);
 
-  // Determine active tab from route or local state
+  // Determine active tab from route or query params or local state
+  const searchParams = new URLSearchParams(location.search);
+  const queryTab = searchParams.get('tab');
   const isPendingRoute = location.pathname.includes('/pending');
   const isApprovalsRoute = location.pathname.includes('/approvals');
   const isCompletedRoute = location.pathname.includes('/completed');
 
-  const routeTab = isPendingRoute ? 'pending' : isApprovalsRoute ? 'approvals' : isCompletedRoute ? 'completed' : 'all';
-  const [filter, setFilter] = useState<'all' | 'pending' | 'approvals' | 'completed'>(routeTab);
+  const routeTab = queryTab === 'rejected' ? 'rejected' : isPendingRoute ? 'pending' : isApprovalsRoute ? 'approvals' : isCompletedRoute ? 'completed' : 'all';
+  const [filter, setFilter] = useState<'all' | 'pending' | 'approvals' | 'completed' | 'rejected'>(routeTab);
   const [deptFilter, setDeptFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Keep filter synced if user navigates via sidebar routes
+  // Keep filter synced if user navigates via sidebar routes or query params
   useEffect(() => {
     setFilter(routeTab);
   }, [routeTab]);
@@ -39,7 +41,8 @@ export function OfficerApplicationsPage() {
 
   const pendingApps = apps.filter(a => ['SUBMITTED', 'ROUTED', 'DOCUMENT_VERIFICATION', 'GIS_VERIFICATION', 'FIELD_VERIFICATION'].includes(a.status));
   const approvalApps = apps.filter(a => a.status === 'OFFICER_REVIEW');
-  const completedApps = apps.filter(a => ['APPROVED', 'REJECTED', 'RECORD_UPDATE', 'COMPLETED'].includes(a.status));
+  const completedApps = apps.filter(a => ['APPROVED', 'RECORD_UPDATE', 'COMPLETED'].includes(a.status));
+  const rejectedApps = apps.filter(a => a.status === 'REJECTED');
 
   const filteredApps = apps.filter(app => {
     const matchesSearch =
@@ -61,7 +64,10 @@ export function OfficerApplicationsPage() {
       return app.status === 'OFFICER_REVIEW';
     }
     if (filter === 'completed') {
-      return ['APPROVED', 'REJECTED', 'RECORD_UPDATE', 'COMPLETED'].includes(app.status);
+      return ['APPROVED', 'RECORD_UPDATE', 'COMPLETED'].includes(app.status);
+    }
+    if (filter === 'rejected') {
+      return app.status === 'REJECTED';
     }
     return true;
   });
@@ -74,6 +80,7 @@ export function OfficerApplicationsPage() {
           filter === 'pending' ? 'Pending Verifications Queue'
           : filter === 'approvals' ? 'Final Approvals & Orders Queue'
           : filter === 'completed' ? 'Completed & Disposed Records'
+          : filter === 'rejected' ? 'Rejected & Disposed Applications'
           : 'Tahsildar Application Repository'
         }
         subtitle={officer ? `Official Jurisdiction: ${officer.jurisdictionMandal}, ${officer.jurisdictionDistrict} (${officer.jurisdictionState})` : ''}
@@ -132,7 +139,7 @@ export function OfficerApplicationsPage() {
             onClick={() => setFilter('completed')}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
               filter === 'completed'
-                ? 'bg-white text-slate-900 shadow-sm border border-slate-200/60'
+                ? 'bg-white text-emerald-800 shadow-sm border border-slate-200/60'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
             }`}
           >
@@ -140,6 +147,21 @@ export function OfficerApplicationsPage() {
             <span>{t('officer.completedDisposed', 'Completed & Disposed')}</span>
             <span className={`px-2 py-0.5 rounded-full text-[10px] ${filter === 'completed' ? 'bg-slate-200 text-slate-800' : 'bg-slate-200 text-slate-700'}`}>
               {completedApps.length}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setFilter('rejected')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+              filter === 'rejected'
+                ? 'bg-white text-rose-900 shadow-sm border border-slate-200/60'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/50'
+            }`}
+          >
+            <ThumbsDown size={15} className={filter === 'rejected' ? 'text-rose-600' : 'text-slate-400'} />
+            <span>{t('status.rejected', 'Rejected')}</span>
+            <span className={`px-2 py-0.5 rounded-full text-[10px] ${filter === 'rejected' ? 'bg-rose-100 text-rose-800' : 'bg-slate-200 text-slate-700'}`}>
+              {rejectedApps.length}
             </span>
           </button>
         </div>

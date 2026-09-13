@@ -59,6 +59,7 @@ export function TrackApplicationPage() {
       }));
 
   const isCompleted = app?.status === 'COMPLETED';
+  const isRejected = app?.status === 'REJECTED';
   const curStageIdx = app?.currentStageIndex ?? 0;
   const activeStage = stages[curStageIdx];
 
@@ -244,8 +245,18 @@ export function TrackApplicationPage() {
                   <span className="text-xs text-slate-500 font-semibold hidden sm:inline">
                     Single Case File:
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold uppercase tracking-wider">
-                    {isCompleted
+                  <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${
+                    isRejected
+                      ? 'bg-rose-100 text-rose-800 border border-rose-300'
+                      : isCompleted
+                      ? 'bg-emerald-100 text-emerald-800'
+                      : app.status === 'APPROVED'
+                      ? 'bg-emerald-100 text-emerald-800'
+                      : 'bg-blue-100 text-blue-800'
+                  }`}>
+                    {isRejected
+                      ? t('status.REJECTED', 'Application Rejected · Disposed')
+                      : isCompleted
                       ? t('status.COMPLETED', 'Completed · Order Issued')
                       : app.status === 'APPROVED'
                       ? t('status.APPROVED', 'Approved')
@@ -282,7 +293,7 @@ export function TrackApplicationPage() {
                   
                   {/* Filled active connecting track */}
                   <div
-                    className="absolute left-10 top-5 h-1 bg-emerald-600 -z-0 transition-all duration-500"
+                    className={`absolute left-10 top-5 h-1 -z-0 transition-all duration-500 ${isRejected ? 'bg-rose-500' : 'bg-emerald-600'}`}
                     style={{ width: `${progressPercent}%` }}
                   />
 
@@ -307,10 +318,10 @@ export function TrackApplicationPage() {
 
                   {/* Steps 1..N: Dynamic Department Desks based strictly on requested service */}
                   {stages.map((stage, idx) => {
-                    const isStageApproved = stage.status === 'APPROVED' || isCompleted;
-                    const isStageCurrent = curStageIdx === idx && !isCompleted;
+                    const isStageRejected = stage.status === 'REJECTED' || (isRejected && curStageIdx === idx);
+                    const isStageApproved = (stage.status === 'APPROVED' || isCompleted) && !isStageRejected;
+                    const isStageCurrent = curStageIdx === idx && !isCompleted && !isRejected;
                     const isCorrection = stage.status === 'CORRECTION_REQUIRED';
-                    const isRejected = stage.status === 'REJECTED';
                     const deptColors = getDeptColor(stage.department);
 
                     return (
@@ -318,8 +329,8 @@ export function TrackApplicationPage() {
                         {/* Circle node */}
                         <div
                           className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs transition-all shadow-sm ${
-                            isRejected
-                              ? 'bg-rose-600 text-white'
+                            isStageRejected
+                              ? 'bg-rose-600 text-white ring-4 ring-rose-100'
                               : isCorrection
                               ? 'bg-amber-500 text-white ring-4 ring-amber-100'
                               : isStageApproved
@@ -331,7 +342,7 @@ export function TrackApplicationPage() {
                         >
                           {isStageApproved ? (
                             <Check size={18} />
-                          ) : isRejected ? (
+                          ) : isStageRejected ? (
                             '✕'
                           ) : isCorrection ? (
                             '!'
@@ -342,7 +353,9 @@ export function TrackApplicationPage() {
 
                         {/* Department Badge */}
                         <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full mt-2.5 border ${
-                          isStageApproved
+                          isStageRejected
+                            ? 'bg-rose-100 text-rose-900 border-rose-200'
+                            : isStageApproved
                             ? 'bg-emerald-100 text-emerald-900 border-emerald-200'
                             : isStageCurrent
                             ? deptColors.badge
@@ -353,21 +366,21 @@ export function TrackApplicationPage() {
 
                         {/* Role Name */}
                         <p className={`text-xs mt-1.5 font-bold leading-snug px-1 line-clamp-2 ${
-                          isStageApproved || isStageCurrent ? 'text-slate-900' : 'text-slate-400'
+                          isStageApproved || isStageCurrent || isStageRejected ? 'text-slate-900' : 'text-slate-400'
                         }`}>
                           {stage.roleName}
                         </p>
 
                         {/* Status Label */}
                         <p className="text-[11px] font-semibold mt-0.5">
-                          {isStageApproved ? (
+                          {isStageRejected ? (
+                            <span className="text-rose-700 font-bold">{t('status.rejected', 'Rejected')}</span>
+                          ) : isStageApproved ? (
                             <span className="text-emerald-700 font-bold">{t('status.approved', 'Approved')}</span>
-                          ) : isStageCurrent ? (
-                            <span className="text-blue-700 font-bold">{t('status.inProgress', 'In Progress')}</span>
                           ) : isCorrection ? (
                             <span className="text-amber-700 font-bold">{t('status.correction', 'Correction')}</span>
-                          ) : isRejected ? (
-                            <span className="text-rose-700 font-bold">{t('status.rejected', 'Rejected')}</span>
+                          ) : isStageCurrent ? (
+                            <span className="text-blue-700 font-bold">{t('status.inProgress', 'In Progress')}</span>
                           ) : (
                             <span className="text-slate-400">{t('status.pending', 'Pending')}</span>
                           )}
@@ -375,7 +388,7 @@ export function TrackApplicationPage() {
 
                         {/* Officer name note */}
                         {stage.actionByName ? (
-                          <span className="text-[10px] text-emerald-800 font-medium mt-0.5 line-clamp-1">
+                          <span className={`text-[10px] font-medium mt-0.5 line-clamp-1 ${isStageRejected ? 'text-rose-800' : 'text-emerald-800'}`}>
                             {t('common.byOfficer', { name: stage.actionByName, defaultValue: `By ${stage.actionByName}` })}
                           </span>
                         ) : isStageCurrent ? (
@@ -384,7 +397,7 @@ export function TrackApplicationPage() {
                           </span>
                         ) : (
                           <span className="text-[10px] text-slate-400 mt-0.5">
-                            {t('status.queued', 'Queued')}
+                            {isRejected ? t('status.cancelled', 'Cancelled') : t('status.queued', 'Queued')}
                           </span>
                         )}
                       </div>
@@ -394,15 +407,19 @@ export function TrackApplicationPage() {
                   {/* Step N+1: Final Order / Certificate Issuance */}
                   <div className="flex flex-col items-center relative z-10 w-36 text-center">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs transition-all shadow-sm ${
-                      isCompleted
+                      isRejected
+                        ? 'bg-slate-200 text-slate-500'
+                        : isCompleted
                         ? 'bg-emerald-600 text-white ring-4 ring-emerald-100'
                         : 'bg-white border-2 border-slate-300 text-slate-400'
                     }`}>
-                      {isCompleted ? <Check size={18} /> : <span>{totalJourneySteps}</span>}
+                      {isCompleted ? <Check size={18} /> : isRejected ? '—' : <span>{totalJourneySteps}</span>}
                     </div>
 
                     <span className={`text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full mt-2.5 border ${
-                      isCompleted
+                      isRejected
+                        ? 'bg-slate-100 text-slate-500 border-slate-200'
+                        : isCompleted
                         ? 'bg-emerald-100 text-emerald-900 border-emerald-200'
                         : 'bg-slate-100 text-slate-500 border-slate-200'
                     }`}>
@@ -416,7 +433,9 @@ export function TrackApplicationPage() {
                     </p>
 
                     <p className="text-[11px] font-semibold mt-0.5">
-                      {isCompleted ? (
+                      {isRejected ? (
+                        <span className="text-rose-600 font-bold">{t('status.rejected', 'Rejected')}</span>
+                      ) : isCompleted ? (
                         <span className="text-emerald-700 font-bold">{t('status.orderIssued', 'Order Issued')}</span>
                       ) : (
                         <span className="text-slate-400">{t('status.pending', 'Pending')}</span>
@@ -424,11 +443,59 @@ export function TrackApplicationPage() {
                     </p>
 
                     <span className="text-[10px] text-slate-400 mt-0.5">
-                      {isCompleted ? t('status.recordsUpdated', 'Records Updated') : t('status.awaitingClearances', 'Awaiting Clearances')}
+                      {isRejected ? t('status.applicationClosed', 'Application Closed') : isCompleted ? t('status.recordsUpdated', 'Records Updated') : t('status.awaitingClearances', 'Awaiting Clearances')}
                     </span>
                   </div>
                 </div>
               </div>
+
+              {/* Statutory Rejection Notice Box */}
+              {isRejected && (
+                <div className="mt-6 p-5 rounded-2xl bg-rose-50 border border-rose-300 text-left shadow-sm">
+                  <div className="flex items-start gap-3.5">
+                    <div className="w-10 h-10 rounded-xl bg-rose-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                      <AlertCircle size={22} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <h3 className="text-sm font-black text-rose-950 uppercase tracking-tight">
+                          {t('track.appRejectedTitle', 'Application Formally Rejected & Disposed')}
+                        </h3>
+                        <span className="text-[11px] font-mono text-rose-800 bg-rose-100 px-2.5 py-0.5 rounded border border-rose-200">
+                          {formatDate(app.updatedAt)}
+                        </span>
+                      </div>
+                      <p className="text-xs text-rose-900 mt-1 leading-relaxed">
+                        {t('track.appRejectedDesc', 'This statutory land governance application has been rejected following departmental examination.')}
+                      </p>
+
+                      {app.remarks && (
+                        <div className="mt-3 p-3.5 rounded-xl bg-white border border-rose-200 text-xs shadow-2xs">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-rose-800 block mb-1">
+                            {t('track.recordedReason', 'Statutory Grounds & Official Recorded Findings')}:
+                          </span>
+                          <p className="text-slate-800 font-medium italic">
+                            "{app.remarks}"
+                          </p>
+                        </div>
+                      )}
+
+                      <div className="mt-3 pt-2.5 border-t border-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-rose-800">
+                        <span>
+                          <strong>{t('track.nextSteps', 'Next Steps')}:</strong> {t('track.appealNotice', 'You may cure the indicated defects and submit a fresh application, or lodge a statutory appeal before the Revenue Divisional Officer (RDO).')}
+                        </span>
+                        <Link
+                          to="/citizen/apply"
+                          className="inline-flex items-center gap-1 font-bold text-rose-900 hover:text-rose-950 underline self-start sm:self-auto"
+                        >
+                          <span>{t('track.submitFresh', 'Submit Fresh Request')}</span>
+                          <ArrowRight size={12} />
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Tahsildar Certified Land Ownership & Dispute Clearance Document (Statutory Proof) */}
               {/* STRICT RULE: ONLY for Land Grievance and Disputes service, ONLY when ALL departments have approved, and ONLY to the specific citizen who applied */}

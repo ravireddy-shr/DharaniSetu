@@ -10,7 +10,8 @@ import { DocumentInspectionModal } from '../../components/documents/DocumentInsp
 import { formatDate } from '../../utils';
 import {
   FileText, MapPin, CheckCircle2, Clock, Map, User,
-  Building, ArrowLeft, Download, ShieldCheck, Award, Eye
+  Building, ArrowLeft, Download, ShieldCheck, Award, Eye,
+  AlertCircle, ArrowRight
 } from 'lucide-react';
 import type { ApplicationStatus, Document } from '../../types';
 
@@ -164,6 +165,48 @@ export function ApplicationDetailPage() {
           );
         })()}
 
+        {/* Rejection Notice Banner */}
+        {application.status === 'REJECTED' && (
+          <div className="gov-card p-5 bg-rose-50 border border-rose-300 shadow-sm flex flex-col md:flex-row items-start justify-between gap-4">
+            <div className="flex items-start gap-3.5">
+              <div className="w-11 h-11 rounded-2xl bg-rose-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                <AlertCircle size={24} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-0.5 rounded-full bg-rose-200 text-rose-900 text-[10px] font-mono font-bold uppercase">
+                    {t('status.REJECTED', 'Application Rejected')}
+                  </span>
+                  <span className="text-xs text-rose-800">
+                    {t('appDetail.disposedNotice', 'Disposed following statutory departmental examination')}
+                  </span>
+                </div>
+                <h3 className="text-base font-bold text-rose-950 mt-1">
+                  {t('appDetail.rejectionNoticeTitle', 'Statutory Rejection Directive Issued')}
+                </h3>
+                {application.remarks && (
+                  <div className="mt-2 p-3 bg-white rounded-xl border border-rose-200 text-xs text-slate-800">
+                    <span className="font-bold text-rose-800 uppercase tracking-wider text-[10px] block mb-0.5">
+                      {t('appDetail.recordedGrounds', 'Stated Grounds of Rejection')}:
+                    </span>
+                    <p className="italic font-medium">"{application.remarks}"</p>
+                  </div>
+                )}
+                <p className="text-xs text-rose-800 mt-2">
+                  {t('appDetail.appealInfo', 'You may cure the defects and submit a fresh application or file a statutory appeal with the Revenue Divisional Officer (RDO).')}
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/citizen/apply"
+              className="px-4 py-2 rounded-xl bg-rose-700 hover:bg-rose-800 text-white font-bold text-xs shadow-sm flex items-center gap-1.5 transition-all whitespace-nowrap self-start sm:self-auto"
+            >
+              <span>{t('track.submitFresh', 'Submit Fresh Request')}</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        )}
+
         {/* Multi-Department Sequential Approval Pipeline Strip */}
         {application.workflowStages && application.workflowStages.length > 0 && (
           <div className="gov-card p-5 border border-slate-200">
@@ -178,15 +221,18 @@ export function ApplicationDetailPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 pt-2">
               {application.workflowStages.map((stg, i) => {
-                const isApproved = stg.status === 'APPROVED' || application.status === 'COMPLETED';
-                const isCurrent = (application.currentStageIndex ?? 0) === i && application.status !== 'COMPLETED';
+                const isStageRejected = stg.status === 'REJECTED' || (application.status === 'REJECTED' && (application.currentStageIndex ?? 0) === i);
+                const isApproved = (stg.status === 'APPROVED' || application.status === 'COMPLETED') && !isStageRejected;
+                const isCurrent = (application.currentStageIndex ?? 0) === i && application.status !== 'COMPLETED' && !isStageRejected;
                 const isCorrection = stg.status === 'CORRECTION_REQUIRED';
 
                 return (
                   <div
                     key={stg.id}
                     className={`p-3.5 rounded-2xl border transition-all ${
-                      isApproved
+                      isStageRejected
+                        ? 'bg-rose-50 border-rose-300'
+                        : isApproved
                         ? 'bg-emerald-50/70 border-emerald-200'
                         : isCurrent
                         ? 'bg-blue-50/80 border-blue-300 ring-2 ring-blue-400/20'
@@ -200,7 +246,9 @@ export function ApplicationDetailPage() {
                         Step {i + 1}
                       </span>
                       <span className={`text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${
-                        isApproved
+                        isStageRejected
+                          ? 'bg-rose-200 text-rose-900'
+                          : isApproved
                           ? 'bg-emerald-200 text-emerald-900'
                           : isCurrent
                           ? 'bg-blue-200 text-blue-900 animate-pulse'
@@ -208,7 +256,7 @@ export function ApplicationDetailPage() {
                           ? 'bg-amber-200 text-amber-900'
                           : 'bg-slate-200 text-slate-600'
                       }`}>
-                        {isApproved ? 'Approved' : isCurrent ? 'In Review' : isCorrection ? 'Correction' : 'Pending'}
+                        {isStageRejected ? 'Rejected' : isApproved ? 'Approved' : isCurrent ? 'In Review' : isCorrection ? 'Correction' : 'Pending'}
                       </span>
                     </div>
 
@@ -220,8 +268,8 @@ export function ApplicationDetailPage() {
                     </p>
 
                     {stg.actionByName && (
-                      <p className="text-[10px] text-emerald-800 font-semibold mt-2 pt-1 border-t border-emerald-200/60">
-                        Signed: {stg.actionByName}
+                      <p className={`text-[10px] font-semibold mt-2 pt-1 border-t ${isStageRejected ? 'text-rose-800 border-rose-200/60' : 'text-emerald-800 border-emerald-200/60'}`}>
+                        {isStageRejected ? 'Rejected by: ' : 'Signed: '}{stg.actionByName}
                       </p>
                     )}
                     {stg.remarks && (

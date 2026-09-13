@@ -113,7 +113,7 @@ function mapRowToApplication(row: any): Application {
         slaDays: 5,
       },
       {
-        department: 'Final Authority',
+        department: 'Tahsildar',
         roleName: 'Tahsildar & Executive Magistrate',
         officialTitle: 'Tahsildar & Executive Magistrate',
         description: 'Issues statutory decree and updates land ledger',
@@ -129,7 +129,11 @@ function mapRowToApplication(row: any): Application {
       officialTitle: cfg.officialTitle,
       description: cfg.description,
       documentsVerified: cfg.documentsVerified,
-      status: row.status === 'COMPLETED' ? 'APPROVED' : (idx === 0 ? 'IN_PROGRESS' : 'PENDING'),
+      status: row.status === 'COMPLETED' 
+        ? 'APPROVED' 
+        : (row.status === 'REJECTED' 
+            ? (idx === 0 ? 'REJECTED' : 'PENDING') 
+            : (idx === 0 ? 'IN_PROGRESS' : 'PENDING')),
       slaDays: cfg.slaDays,
     }));
   }

@@ -65,11 +65,25 @@ export function OfficerApplicationDetailPage() {
 
   // Strict Department RBAC & Master Control
   const isAdmin = officer?.role === 'admin' || officer?.id === 'ADM-001' || (officer?.id && officer.id.startsWith('ADM'));
-  const currentStageDepartment = curStage?.department || application.currentDepartment || 'Revenue';
-  const isDeskAuthorized = isAdmin || (
-    Boolean(officer?.department) &&
-    officer.department.trim().toLowerCase() === currentStageDepartment.trim().toLowerCase()
+  const isTahsildar = Boolean(
+    officer?.department?.toLowerCase() === 'tahsildar' ||
+    officer?.designation?.toLowerCase().includes('tahsildar')
   );
+  const currentStageDepartment = curStage?.department || application.currentDepartment || 'Revenue';
+  const sDeptNorm = (currentStageDepartment || '').trim().toLowerCase();
+  const oDeptNorm = (officer?.department || '').trim().toLowerCase();
+
+  const isDeskAuthorized = isAdmin || (
+    Boolean(officer?.department) && (
+      sDeptNorm === oDeptNorm ||
+      (sDeptNorm === 'final authority' && (oDeptNorm === 'tahsildar' || oDeptNorm === 'revenue')) ||
+      (sDeptNorm === 'tahsildar' && (oDeptNorm === 'final authority' || oDeptNorm === 'revenue')) ||
+      (isTahsildar && ['revenue', 'tahsildar', 'final authority'].includes(sDeptNorm))
+    )
+  );
+
+  // A Tahsildar (Executive Magistrate) has statutory authority to review or reject any application in their Mandal jurisdiction at any stage!
+  const canAct = isDeskAuthorized || isTahsildar;
 
   // Handle multi-department sequential workflow actions
   const handleWorkflowApprove = () => {
@@ -700,20 +714,54 @@ export function OfficerApplicationDetailPage() {
                   </div>
                 )}
 
-                {isDeskAuthorized ? (
+                {application.status === 'REJECTED' ? (
+                  <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-left space-y-3">
+                    <div className="flex items-center gap-2 text-rose-900 font-bold text-xs">
+                      <ThumbsDown size={16} className="text-rose-700" />
+                      <span>{t('officer.appRejectedDisposed', 'Application Formally Rejected & Disposed')}</span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-white border border-rose-200 text-xs space-y-1.5 shadow-2xs">
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500">{t('common.status', 'Status')}:</span>
+                        <span className="font-bold text-rose-700 uppercase">{t('status.REJECTED', 'Rejected')}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500">{t('common.disposedAt', 'Disposed On')}:</span>
+                        <span className="font-mono text-slate-700">{formatDate(application.updatedAt)}</span>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span className="text-slate-500">{t('common.activeDesk', 'Stage at Decision')}:</span>
+                        <span className="font-bold text-slate-800">{currentStageDepartment} Desk</span>
+                      </div>
+                    </div>
+                    {application.remarks && (
+                      <div className="p-3 rounded-xl bg-rose-100/70 border border-rose-200/80 text-xs text-rose-950 space-y-1">
+                        <p className="font-bold text-[11px] uppercase tracking-wider text-rose-800">{t('officer.statutoryGrounds', 'Statutory Grounds / Recorded Reason')}:</p>
+                        <p className="italic leading-relaxed">"{application.remarks}"</p>
+                      </div>
+                    )}
+                  </div>
+                ) : canAct ? (
                   <>
+                    {!isDeskAuthorized && isTahsildar && (
+                      <div className="p-2.5 rounded-xl bg-blue-50 border border-blue-200 text-[11px] text-blue-900 flex items-center gap-2">
+                        <span className="text-sm">⚖️</span>
+                        <span><strong>{t('officer.tahsildarJurisdiction', 'Tahsildar Executive Magistrate Jurisdiction')}:</strong> {t('officer.tahsildarMandalNotice', 'You have statutory supervisory authority to review, request correction, or reject this mandal application.')}</span>
+                      </div>
+                    )}
+
                     <div>
                       <label className="gov-label text-xs">{t('officer.remarks', 'Official Remarks / Directive')}</label>
                       <textarea
                         className="gov-input text-xs h-20 resize-none"
-                        placeholder="Enter verification observations, grounds for approval/rejection, or requirements..."
+                        placeholder={t('officer.remarksPlaceholder', 'Enter verification observations, grounds for approval/rejection, or requirements...')}
                         value={remarks}
                         onChange={e => setRemarks(e.target.value)}
                       />
                     </div>
 
                     {/* Stepwise progression buttons based on status */}
-                    {application.status === 'ROUTED' && (
+                    {application.status === 'ROUTED' && isDeskAuthorized && (
                       <button
                         onClick={() => handleAdvanceVerification('DOCUMENT_VERIFICATION', 'Document verification')}
                         disabled={actionLoading}
@@ -723,7 +771,7 @@ export function OfficerApplicationDetailPage() {
                       </button>
                     )}
 
-                    {application.status === 'DOCUMENT_VERIFICATION' && (
+                    {application.status === 'DOCUMENT_VERIFICATION' && isDeskAuthorized && (
                       <button
                         onClick={() => handleAdvanceVerification('GIS_VERIFICATION', 'GIS boundary check')}
                         disabled={actionLoading}
@@ -733,7 +781,7 @@ export function OfficerApplicationDetailPage() {
                       </button>
                     )}
 
-                    {application.status === 'GIS_VERIFICATION' && (
+                    {application.status === 'GIS_VERIFICATION' && isDeskAuthorized && (
                       <button
                         onClick={() => handleAdvanceVerification('FIELD_VERIFICATION', 'Field verification')}
                         disabled={actionLoading}
@@ -743,7 +791,7 @@ export function OfficerApplicationDetailPage() {
                       </button>
                     )}
 
-                    {application.status === 'FIELD_VERIFICATION' && (
+                    {application.status === 'FIELD_VERIFICATION' && isDeskAuthorized && (
                       <button
                         onClick={() => handleAdvanceVerification('OFFICER_REVIEW', 'Officer statutory review')}
                         disabled={actionLoading}
@@ -760,7 +808,7 @@ export function OfficerApplicationDetailPage() {
                         <button
                           onClick={handleWorkflowApprove}
                           disabled={actionLoading}
-                          className="w-full py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm"
+                          className="w-full py-2.5 px-3 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer"
                         >
                           <ThumbsUp size={14} />
                           <span>
@@ -774,17 +822,17 @@ export function OfficerApplicationDetailPage() {
                         <button
                           onClick={handleWorkflowCorrection}
                           disabled={actionLoading}
-                          className="w-full py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm"
+                          className="w-full py-2 px-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer"
                         >
                           <MessageSquare size={14} />
                           <span>Request Citizen Correction / Info</span>
                         </button>
 
-                        {/* Department Rejection */}
+                        {/* Department / Tahsildar Rejection */}
                         <button
                           onClick={handleWorkflowReject}
                           disabled={actionLoading}
-                          className="w-full py-2 px-3 rounded-xl bg-red-700 hover:bg-red-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm"
+                          className="w-full py-2 px-3 rounded-xl bg-red-700 hover:bg-red-800 text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer"
                         >
                           <ThumbsDown size={14} />
                           <span>Reject Application</span>

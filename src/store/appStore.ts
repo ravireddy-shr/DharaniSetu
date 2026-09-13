@@ -399,13 +399,32 @@ export const useAppStore = create<AppState>()(
 
           // Strict RBAC Access Restriction:
           // Admin (ADM-001 or role admin) has Master Control across all desks.
-          // Other officers can ONLY approve/reject/request correction if their department matches the active stage department.
+          // Tahsildar is Executive Magistrate & Head of Mandal Land Revenue Administration:
+          // - Can clear 'Revenue', 'Tahsildar', and 'Final Authority' desks
+          // - Has statutory authority to REJECT any defective, disputed, or non-compliant application in their Mandal jurisdiction at any stage!
           const isAdmin = officerId === 'ADM-001' || officerId.startsWith('ADM');
-          const stageDept = curStage?.department || app.currentDepartment;
-          const isDeskAuthorized = isAdmin || (
-            stageDept && department &&
-            stageDept.trim().toLowerCase() === department.trim().toLowerCase()
+          const officer = DEMO_OFFICERS.find(o => o.id === officerId);
+          const isTahsildar = Boolean(
+            officer?.department?.toLowerCase() === 'tahsildar' ||
+            officer?.designation?.toLowerCase().includes('tahsildar') ||
+            department?.toLowerCase() === 'tahsildar'
           );
+
+          const stageDept = curStage?.department || app.currentDepartment;
+          const sDeptNorm = (stageDept || '').trim().toLowerCase();
+          const oDeptNorm = (department || '').trim().toLowerCase();
+
+          const isDeptMatch = Boolean(sDeptNorm && oDeptNorm && (
+            sDeptNorm === oDeptNorm ||
+            (sDeptNorm === 'final authority' && (oDeptNorm === 'tahsildar' || oDeptNorm === 'revenue')) ||
+            (sDeptNorm === 'tahsildar' && (oDeptNorm === 'final authority' || oDeptNorm === 'revenue')) ||
+            (isTahsildar && ['revenue', 'tahsildar', 'final authority'].includes(sDeptNorm))
+          ));
+
+          // A Tahsildar (Executive Magistrate) has statutory jurisdiction to execute REJECT on any application in their jurisdiction
+          const isRejectionAuthorized = action === 'REJECT' && (isAdmin || isTahsildar || isDeptMatch);
+
+          const isDeskAuthorized = isAdmin || isDeptMatch || isRejectionAuthorized;
 
           if (!isDeskAuthorized) {
             console.warn(`[SECURITY ALERT] Cross-departmental action blocked: ${officerName} (${department}) attempted to ${action} on ${app.tokenNumber} currently at ${stageDept} desk.`);
@@ -796,11 +815,16 @@ export const useAppStore = create<AppState>()(
           // If officer has a department, check if application is at officer's department desk or touched by their department
           if (officer) {
             const mandalMatch = !officer.jurisdictionMandal || a.mandalId === officer.jurisdictionMandal || a.mandalName === officer.jurisdictionMandal || a.stateId === officer.jurisdictionState;
+            const isTahsildar = Boolean(
+              officer.department?.toLowerCase() === 'tahsildar' ||
+              officer.designation?.toLowerCase().includes('tahsildar')
+            );
             const currentDept = a.currentDepartment || (a.workflowStages?.[0]?.department) || 'Revenue';
             const isAtOfficerDesk = currentDept.toLowerCase() === officer.department.toLowerCase();
             const wasTouchedByOfficerDept = a.workflowStages?.some(s => s.department.toLowerCase() === officer.department.toLowerCase());
 
-            if (mandalMatch && (isAtOfficerDesk || wasTouchedByOfficerDept)) return true;
+            // Tahsildar as Executive Magistrate has jurisdiction over all mandal applications
+            if (mandalMatch && (isTahsildar || isAtOfficerDesk || wasTouchedByOfficerDept)) return true;
           }
           return false;
         }).sort(
