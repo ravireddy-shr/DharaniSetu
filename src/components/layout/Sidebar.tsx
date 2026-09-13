@@ -65,11 +65,11 @@ export function Sidebar({ role, isOpen, onClose }: SidebarProps) {
   const nav = role === 'citizen' ? citizenNav : role === 'officer' ? officerNav : adminNav;
 
   const officerBadge = role === 'officer' && user?.department
-    ? (user.department === 'Revenue' ? 'Revenue Officer (VRO)' : (user.department === 'Tahsildar' ? 'Tahsildar' : (user.designation || `${user.department} Officer`)))
+    ? (user.department === 'Revenue' ? t('nav.revenueOfficer', 'Revenue Officer (VRO)') : (user.department === 'Tahsildar' ? t('roles.tahsildar', 'Tahsildar') : (user.designation ? t(user.designation, user.designation) : `${t(`officer.${user.department.toLowerCase()}`, user.department)} ${t('roles.officer', 'Officer')}`)))
     : t('nav.revenueOfficer', 'Revenue Officer (VRO)');
 
   const officerTitle = role === 'officer' && user?.department
-    ? `${user.department} Desk`
+    ? `${t(`officer.${user.department.toLowerCase()}`, user.department)} ${t('officer.desk', 'Desk')}`
     : t('nav.officerPortal', 'Officer Portal');
 
   const roleMeta = role === 'citizen' 

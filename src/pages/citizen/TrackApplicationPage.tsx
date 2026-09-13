@@ -361,30 +361,30 @@ export function TrackApplicationPage() {
                         {/* Status Label */}
                         <p className="text-[11px] font-semibold mt-0.5">
                           {isStageApproved ? (
-                            <span className="text-emerald-700 font-bold">Approved</span>
+                            <span className="text-emerald-700 font-bold">{t('status.approved', 'Approved')}</span>
                           ) : isStageCurrent ? (
-                            <span className="text-blue-700 font-bold">In Progress</span>
+                            <span className="text-blue-700 font-bold">{t('status.inProgress', 'In Progress')}</span>
                           ) : isCorrection ? (
-                            <span className="text-amber-700 font-bold">Correction</span>
+                            <span className="text-amber-700 font-bold">{t('status.correction', 'Correction')}</span>
                           ) : isRejected ? (
-                            <span className="text-rose-700 font-bold">Rejected</span>
+                            <span className="text-rose-700 font-bold">{t('status.rejected', 'Rejected')}</span>
                           ) : (
-                            <span className="text-slate-400">Pending</span>
+                            <span className="text-slate-400">{t('status.pending', 'Pending')}</span>
                           )}
                         </p>
 
                         {/* Officer name note */}
                         {stage.actionByName ? (
                           <span className="text-[10px] text-emerald-800 font-medium mt-0.5 line-clamp-1">
-                            By {stage.actionByName}
+                            {t('common.byOfficer', { name: stage.actionByName, defaultValue: `By ${stage.actionByName}` })}
                           </span>
                         ) : isStageCurrent ? (
                           <span className="text-[10px] text-blue-700 font-medium mt-0.5 line-clamp-1">
-                            With {app.assignedOfficerName || 'Officer'}
+                            {t('common.withOfficer', { name: app.assignedOfficerName || 'Officer', defaultValue: `With ${app.assignedOfficerName || 'Officer'}` })}
                           </span>
                         ) : (
                           <span className="text-[10px] text-slate-400 mt-0.5">
-                            Queued
+                            {t('status.queued', 'Queued')}
                           </span>
                         )}
                       </div>
@@ -406,25 +406,25 @@ export function TrackApplicationPage() {
                         ? 'bg-emerald-100 text-emerald-900 border-emerald-200'
                         : 'bg-slate-100 text-slate-500 border-slate-200'
                     }`}>
-                      Final Decree
+                      {t('status.finalDecree', 'Final Decree')}
                     </span>
 
                     <p className={`text-xs mt-1.5 font-bold leading-snug px-1 ${
                       isCompleted ? 'text-slate-900' : 'text-slate-400'
                     }`}>
-                      Order & Sanction
+                      {t('status.orderSanction', 'Order & Sanction')}
                     </p>
 
                     <p className="text-[11px] font-semibold mt-0.5">
                       {isCompleted ? (
-                        <span className="text-emerald-700 font-bold">Order Issued</span>
+                        <span className="text-emerald-700 font-bold">{t('status.orderIssued', 'Order Issued')}</span>
                       ) : (
-                        <span className="text-slate-400">Pending</span>
+                        <span className="text-slate-400">{t('status.pending', 'Pending')}</span>
                       )}
                     </p>
 
                     <span className="text-[10px] text-slate-400 mt-0.5">
-                      {isCompleted ? 'Records Updated' : 'Awaiting Clearances'}
+                      {isCompleted ? t('status.recordsUpdated', 'Records Updated') : t('status.awaitingClearances', 'Awaiting Clearances')}
                     </span>
                   </div>
                 </div>
@@ -454,17 +454,17 @@ export function TrackApplicationPage() {
                         <div>
                           <div className="flex items-center gap-2 flex-wrap">
                             <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/30 border border-emerald-400/50 text-emerald-200 text-[10px] font-mono font-bold uppercase tracking-wider">
-                              Official Statutory Title Proof
+                              {t('common.officialStatutoryTitleProof', 'Official Statutory Title Proof')}
                             </span>
                             <span className="text-xs text-emerald-300/80 font-medium">
-                              All Department Approvals Verified · Issued to Applicant
+                              {t('common.allDeptsApprovedNote', 'All Department Approvals Verified · Issued to Applicant')}
                             </span>
                           </div>
                           <h3 className="text-lg font-black text-white mt-1 tracking-tight">
-                            Tahsildar Certified Land Ownership & Dispute Clearance Order
+                            {t('common.tahsildarCertificateTitle', 'Tahsildar Certified Land Ownership & Dispute Clearance Order')}
                           </h3>
                           <p className="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
-                            Statutory adjudication and title clearance certificate issued under state land governance laws following complete inter-departmental verification. Features survey boundaries, recorded extents, non-encumbrance validation, and Tahsildar Class-3 Digital Signature.
+                            {t('common.tahsildarCertDesc', 'Statutory adjudication and title clearance certificate issued under state land governance laws following complete inter-departmental verification. Features survey boundaries, recorded extents, non-encumbrance validation, and Tahsildar Class-3 Digital Signature.')}
                           </p>
                         </div>
                       </div>
@@ -475,7 +475,7 @@ export function TrackApplicationPage() {
                           className="w-full md:w-auto px-5 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs shadow-lg hover:shadow-emerald-500/20 flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer"
                         >
                           <FileText size={16} className="text-slate-950" />
-                          <span>View & Print Certified Ownership Proof</span>
+                          <span>{t('common.viewPrintCertifiedProof', 'View & Print Certified Ownership Proof')}</span>
                         </button>
                       </div>
                     </div>

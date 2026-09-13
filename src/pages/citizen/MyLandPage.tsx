@@ -59,7 +59,7 @@ export function MyLandPage() {
                 type="text"
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                placeholder="Search survey no, ULPIN, village, owner..."
+                placeholder={t('land.searchParcelPlaceholder', 'Search survey no, ULPIN, village, owner...')}
                 className="w-full pl-8 pr-3 py-1.5 rounded-xl border border-slate-200 text-xs focus:ring-2 focus:ring-emerald-500 outline-none"
               />
             </div>
@@ -68,7 +68,7 @@ export function MyLandPage() {
 
         {parcels.length === 0 ? (
           <div className="p-8 text-center bg-white rounded-3xl border border-dashed border-slate-200 text-xs text-slate-500">
-            No registered landholdings found matching your filter or profile.
+            {t('land.noParcelsFound', 'No registered landholdings found matching your filter or profile.')}
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -90,7 +90,7 @@ export function MyLandPage() {
                       <MapPin size={16} className="text-brand-green" />
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-brand-navy">Survey No. {p.surveyNumber}</p>
+                      <p className="text-sm font-semibold text-brand-navy">{t('common.surveyNumber', 'Survey No.')} {p.surveyNumber}</p>
                       <p className="text-xs text-brand-muted">{p.village}</p>
                     </div>
                   </div>
@@ -101,12 +101,12 @@ export function MyLandPage() {
                       isBuilding ? "bg-sky-50 text-sky-800 border-sky-200" :
                       "bg-emerald-50 text-emerald-800 border-emerald-200"
                     )}>
-                      {p.landUse || 'Agricultural'}
+                      {isCommercial ? t('dashboard.commercial', 'Commercial') : isBuilding ? t('dashboard.nonAgriBuilt', 'Non-Agri / Built') : t('dashboard.agricultural', 'Agricultural')}
                     </span>
                     <span className={cn('text-xs px-2 py-0.5 rounded font-medium',
                       p.recordStatus === 'Clear' ? 'bg-green-50 text-green-700' :
                       p.recordStatus === 'Disputed' ? 'bg-red-50 text-red-700' : 'bg-yellow-50 text-yellow-700'
-                    )}>{p.recordStatus}</span>
+                    )}>{t(`status.${p.recordStatus?.toLowerCase()}`, p.recordStatus)}</span>
                   </div>
                 </div>
 
@@ -121,21 +121,21 @@ export function MyLandPage() {
                     <p className="text-gov-text font-medium mt-0.5">{p.mandalName}</p>
                   </div>
                   <div>
-                    <p className="text-brand-muted uppercase tracking-wide" style={{ fontSize: '9px' }}>Primary Extent</p>
+                    <p className="text-brand-muted uppercase tracking-wide" style={{ fontSize: '9px' }}>{t('land.primaryExtent', 'Primary Extent')}</p>
                     <p className="text-gov-text font-black mt-0.5 text-emerald-800">
-                      {isCommercial || isBuilding ? `${sqftVal.toLocaleString('en-IN')} sq.ft` : `${p.area} Acres`}
+                      {isCommercial || isBuilding ? `${sqftVal.toLocaleString('en-IN')} ${t('common.sqft', 'sq.ft')}` : `${p.area} ${t('common.acres', 'Acres')}`}
                     </p>
                   </div>
                   <div>
-                    <p className="text-brand-muted uppercase tracking-wide" style={{ fontSize: '9px' }}>Converted Extent</p>
+                    <p className="text-brand-muted uppercase tracking-wide" style={{ fontSize: '9px' }}>{t('land.convertedExtent', 'Converted Extent')}</p>
                     <p className="text-gov-text font-medium mt-0.5 text-slate-500">
-                      {isCommercial || isBuilding ? `${p.area} Acres` : `${sqftVal.toLocaleString('en-IN')} sq.ft`}
+                      {isCommercial || isBuilding ? `${p.area} ${t('common.acres', 'Acres')}` : `${sqftVal.toLocaleString('en-IN')} ${t('common.sqft', 'sq.ft')}`}
                     </p>
                   </div>
                   <div>
-                    <p className="text-brand-muted uppercase tracking-wide" style={{ fontSize: '9px' }}>Category</p>
+                    <p className="text-brand-muted uppercase tracking-wide" style={{ fontSize: '9px' }}>{t('land.category', 'Category')}</p>
                     <p className="text-gov-text font-medium mt-0.5">
-                      {isCommercial ? 'Commercial Land' : isBuilding ? 'Building / Residential' : 'Farming Land'}
+                      {isCommercial ? t('dashboard.commercialLand', 'Commercial Land') : isBuilding ? t('dashboard.buildingsResidential', 'Building / Residential') : t('dashboard.farmingLand', 'Farming Land')}
                     </p>
                   </div>
                   <div>
@@ -166,7 +166,7 @@ export function MyLandPage() {
                   onClick={(e) => { e.stopPropagation(); navigate(`/citizen/apply?parcel=${p.id}`); }}
                   className="gov-btn-secondary flex items-center gap-1.5 text-xs"
                 >
-                  Apply Service
+                  {t('land.applyService', 'Apply Service')}
                 </button>
               </div>
             </div>

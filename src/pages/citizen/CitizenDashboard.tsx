@@ -138,20 +138,20 @@ export function CitizenDashboard() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
             <div>
               <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <span>Land Portfolio Extent by Category</span>
+                <span>{t('dashboard.portfolioByCategory', 'Land Portfolio Extent by Category')}</span>
                 <span className="text-[11px] font-semibold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full">
-                  Total: {totalAllAcres.toFixed(2)} Acres ({totalAllSqft.toLocaleString('en-IN')} sq.ft)
+                  {t('common.total', 'Total')}: {totalAllAcres.toFixed(2)} {t('common.acres', 'Acres')} ({totalAllSqft.toLocaleString('en-IN')} {t('common.sqft', 'sq.ft')})
                 </span>
               </h3>
               <p className="text-xs text-slate-500">
-                Statutory land division (Farming lands in Acres · Commercial & Buildings in sq.ft)
+                {t('dashboard.portfolioSub', 'Statutory land division (Farming lands in Acres · Commercial & Buildings in sq.ft)')}
               </p>
             </div>
             <Link
               to="/citizen/my-land"
               className="text-xs font-bold text-emerald-700 hover:text-emerald-800 hover:underline flex items-center gap-1 self-start sm:self-auto"
             >
-              <span>View All Records</span>
+              <span>{t('dashboard.viewAllRecords', 'View All Records')}</span>
               <ChevronRight size={14} />
             </Link>
           </div>
@@ -161,22 +161,22 @@ export function CitizenDashboard() {
             <div className="p-4 rounded-2xl border border-emerald-200 bg-emerald-50/50 flex flex-col justify-between">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-emerald-800">
-                  🌾 Farming Land
+                  🌾 {t('dashboard.farmingLand', 'Farming Land')}
                 </span>
                 <span className="text-[10px] font-bold bg-emerald-600 text-white px-2 py-0.5 rounded-full">
-                  Agricultural
+                  {t('dashboard.agricultural', 'Agricultural')}
                 </span>
               </div>
               <div className="my-1">
                 <div className="text-2xl sm:text-3xl font-black text-emerald-950">
-                  {totalFarmingAcres.toFixed(2)} <span className="text-base font-bold text-emerald-700">Acres</span>
+                  {totalFarmingAcres.toFixed(2)} <span className="text-base font-bold text-emerald-700">{t('common.acres', 'Acres')}</span>
                 </div>
                 <p className="text-xs text-emerald-800/80 font-medium mt-0.5">
-                  {(totalFarmingAcres * 43560).toLocaleString('en-IN')} sq.ft extent
+                  {(totalFarmingAcres * 43560).toLocaleString('en-IN')} {t('dashboard.sqftExtent', 'sq.ft extent')}
                 </p>
               </div>
               <div className="pt-2 border-t border-emerald-200/60 mt-2 flex items-center justify-between text-xs text-emerald-900">
-                <span>Registered Parcels:</span>
+                <span>{t('dashboard.registeredParcels', 'Registered Parcels')}:</span>
                 <strong className="font-bold">{farmingParcels.length}</strong>
               </div>
             </div>
@@ -185,30 +185,30 @@ export function CitizenDashboard() {
             <div className="p-4 rounded-2xl border border-amber-200 bg-amber-50/50 flex flex-col justify-between">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-amber-900">
-                  🏢 Commercial Land
+                  🏢 {t('dashboard.commercialLand', 'Commercial Land')}
                 </span>
                 <span className="text-[10px] font-bold bg-amber-600 text-white px-2 py-0.5 rounded-full">
-                  Commercial
+                  {t('dashboard.commercial', 'Commercial')}
                 </span>
               </div>
               <div className="my-1">
                 <div className="text-2xl sm:text-3xl font-black text-amber-950">
                   {totalCommercialSqft > 0 ? (
                     <>
-                      {totalCommercialSqft.toLocaleString('en-IN')} <span className="text-base font-bold text-amber-700">sq.ft</span>
+                      {totalCommercialSqft.toLocaleString('en-IN')} <span className="text-base font-bold text-amber-700">{t('common.sqft', 'sq.ft')}</span>
                     </>
                   ) : (
                     <>
-                      0 <span className="text-base font-bold text-slate-400">sq.ft</span>
+                      0 <span className="text-base font-bold text-slate-400">{t('common.sqft', 'sq.ft')}</span>
                     </>
                   )}
                 </div>
                 <p className="text-xs text-amber-800/80 font-medium mt-0.5">
-                  {totalCommercialAcres > 0 ? `${totalCommercialAcres.toFixed(2)} Acres registered` : 'No commercial parcels'}
+                  {totalCommercialAcres > 0 ? `${totalCommercialAcres.toFixed(2)} ${t('dashboard.acresRegistered', 'Acres registered')}` : t('dashboard.noCommercialParcels', 'No commercial parcels')}
                 </p>
               </div>
               <div className="pt-2 border-t border-amber-200/60 mt-2 flex items-center justify-between text-xs text-amber-900">
-                <span>Registered Parcels:</span>
+                <span>{t('dashboard.registeredParcels', 'Registered Parcels')}:</span>
                 <strong className="font-bold">{commercialParcels.length}</strong>
               </div>
             </div>
@@ -217,30 +217,30 @@ export function CitizenDashboard() {
             <div className="p-4 rounded-2xl border border-sky-200 bg-sky-50/50 flex flex-col justify-between">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold uppercase tracking-wider text-sky-900">
-                  🏠 Buildings & Residential
+                  🏠 {t('dashboard.buildingsResidential', 'Buildings & Residential')}
                 </span>
                 <span className="text-[10px] font-bold bg-sky-600 text-white px-2 py-0.5 rounded-full">
-                  Non-Agri / Built
+                  {t('dashboard.nonAgriBuilt', 'Non-Agri / Built')}
                 </span>
               </div>
               <div className="my-1">
                 <div className="text-2xl sm:text-3xl font-black text-sky-950">
                   {totalBuildingSqft > 0 ? (
                     <>
-                      {totalBuildingSqft.toLocaleString('en-IN')} <span className="text-base font-bold text-sky-700">sq.ft</span>
+                      {totalBuildingSqft.toLocaleString('en-IN')} <span className="text-base font-bold text-sky-700">{t('common.sqft', 'sq.ft')}</span>
                     </>
                   ) : (
                     <>
-                      0 <span className="text-base font-bold text-slate-400">sq.ft</span>
+                      0 <span className="text-base font-bold text-slate-400">{t('common.sqft', 'sq.ft')}</span>
                     </>
                   )}
                 </div>
                 <p className="text-xs text-sky-800/80 font-medium mt-0.5">
-                  {totalBuildingAcres > 0 ? `${totalBuildingAcres.toFixed(2)} Acres registered` : 'No built parcels'}
+                  {totalBuildingAcres > 0 ? `${totalBuildingAcres.toFixed(2)} ${t('dashboard.acresRegistered', 'Acres registered')}` : t('dashboard.noBuiltParcels', 'No built parcels')}
                 </p>
               </div>
               <div className="pt-2 border-t border-sky-200/60 mt-2 flex items-center justify-between text-xs text-sky-900">
-                <span>Registered Parcels:</span>
+                <span>{t('dashboard.registeredParcels', 'Registered Parcels')}:</span>
                 <strong className="font-bold">{buildingParcels.length}</strong>
               </div>
             </div>
@@ -346,13 +346,13 @@ export function CitizenDashboard() {
                       <div className="text-right flex-shrink-0">
                         {isCommercial || isBuilding ? (
                           <>
-                            <p className="text-sm font-black text-slate-900">{sqftVal.toLocaleString('en-IN')} sq.ft</p>
-                            <p className="text-[11px] text-slate-500 font-medium">{p.area} Acres</p>
+                            <p className="text-sm font-black text-slate-900">{sqftVal.toLocaleString('en-IN')} {t('common.sqft', 'sq.ft')}</p>
+                            <p className="text-[11px] text-slate-500 font-medium">{p.area} {t('common.acres', 'Acres')}</p>
                           </>
                         ) : (
                           <>
                             <p className="text-sm font-black text-slate-900">{p.area} {t('common.acres', 'Acres')}</p>
-                            <p className="text-[11px] text-slate-500 font-medium">{sqftVal.toLocaleString('en-IN')} sq.ft</p>
+                            <p className="text-[11px] text-slate-500 font-medium">{sqftVal.toLocaleString('en-IN')} {t('common.sqft', 'sq.ft')}</p>
                           </>
                         )}
                         <Link
@@ -372,10 +372,10 @@ export function CitizenDashboard() {
             <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
               <span className="flex items-center gap-1.5">
                 <Sparkles size={14} className="text-emerald-600" />
-                Cadastral shapes synced with RoR
+                {t('dashboard.cadastralSynced', 'Cadastral shapes synced with RoR')}
               </span>
               <Link to="/citizen/gis" className="font-bold text-emerald-700 hover:underline">
-                Open Full GIS →
+                {t('dashboard.openFullGis', 'Open Full GIS')} →
               </Link>
             </div>
           </div>
@@ -407,7 +407,7 @@ export function CitizenDashboard() {
                   <FileText size={36} className="text-slate-300 mx-auto mb-2" />
                   <p className="text-sm font-bold text-slate-700">{t('application.noApplications')}</p>
                   <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
-                    You currently have no active land service requests. Start an application to begin.
+                    {t('dashboard.noActiveRequests', 'You currently have no active land service requests. Start an application to begin.')}
                   </p>
                   <Link
                     to="/citizen/apply"
@@ -436,7 +436,7 @@ export function CitizenDashboard() {
                           {app.serviceName}
                         </p>
                         <p className="text-xs text-slate-500 mt-0.5">
-                          Submitted on {formatDate(app.submittedAt)}
+                          {t('common.submittedOn', 'Submitted on')} {formatDate(app.submittedAt)}
                         </p>
                       </div>
 

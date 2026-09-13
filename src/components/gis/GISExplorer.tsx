@@ -110,6 +110,7 @@ function MapController({ parcel }: { parcel: LandParcel | null }) {
 
 // Side Info Panel matching reference image
 function LandInformationPanel({ parcel, onClose }: { parcel: LandParcel; onClose: () => void }) {
+  const { t } = useTranslation();
   const activeUtilities: string[] = [];
   if (parcel.utilityConnections?.water) activeUtilities.push('Water');
   if (parcel.utilityConnections?.electricity) activeUtilities.push('Electricity');
@@ -120,8 +121,8 @@ function LandInformationPanel({ parcel, onClose }: { parcel: LandParcel; onClose
       {/* Header */}
       <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/80">
         <div>
-          <h2 className="text-base font-bold text-slate-900">Land Information</h2>
-          <p className="text-xs text-slate-500">Cadastral survey & spatial registry</p>
+          <h2 className="text-base font-bold text-slate-900">{t('gis.landInformation', 'Land Information')}</h2>
+          <p className="text-xs text-slate-500">{t('gis.spatialRegistry', 'Cadastral survey & spatial registry')}</p>
         </div>
         <button
           onClick={onClose}
@@ -142,9 +143,9 @@ function LandInformationPanel({ parcel, onClose }: { parcel: LandParcel; onClose
                   {parcel.ulpin}
                 </span>
               </div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Survey Number</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">{t('common.surveyNumber', 'Survey Number')}</span>
               <h3 className="text-lg font-black text-slate-900 mt-0.5">
-                Survey No. {parcel.surveyNumber}
+                {t('common.surveyNumber', 'Survey No.')} {parcel.surveyNumber}
               </h3>
               <p className="text-xs text-slate-600 mt-0.5">
                 {parcel.village} Village, {parcel.mandalName} Taluk
@@ -172,7 +173,7 @@ function LandInformationPanel({ parcel, onClose }: { parcel: LandParcel; onClose
           <div className="py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2 text-slate-600 font-medium text-xs">
               <User size={15} className="text-emerald-600" />
-              <span>Owner Details</span>
+              <span>{t('gis.ownerDetails', 'Owner Details')}</span>
             </div>
             <span className="text-xs font-bold text-slate-900">{parcel.recordedOwner}</span>
           </div>
@@ -188,25 +189,25 @@ function LandInformationPanel({ parcel, onClose }: { parcel: LandParcel; onClose
           <div className="py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2 text-slate-600 font-medium text-xs">
               <Ruler size={15} className="text-emerald-600" />
-              <span>Land Area</span>
+              <span>{t('gis.landArea', 'Land Area')}</span>
             </div>
             <span className="text-xs font-bold text-slate-900">
-              {parcel.area} Acres ({parcel.areaSqft.toLocaleString('en-IN')} sq.ft.)
+              {parcel.area} {t('common.acres', 'Acres')} ({parcel.areaSqft.toLocaleString('en-IN')} {t('common.sqft', 'sq.ft')})
             </span>
           </div>
 
           <div className="py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2 text-slate-600 font-medium text-xs">
               <Wheat size={15} className="text-emerald-600" />
-              <span>Land Classification</span>
+              <span>{t('gis.landClassification', 'Land Classification')}</span>
             </div>
-            <span className="text-xs font-semibold text-slate-800">{parcel.landUse}</span>
+            <span className="text-xs font-semibold text-slate-800">{t(`dashboard.${parcel.landUse?.toLowerCase()}`, parcel.landUse)}</span>
           </div>
 
           <div className="py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2 text-slate-600 font-medium text-xs">
               <Landmark size={15} className="text-emerald-600" />
-              <span>Zoning / Master Plan</span>
+              <span>{t('gis.zoningMasterPlan', 'Zoning / Master Plan')}</span>
             </div>
             <span className="text-xs font-semibold text-slate-800">{parcel.masterPlanZone}</span>
           </div>
@@ -214,7 +215,7 @@ function LandInformationPanel({ parcel, onClose }: { parcel: LandParcel; onClose
           <div className="py-2.5 flex items-center justify-between">
             <div className="flex items-center gap-2 text-slate-600 font-medium text-xs">
               <Scale size={15} className="text-emerald-600" />
-              <span>Encumbrance Status</span>
+              <span>{t('gis.encumbranceStatus', 'Encumbrance Status')}</span>
             </div>
             <span className={cn(
               "text-xs font-bold",

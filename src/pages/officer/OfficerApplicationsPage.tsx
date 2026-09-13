@@ -146,7 +146,7 @@ export function OfficerApplicationsPage() {
 
         {/* Department Queue Quick Selector */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
-          <span className="text-slate-400 font-bold uppercase text-[11px] whitespace-nowrap">Department Desk:</span>
+          <span className="text-slate-400 font-bold uppercase text-[11px] whitespace-nowrap">{t('officer.departmentDesk', 'Department Desk')}:</span>
           {['all', 'Revenue', 'Survey', 'Town Planning', 'Tahsildar'].map(dept => (
             <button
               key={dept}
@@ -157,7 +157,7 @@ export function OfficerApplicationsPage() {
                   : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
               }`}
             >
-              {dept === 'all' ? 'All Departments' : dept}
+              {dept === 'all' ? t('officer.allDepartments', 'All Departments') : t(`officer.${dept.toLowerCase().replace(/\s+/g, '')}`, dept)}
             </button>
           ))}
         </div>
@@ -169,7 +169,7 @@ export function OfficerApplicationsPage() {
             <input
               type="text"
               className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
-              placeholder="Search by Token ID, Citizen Name, Survey Number, or Service..."
+              placeholder={t('officer.searchOfficerPlaceholder', 'Search by Token ID, Citizen Name, Survey Number, or Service...')}
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
             />
@@ -179,7 +179,7 @@ export function OfficerApplicationsPage() {
               onClick={() => setSearchQuery('')}
               className="text-xs text-slate-500 hover:text-slate-700 font-semibold px-2 py-1"
             >
-              Clear
+              {t('common.clear', 'Clear')}
             </button>
           )}
         </div>
@@ -188,9 +188,12 @@ export function OfficerApplicationsPage() {
         {filteredApps.length === 0 ? (
           <div className="bg-white rounded-3xl border border-slate-200/80 text-center py-16 px-4 shadow-xs">
             <ClipboardList size={42} className="text-slate-300 mx-auto mb-3" />
-            <p className="text-sm font-bold text-slate-800">No applications found in this queue</p>
+            <p className="text-sm font-bold text-slate-800">{t('officer.noAppsInQueue', 'No applications found in this queue')}</p>
             <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
-              Any citizen applications submitted within {officer?.jurisdictionMandal || 'your jurisdiction'} will immediately sync here.
+              {t('officer.appsSyncNotice', {
+                jurisdiction: officer?.jurisdictionMandal || 'your jurisdiction',
+                defaultValue: `Any citizen applications submitted within ${officer?.jurisdictionMandal || 'your jurisdiction'} will immediately sync here.`
+              })}
             </p>
           </div>
         ) : (
@@ -217,17 +220,17 @@ export function OfficerApplicationsPage() {
                           </span>
                           <StatusBadge status={app.status as ApplicationStatus} />
                           <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200">
-                            Desk: {appDept}
+                            {t('officer.desk', 'Desk')}: {t(`officer.${appDept.toLowerCase().replace(/\s+/g, '')}`, appDept)}
                           </span>
                           {isAtMyDesk ? (
                             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 flex items-center gap-1">
                               <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
-                              {isAdmin ? 'Admin Master Control' : 'Action Required at Your Desk'}
+                              {isAdmin ? t('officer.adminMasterControl', 'Admin Master Control') : t('officer.actionRequiredAtDesk', 'Action Required at Your Desk')}
                             </span>
                           ) : (
                             <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 border border-slate-300 flex items-center gap-1">
                               <Lock size={10} className="text-slate-400" />
-                              Pending at {appDept} Desk (Read-Only)
+                              {t('officer.pendingAtDesk', { dept: appDept, defaultValue: `Pending at ${appDept} Desk (Read-Only)` })}
                             </span>
                           )}
                         </div>
@@ -238,7 +241,7 @@ export function OfficerApplicationsPage() {
                     </div>
 
                     <div className="text-left sm:text-right">
-                      <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Submitted On</span>
+                      <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">{t('common.submittedOn', 'Submitted On')}</span>
                       <p className="text-xs font-semibold text-slate-700">{formatDate(app.submittedAt)}</p>
                     </div>
                   </div>
@@ -246,23 +249,23 @@ export function OfficerApplicationsPage() {
                   <div className="pt-3.5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
                       <div>
-                        <span className="text-slate-400 uppercase text-[10px] font-bold">Applicant</span>
+                        <span className="text-slate-400 uppercase text-[10px] font-bold">{t('common.applicant', 'Applicant')}</span>
                         <p className="font-bold text-slate-800 mt-0.5">{app.citizenName}</p>
                       </div>
                       <div>
-                        <span className="text-slate-400 uppercase text-[10px] font-bold">Survey Number</span>
+                        <span className="text-slate-400 uppercase text-[10px] font-bold">{t('common.surveyNumber', 'Survey Number')}</span>
                         <p className="font-bold text-emerald-700 mt-0.5">{app.surveyNumber}</p>
                       </div>
                       <div>
-                        <span className="text-slate-400 uppercase text-[10px] font-bold">Village & Mandal</span>
+                        <span className="text-slate-400 uppercase text-[10px] font-bold">{t('common.villageMandal', 'Village & Mandal')}</span>
                         <p className="font-medium text-slate-700 mt-0.5">{app.village}, {app.mandalName}</p>
                       </div>
                       <div>
-                        <span className="text-slate-400 uppercase text-[10px] font-bold">Extent Applied</span>
+                        <span className="text-slate-400 uppercase text-[10px] font-bold">{t('common.extentApplied', 'Extent Applied')}</span>
                         <p className="font-bold text-slate-800 mt-0.5">
-                          {app.aiDiscrepancy?.deedArea || 1.0} Acres
+                          {app.aiDiscrepancy?.deedArea || 1.0} {t('common.acres', 'Acres')}
                           <span className="text-[10px] text-slate-500 font-normal ml-1">
-                            ({Math.round((app.aiDiscrepancy?.deedArea || 1.0) * 43560).toLocaleString('en-IN')} sq.ft)
+                            ({Math.round((app.aiDiscrepancy?.deedArea || 1.0) * 43560).toLocaleString('en-IN')} {t('common.sqft', 'sq.ft')})
                           </span>
                         </p>
                       </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../../store/authStore';
 import { DEMO_FARMER_CITIZENS, DEMO_OFFICERS, DEMO_ADMIN } from '../../data/demoData';
 import { toast } from '../../components/ui/Toast';
@@ -9,6 +10,7 @@ import {
 } from 'lucide-react';
 
 export function LoginPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { user, logout, loginWithPassword } = useAuthStore();
 
@@ -107,28 +109,28 @@ export function LoginPage() {
           </div>
 
           <div>
-            <h2 className="text-xl font-bold text-slate-800">Active Session</h2>
+            <h2 className="text-xl font-bold text-slate-800">{t('auth.activeSession', 'Active Session')}</h2>
             <p className="text-xs text-slate-500 mt-1">
-              Currently signed in as <strong className="text-slate-700">{user.name}</strong> ({user.role})
+              {t('auth.currentlySignedIn', 'Currently signed in as')} <strong className="text-slate-700">{user.name}</strong> ({user.role})
             </p>
           </div>
 
           <div className="space-y-3 pt-2">
             <button
               onClick={() => navigate(userRoleDashboard)}
-              className="w-full py-3 rounded-full bg-[#10B981] hover:bg-emerald-600 text-white text-sm font-bold shadow-md transition-all"
+              className="w-full py-3 rounded-full bg-[#10B981] hover:bg-emerald-600 text-white text-sm font-bold shadow-md transition-all uppercase"
             >
-              CONTINUE TO DASHBOARD
+              {t('auth.continueToDashboard', 'Continue to Dashboard')}
             </button>
 
             <button
               onClick={() => {
                 logout();
-                toast('info', 'Signed Out', 'You have been signed out.');
+                toast('info', t('auth.signedOut', 'Signed Out'), t('auth.signedOutMsg', 'You have been signed out.'));
               }}
               className="w-full py-2.5 rounded-full border border-slate-300 text-slate-600 hover:bg-slate-50 text-xs font-semibold transition-all"
             >
-              Sign In with Another Account
+              {t('auth.signInAnother', 'Sign In with Another Account')}
             </button>
           </div>
         </div>
@@ -242,14 +244,14 @@ export function LoginPage() {
           {/* User ID Field */}
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-1.5 ml-3">
-              User ID
+              {t('auth.userId', 'User ID')}
             </label>
             <div className="relative">
               <input
                 type="text"
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
-                placeholder="User ID or Email"
+                placeholder={t('auth.userIdOrEmail', 'User ID or Email')}
                 className="w-full rounded-full border border-slate-300 bg-white px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#10B981] focus:ring-3 focus:ring-[#10B981]/20 transition-all shadow-xs"
                 autoComplete="username"
               />
@@ -260,7 +262,7 @@ export function LoginPage() {
           {/* Password Field */}
           <div>
             <label className="block text-sm font-semibold text-slate-700 mb-1.5 ml-3">
-              Password
+              {t('auth.password', 'Password')}
             </label>
             <div className="relative">
               <input
@@ -289,7 +291,7 @@ export function LoginPage() {
               disabled={loading}
               className="w-full rounded-full bg-[#10B981] hover:bg-[#059669] active:scale-[0.99] text-white font-bold tracking-wider py-3.5 text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase"
             >
-              {loading ? 'LOGGING IN...' : 'LOGIN'}
+              {loading ? t('auth.loggingIn', 'LOGGING IN...') : t('auth.loginBtn', 'LOGIN')}
             </button>
           </div>
         </form>
@@ -302,24 +304,24 @@ export function LoginPage() {
             className="text-xs sm:text-sm font-semibold text-[#059669] hover:text-[#047857] hover:underline flex items-center gap-1.5 transition-colors"
           >
             <Users size={15} />
-            <span>Browse 144 Citizen Logins & Official Directory</span>
+            <span>{t('auth.browseDirectory', 'Browse 144 Citizen Logins & Official Directory')}</span>
           </button>
 
           <div className="bg-slate-100/80 px-3.5 py-2 rounded-full border border-slate-200/60 text-[11px] text-slate-500 font-medium">
-            Default Passwords: <span className="text-slate-800 font-bold">citizen123</span> (Citizen) · <span className="text-slate-800 font-bold">officer123</span> (Officer) · <span className="text-slate-800 font-bold">admin123</span> (Admin)
+            {t('auth.defaultPasswords', 'Default Passwords:')} <span className="text-slate-800 font-bold">citizen123</span> ({t('nav.publicCitizen', 'Citizen')}) · <span className="text-slate-800 font-bold">officer123</span> ({t('roles.officer', 'Officer')}) · <span className="text-slate-800 font-bold">admin123</span> ({t('roles.admin', 'Admin')})
           </div>
         </div>
       </div>
 
       {/* Bottom status text matching "Can't reach server? Update Server" style */}
       <div className="text-xs text-slate-400 text-center mt-6">
-        <span>Need assistance? </span>
+        <span>{t('auth.needAssistance', 'Need assistance?')} </span>
         <button
           type="button"
           onClick={() => setShowDirectoryModal(true)}
           className="text-[#10B981] hover:underline font-medium"
         >
-          View Verified User Directory
+          {t('auth.viewDirectory', 'View Verified User Directory')}
         </button>
       </div>
 

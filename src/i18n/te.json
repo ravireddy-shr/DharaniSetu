@@ -106,7 +106,26 @@
     "viewMap": "మ్యాప్ చూడండి",
     "trackRealtime": "నిజ సమయంలో చట్టబద్ధమైన పురోగతిని ట్రాక్ చేయండి",
     "stageTrackingEnabled": "దశలవారీ ట్రాకింగ్ అందుబాటులో ఉంది",
-    "trackByToken": "టోకెన్ ఐడీతో ట్రాక్ చేయండి →"
+    "trackByToken": "టోకెన్ ఐడీతో ట్రాక్ చేయండి →",
+    "totalLandHolding": "మొత్తం భూమి విస్తీర్ణం",
+    "portfolioByCategory": "వర్గం వారీగా భూముల విస్తీర్ణం",
+    "portfolioSub": "చట్టబద్ధమైన భూ విభజన (వ్యవసాయ భూములు ఎకరాలలో · వాణిజ్య & నివాస భవనాలు చ.అడుగులలో)",
+    "viewAllRecords": "అన్ని రికార్డులను చూడండి",
+    "farmingLand": "వ్యవసాయ భూమి",
+    "commercialLand": "వాణిజ్య భూమి",
+    "buildingsResidential": "భవనాలు & నివాస స్థలాలు",
+    "agricultural": "వ్యవసాయం",
+    "commercial": "వాణిజ్యం",
+    "nonAgriBuilt": "వ్యవసాయేతర / నిర్మాణం",
+    "registeredParcels": "నమోదైన భూములు",
+    "noCommercialParcels": "వాణిజ్య భూములు లేవు",
+    "noBuiltParcels": "నిర్మాణ భూములు లేవు",
+    "acresRegistered": "ఎకరాలు నమోదయ్యాయి",
+    "sqftExtent": "చ.అడుగుల విస్తీర్ణం",
+    "cadastralSynced": "ఆర్వోఆర్ తో సరిపోలిన కాడస్ట్రాల్ మ్యాప్స్",
+    "openFullGis": "పూర్తి జీఐఎస్ తెరవండి",
+    "noActiveRequests": "మీకు ప్రస్తుతం ఎటువంటి పెండింగ్ దరఖాస్తులు లేవు. సేవను ప్రారంభించడానికి దరఖాస్తు చేయండి.",
+    "submittedOn": "సమర్పించిన తేదీ"
   },
   "land": {
     "surveyNumber": "సర్వే నంబర్",
@@ -119,7 +138,13 @@
     "landUse": "భూ వినియోగ వర్గీకరణ",
     "status": "రికార్డు స్థితి",
     "viewOnMap": "మ్యాప్‌లో చూడండి",
-    "myLandTitle": "నా భూమి వివరాలు"
+    "myLandTitle": "నా భూమి వివరాలు",
+    "primaryExtent": "ప్రాథమిక విస్తీర్ణం",
+    "convertedExtent": "మార్పిడి విస్తీర్ణం",
+    "category": "భూమి వర్గం",
+    "noParcelsFound": "మీ శోధనకు లేదా ఖాతాకు సరిపోలే భూమి రికార్డులేవీ కనుగొనబడలేదు.",
+    "searchParcelPlaceholder": "సర్వే నంబర్, ULPIN, గ్రామం, యజమాని పేరుతో శోధించండి...",
+    "applyService": "సేవ కొరకు దరఖాస్తు"
   },
   "gis": {
     "title": "శాటిలైట్ జీఐఎస్ కాడాస్ట్రల్ మ్యాప్",
@@ -161,6 +186,12 @@
       "certSub": "ధృవీకరించబడిన హక్కుల రికార్డు, నివాస & ఈసీ పత్రాలు",
       "grievTitle": "భూమి వివాదాలు & ఫిర్యాదులు",
       "grievSub": "ఆక్రమణల నివేదన మరియు భూ వివాద పిటిషన్లు"
+    },
+    "categories": {
+      "registration": "భూమి రిజిస్ట్రేషన్ & దస్తావేజులు",
+      "revenue": "రెవెన్యూ & మ్యుటేషన్ సేవలు",
+      "survey": "సర్వే & హద్దుల గుర్తింపు",
+      "approvals": "అనుమతులు & ఆమోదాలు"
     }
   },
   "application": {
@@ -188,19 +219,32 @@
   },
   "status": {
     "SUBMITTED": "సమర్పించబడింది",
-    "ROUTED": "పంపబడింది",
+    "ROUTED": "అధికార పరిధికి పంపబడింది",
     "DOCUMENT_VERIFICATION": "పత్రాల పరిశీలన",
-    "GIS_VERIFICATION": "GIS పరిశీలన",
-    "FIELD_VERIFICATION": "క్షేత్ర స్థాయి పరిశీలన",
-    "OFFICER_REVIEW": "అధికారి సమీక్ష",
+    "GIS_VERIFICATION": "జీఐఎస్ మ్యాప్ పరిశీలన",
+    "FIELD_VERIFICATION": "క్షేత్రస్థాయి విచారణ",
+    "OFFICER_REVIEW": "అధికారి తుది పరిశీలన",
     "APPROVED": "ఆమోదించబడింది",
     "REJECTED": "తిరస్కరించబడింది",
-    "RECORD_UPDATE": "రికార్డు నవీకరణ",
+    "RECORD_UPDATE": "రికార్డుల నవీకరణ",
     "COMPLETED": "పూర్తయింది",
-    "ADDITIONAL_INFORMATION_REQUIRED": "అదనపు సమాచారం అవసరం",
+    "ADDITIONAL_INFORMATION_REQUIRED": "మరింత సమాచారం అవసరం",
+    "submitted": "సమర్పించబడింది",
+    "under_review": "పరిశీలనలో ఉంది",
+    "approved": "ఆమోదించబడింది",
+    "rejected": "తిరస్కరించబడింది",
     "verified": "ధృవీకరించబడింది",
-    "pending": "పరిశీలనలో ఉంది",
-    "rejected": "తిరస్కరించబడింది"
+    "pending": "పెండింగ్‌లో ఉంది",
+    "inProgress": "ప్రగతిలో ఉంది",
+    "correction": "సవరణ అవసరం",
+    "orderIssued": "ఉత్తర్వులు జారీ చేయబడ్డాయి",
+    "finalDecree": "తుది ఉత్తర్వు",
+    "orderSanction": "ఆమోద ఉత్తర్వులు",
+    "recordsUpdated": "రికార్డులు నవీకరించబడ్డాయి",
+    "awaitingClearances": "అనుమతుల కోసం వేచి ఉంది",
+    "active": "క్రియాశీలకంగా ఉంది",
+    "disputed": "వివాదంలో ఉంది",
+    "queued": "వరుసలో ఉంది"
   },
   "officer": {
     "dashboard": "తహశీల్దార్ రెవెన్యూ డ్యాష్‌బోర్డ్",
@@ -234,7 +278,28 @@
     "reviewFile": "ఫైల్‌ను పరిశీలించండి",
     "reconcileDirective": "తహశీల్దార్ క్షేత్ర పరిశీలన నివేదిక & పరిష్కార ఆదేశం *",
     "verifyApproveAdjusted": "పరిశీలించి సవరించిన విస్తీర్ణాన్ని ఆమోదించండి (0.90 ఎకరాలు)",
-    "orderDgpsResurvey": "DGPS పునఃసర్వేకి ఆదేశించండి"
+    "orderDgpsResurvey": "DGPS పునఃసర్వేకి ఆదేశించండి",
+    "totalApplications": "మొత్తం దరఖాస్తులు",
+    "assignedJurisdiction": "కేటాయించిన అధికార పరిధి",
+    "inQueue": "వరుస క్రమంలో",
+    "digitallyEndorsed": "డిజిటల్‌గా ఆమోదించబడింది",
+    "disposed": "పరిష్కరించబడింది",
+    "awaitingSignOff": "అధికారి సంతకం కోసం వేచి ఉంది",
+    "statutoryAlerts": "చట్టబద్ధమైన హెచ్చరికలు",
+    "queuedSubtitle": "అధికారుల పరిశీలన మరియు నిర్ణయం కోసం వేచి ఉన్న భూ పరిపాలన దరఖాస్తులు",
+    "filesRequiringScrutiny": "పరిశీలించాల్సిన ఫైళ్లు",
+    "cadastralGisExplorer": "కాడస్ట్రాల్ జీఐఎస్ ఎక్స్‌ప్లోరర్",
+    "inspectBoundaryOverlay": "సరిహద్దులు మరియు భూభాగాల పరిశీలన",
+    "statutoryApprovals": "చట్టబద్ధమైన ఆమోదాలు",
+    "digitalSignaturesFinalOrder": "డిజిటల్ సంతకాలు & తుది ఉత్తర్వులు",
+    "syncRorDeeds": "ఆర్వోఆర్ & రిజిస్ట్రేషన్ పత్రాల అనుసంధానం",
+    "departmentDesk": "శాఖ విభాగం",
+    "allDepartments": "అన్ని శాఖలు",
+    "searchOfficerPlaceholder": "టోకెన్ ఐడీ, పౌరుడి పేరు, సర్వే నంబర్ లేదా సేవ ద్వారా శోధించండి...",
+    "noAppsInQueue": "ఈ విభాగంలో ఎటువంటి దరఖాస్తులు లేవు",
+    "actionRequiredAtDesk": "మీ పరిశీలన కోసం వేచి ఉంది",
+    "adminMasterControl": "అడ్మిన్ మాస్టర్ కంట్రోల్",
+    "desk": "విభాగం"
   },
   "admin": {
     "dashboard": "జాతీయ భూ పరిపాలన కంట్రోల్ సెంటర్",
@@ -315,7 +380,7 @@
     "statutoryAppRegistered": "చట్టబద్ధమైన దరఖాస్తు నమోదైంది",
     "statutoryAppSubHeader": "మీ దరఖాస్తు పరిశీలన కోసం నేరుగా అధికార పరిధిలోని తహశీల్దార్‌కు పంపబడింది.",
     "appTokenNumber": "దరఖాస్తు టోకెన్ సంఖ్య",
-    "surveyNumber": "సర్వే నంబరు",
+    "surveyNumber": "సర్వే నంబర్",
     "statutorySlaTarget": "చట్టబద్ధమైన SLA గడువు",
     "businessDays": "పని దినాలు",
     "allServices": "అన్ని సేవలు",
@@ -336,7 +401,20 @@
     "statutoryDeclarationText": "పైన సమర్పించిన సమాచారం మరియు స్కాన్ చేసిన పత్రాలు నిజమైనవి మరియు చట్టబద్ధమైనవని నేను ప్రమాణపూర్వకంగా ప్రకటిస్తున్నాను. తప్పుడు సమాచారం ఇవ్వడం చట్టప్రకారం నేరమని నేను అర్థం చేసుకున్నాను.",
     "backToForm": "← ఫారమ్‌కు తిరిగి వెళ్లండి",
     "submitStatutoryApplication": "చట్టబద్ధమైన దరఖాస్తును సమర్పించండి",
-    "submittingToRevenue": "రెవెన్యూ శాఖకు సమర్పిస్తోంది..."
+    "submittingToRevenue": "రెవెన్యూ శాఖకు సమర్పిస్తోంది...",
+    "application": "దరఖాస్తు",
+    "submittedOn": "సమర్పించిన తేదీ",
+    "applicant": "దరఖాస్తుదారుడు",
+    "villageMandal": "గ్రామం & మండలం",
+    "extentApplied": "కోరిన విస్తీర్ణం",
+    "state": "రాష్ట్రం",
+    "district": "జిల్లా",
+    "mandal": "మండలం",
+    "village": "గ్రామం",
+    "clear": "క్లియర్",
+    "view": "చూడండి",
+    "print": "ప్రింట్",
+    "download": "డౌన్‌లోడ్"
   },
   "contact": {
     "badge": "24x7 పౌరుల మద్దతు & రెవెన్యూ ఫిర్యాదుల పరిష్కార కేంద్రం",
@@ -485,19 +563,6 @@
         "category": "కలెక్టరేట్"
       }
     }
-  },
-  "status": {
-    "SUBMITTED": "దరఖాస్తు సమర్పించబడింది",
-    "ROUTED": "సంబంధిత మండలానికి కేటాయించబడింది",
-    "DOCUMENT_VERIFICATION": "పత్రాల పరిశీలన",
-    "GIS_VERIFICATION": "జీఐఎస్ మ్యాప్ పరిశీలన",
-    "FIELD_VERIFICATION": "క్షేత్రస్థాయి విచారణ",
-    "OFFICER_REVIEW": "తహశీల్దార్ సమీక్ష",
-    "APPROVED": "ఆమోదించబడింది",
-    "REJECTED": "తిరస్కరించబడింది",
-    "RECORD_UPDATE": "రికార్డుల అప్‌డేట్",
-    "COMPLETED": "పూర్తయింది",
-    "ADDITIONAL_INFORMATION_REQUIRED": "మరిన్ని వివరాలు అవసరం"
   },
   "track": {
     "title": "మీ దరఖాస్తును ట్రాక్ చేయండి",

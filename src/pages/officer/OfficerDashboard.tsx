@@ -86,15 +86,15 @@ export function OfficerDashboard() {
               {/* Jurisdiction Cards */}
               <div className="grid grid-cols-3 gap-3 text-center">
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">State</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{t('common.state', 'State')}</p>
                   <p className="text-xs sm:text-sm font-bold text-white mt-0.5 truncate">{officer.jurisdictionState}</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">District</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{t('common.district', 'District')}</p>
                   <p className="text-xs sm:text-sm font-bold text-white mt-0.5 truncate">{officer.jurisdictionDistrict?.split('-').pop()}</p>
                 </div>
                 <div className="bg-white/10 backdrop-blur-md rounded-2xl p-3 border border-white/10">
-                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Mandal</p>
+                  <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">{t('common.mandal', 'Mandal')}</p>
                   <p className="text-xs sm:text-sm font-bold text-emerald-300 mt-0.5 truncate">{officer.jurisdictionMandal?.split('-').pop()}</p>
                 </div>
               </div>
@@ -105,10 +105,10 @@ export function OfficerDashboard() {
         {/* Quick Statutory Actions Dock */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {[
-            { label: 'Pending Verification', desc: `${pending} files requiring scrutiny`, path: '/officer/pending', icon: <CheckSquare size={20} className="text-amber-700" />, bg: 'bg-amber-50/80 border-amber-200/80' },
-            { label: 'Cadastral GIS Explorer', desc: 'Inspect boundary & overlay parcels', path: '/officer/gis', icon: <Map size={20} className="text-sky-700" />, bg: 'bg-sky-50/80 border-sky-200/80' },
-            { label: 'Statutory Approvals', desc: 'Digital signatures & final order', path: '/officer/approvals', icon: <Shield size={20} className="text-emerald-700" />, bg: 'bg-emerald-50/80 border-emerald-200/80' },
-            { label: 'Interoperability Hub', desc: 'Sync RoR & Registration deeds', path: '/officer/interoperability', icon: <Network size={20} className="text-purple-700" />, bg: 'bg-purple-50/80 border-purple-200/80' },
+            { label: t('officer.pendingVerification', 'Pending Verification'), desc: `${pending} ${t('officer.filesRequiringScrutiny', 'files requiring scrutiny')}`, path: '/officer/pending', icon: <CheckSquare size={20} className="text-amber-700" />, bg: 'bg-amber-50/80 border-amber-200/80' },
+            { label: t('officer.cadastralGisExplorer', 'Cadastral GIS Explorer'), desc: t('officer.inspectBoundaryOverlay', 'Inspect boundary & overlay parcels'), path: '/officer/gis', icon: <Map size={20} className="text-sky-700" />, bg: 'bg-sky-50/80 border-sky-200/80' },
+            { label: t('officer.statutoryApprovals', 'Statutory Approvals'), desc: t('officer.digitalSignaturesFinalOrder', 'Digital signatures & final order'), path: '/officer/approvals', icon: <Shield size={20} className="text-emerald-700" />, bg: 'bg-emerald-50/80 border-emerald-200/80' },
+            { label: t('nav.interoperability', 'Interoperability Hub'), desc: t('officer.syncRorDeeds', 'Sync RoR & Registration deeds'), path: '/officer/interoperability', icon: <Network size={20} className="text-purple-700" />, bg: 'bg-purple-50/80 border-purple-200/80' },
           ].map(action => (
             <Link
               key={action.path}
@@ -132,32 +132,32 @@ export function OfficerDashboard() {
         {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           <StatCard
-            label="Total Applications"
+            label={t('officer.totalApplications', 'Total Applications')}
             value={apps.length}
             icon={<ClipboardList size={22} className="text-sky-700" />}
             color="bg-sky-100/80"
-            sub="Assigned Jurisdiction"
+            sub={t('officer.assignedJurisdiction', 'Assigned Jurisdiction')}
           />
           <StatCard
             label={t('officer.pendingVerification')}
             value={pending}
             icon={<CheckSquare size={22} className="text-amber-700" />}
             color="bg-amber-100/80"
-            sub={review > 0 ? `${review} awaiting sign-off` : "In Queue"}
+            sub={review > 0 ? `${review} ${t('officer.awaitingSignOff', 'awaiting sign-off')}` : t('officer.inQueue', 'In Queue')}
           />
           <StatCard
             label={t('officer.approved')}
             value={approved}
             icon={<ThumbsUp size={22} className="text-emerald-700" />}
             color="bg-emerald-100/80"
-            sub="Digitally Endorsed"
+            sub={t('officer.digitallyEndorsed', 'Digitally Endorsed')}
           />
           <StatCard
             label={t('officer.rejected')}
             value={rejected}
             icon={<ThumbsDown size={22} className="text-rose-700" />}
             color="bg-rose-100/80"
-            sub={unread > 0 ? `${unread} statutory alerts` : "Disposed"}
+            sub={unread > 0 ? `${unread} ${t('officer.statutoryAlerts', 'statutory alerts')}` : t('officer.disposed', 'Disposed')}
           />
         </div>
 
@@ -177,7 +177,7 @@ export function OfficerDashboard() {
                 {t('officer.statutoryRoster', 'Statutory Applications Roster')}
               </h3>
               <p className="text-xs text-slate-500">
-                Land governance requests queued for officer verification & decision
+                {t('officer.queuedSubtitle', 'Land governance requests queued for officer verification & decision')}
               </p>
             </div>
             <Link
@@ -194,7 +194,7 @@ export function OfficerDashboard() {
               <ClipboardList size={40} className="text-slate-300 mx-auto mb-2" />
               <p className="text-sm font-bold text-slate-700">{t('dashboard.allUpToDate', 'All Files Up to Date')}</p>
               <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                No applications currently pending your statutory action in {officer?.jurisdictionMandal?.split('-').pop() || 'your jurisdiction'}.
+                {t('officer.noAppsInQueue', 'No applications found in this queue')}
               </p>
             </div>
           ) : (
