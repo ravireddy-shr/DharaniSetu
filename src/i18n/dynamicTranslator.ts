@@ -1,7 +1,7 @@
 /**
  * DharaniSetu Future-Proof Dynamic Auto-Translation Engine
- * Automatically intercepts and translates UI phrases, status labels, metrics, and land governance terms
- * into Telugu, Tamil, and Hindi even if a hardcoded string or missing translation key is added in the future.
+ * Automatically intercepts and translates UI phrases, notifications, status labels, metrics, and land governance terms
+ * into Telugu, Tamil, and Hindi even if a hardcoded string or dynamic notification is passed.
  */
 
 export type SupportedLanguage = 'en' | 'te' | 'ta' | 'hi';
@@ -13,6 +13,46 @@ export interface TranslationDict {
 }
 
 export const DYNAMIC_GLOSSARY: Record<string, TranslationDict> = {
+  // Notifications Titles & Buttons
+  'Notifications': { te: 'నోటిఫికేషన్లు', ta: 'அறிவிப்புகள்', hi: 'सूचनाएं' },
+  'Real-time statutory status updates, revenue officer notices, and verification alerts': {
+    te: 'తాజా చట్టబద్ధమైన స్థితి సమాచారం, రెవెన్యూ అధికారుల నోటీసులు మరియు పరిశీలన హెచ్చరికలు',
+    ta: 'நேரலை சட்டப்பூர்வ நிலை புதுப்பிப்புகள், வருவாய் அலுவலர் அறிவிப்புகள் மற்றும் சரிபார்ப்பு விழிப்பூட்டல்கள்',
+    hi: 'वास्तविक समय वैधानिक स्थिति अपडेट, राजस्व अधिकारी नोटिस और सत्यापन अलर्ट'
+  },
+  'Department assignments, application routing alerts, and statutory notices': {
+    te: 'శాఖల కేటాయింపులు, దరఖాస్తు రూటింగ్ హెచ్చరికలు మరియు చట్టబద్ధమైన నోటీసులు',
+    ta: 'துறை ஒதுக்கீடுகள், விண்ணப்ப வழித்தட எச்சரிக்கைகள் மற்றும் சட்டரீதியான அறிவிப்புகள்',
+    hi: 'विभाग आवंटन, आवेदन रूटिंग अलर्ट और वैधानिक नोटिस'
+  },
+  'Mark all as read': { te: 'అన్నీ చదివినట్లు గుర్తించు', ta: 'அனைத்தையும் படித்ததாகக் குறிக்கவும்', hi: 'सभी को पढ़ा हुआ चिह्नित करें' },
+  'Mark as read': { te: 'చదివినట్లు గుర్తించు', ta: 'படித்ததாகக் குறிக்கவும்', hi: 'पढ़ा हुआ चिह्नित करें' },
+  'All caught up': { te: 'అన్ని నోటిఫికేషన్లు పూర్తయ్యాయి', ta: 'அனைத்தும் புதுப்பிக்கப்பட்டது', hi: 'सब अद्यतित हैं' },
+  'No Notifications Yet': { te: 'ఇంకా నోటిఫికేషన్లు ఏవీ లేవు', ta: 'இதுவரை அறிவிப்புகள் இல்லை', hi: 'अभी तक कोई सूचना नहीं है' },
+  'No notifications yet': { te: 'ఇంకా నోటిఫికేషన్లు ఏవీ లేవు', ta: 'இதுவரை அறிவிப்புகள் இல்லை', hi: 'अभी तक कोई सूचना नहीं है' },
+  'View Application Details': { te: 'దరఖాస్తు వివరాలను చూడండి', ta: 'விண்ணப்ப விவரங்களைப் பார்க்கவும்', hi: 'आवेदन विवरण देखें' },
+  'Open Application': { te: 'దరఖాస్తును తెరవండి', ta: 'விண்ணப்பத்தைத் திறக்கவும்', hi: 'आवेदन खोलें' },
+  'Application Fully Approved & Certified': {
+    te: 'దరఖాస్తు పూర్తిగా ఆమోదించబడింది & ధృవీకరించబడింది',
+    ta: 'விண்ணப்பம் முழுமையாக அங்கீகரிக்கப்பட்டு சான்றளிக்கப்பட்டது',
+    hi: 'आवेदन पूर्णतः स्वीकृत और प्रमाणित'
+  },
+  'Land Ownership Proof Document Issued': {
+    te: 'భూ యాజమాన్య ధృవీకరణ పత్రం జారీ చేయబడింది',
+    ta: 'நில உரிமைச் சான்று ஆவணம் வழங்கப்பட்டது',
+    hi: 'भूमि स्वामित्व प्रमाण पत्र जारी किया गया'
+  },
+  'Application Submitted': {
+    te: 'దరఖాస్తు విజయవంతంగా సమర్పించబడింది',
+    ta: 'விண்ணப்பம் சமர்ப்பிக்கப்பட்டது',
+    hi: 'आवेदन सफलतापूर्वक जमा किया गया'
+  },
+  'New Statutory Application Assigned': {
+    te: 'కొత్త చట్టబద్ధమైన దరఖాస్తు కేటాయించబడింది',
+    ta: 'புதிய சட்டரீதியான விண்ணப்பம் ஒதுக்கப்பட்டது',
+    hi: 'नया वैधानिक आवेदन आवंटित किया गया'
+  },
+
   // Land Categories & Portfolios
   'Farming Land': { te: 'వ్యవసాయ భూమి', ta: 'விவசாய நிலம்', hi: 'कृषि भूमि' },
   '🌾 Farming Land': { te: '🌾 వ్యవసాయ భూమి', ta: '🌾 விவசாய நிலம்', hi: '🌾 कृषि भूमि' },
@@ -134,12 +174,31 @@ export const DYNAMIC_GLOSSARY: Record<string, TranslationDict> = {
   'No registered landholdings found matching your filter or profile.': { te: 'మీ శోధనకు లేదా ఖాతాకు సరిపోలే భూమి రికార్డులేవీ కనుగొనబడలేదు.', ta: 'உங்கள் தேடலுக்கு அல்லது கணக்கிற்குப் பொருந்தும் நிலப் பதிவுகள் எதுவும் கிடைக்கவில்லை.', hi: 'आपके फिल्टर या प्रोफाइल से मेल खाने वाले कोई भूमि रिकॉर्ड नहीं मिले।' },
   'You currently have no active land service requests. Start an application to begin.': { te: 'మీకు ప్రస్తుతం ఎటువంటి పెండింగ్ దరఖాస్తులు లేవు. సేవను ప్రారంభించడానికి దరఖాస్తు చేయండి.', ta: 'தற்போது நிலுவையில் உள்ள விண்ணப்பங்கள் எதுவும் இல்லை. புதிய விண்ணப்பத்தை தொடங்கவும்.', hi: 'वर्तमान में आपके पास कोई सक्रिय सेवा अनुरोध नहीं है। शुरू करने के लिए आवेदन करें।' },
   'Search by Token ID, Citizen Name, Survey Number, or Service...': { te: 'టోకెన్ ఐడీ, పౌరుడి పేరు, సర్వే నంబర్ లేదా సేవ ద్వారా శోధించండి...', ta: 'டோக்கன் ஐடி, குடிமகன் பெயர், சர்வே எண் அல்லது சேவை மூலம் தேடவும்...', hi: 'टोकन आईडी, नागरिक का नाम, सर्वेक्षण संख्या, या सेवा द्वारा खोजें...' },
-  'Search survey no, ULPIN, village, owner...': { te: 'సర్వే నంబర్, ULPIN, గ్రామం, యజమాని పేరుతో శోధించండి...', ta: 'சர்வே எண், ULPIN, கிராமம், உரிமையாளர் மூலம் தேடவும்...', hi: 'सर्वेक्षण संख्या, ULPIN, गांव, मालिक द्वारा खोजें...' },
+  'Search survey no, ULPIN, village, owner...': { te: 'సర్వే నంబర్, ULPIN, గ్రామం, యజమాని పేరుతో శోధించండి...', ta: 'సర్వే எண், ULPIN, கிராமம், உரிமையாளர் மூலம் தேடவும்...', hi: 'सर्वेक्षण संख्या, ULPIN, गांव, मालिक द्वारा खोजें...' },
+};
+
+const DEPT_MAP: Record<string, TranslationDict> = {
+  'Survey': { te: 'సర్వే విభాగం', ta: 'நில அளவைத் துறை', hi: 'सर्वेक्षण विभाग' },
+  'Revenue': { te: 'రెవెన్యూ విభాగం', ta: 'வருவாய்த் துறை', hi: 'राजस्व विभाग' },
+  'Tahsildar': { te: 'తహశీల్దార్', ta: 'வட்டாட்சியர்', hi: 'तहसीलदार' },
+  'Town Planning': { te: 'పట్టణ ప్రణాళికా విభాగం', ta: 'நகர திட்டமிடல் துறை', hi: 'नगर नियोजन विभाग' },
+  'Registration': { te: 'రిజిస్ట్రేషన్ శాఖ', ta: 'பத்திரப்பதிவுத் துறை', hi: 'पंजीकरण विभाग' }
+};
+
+const STATUS_MAP: Record<string, TranslationDict> = {
+  'OFFICER REVIEW': { te: 'అధికారి తుది పరిశీలన', ta: 'அதிகாரி மறுஆய்வு', hi: 'अधिकारी समीक्षा' },
+  'FIELD VERIFICATION': { te: 'క్షేత్రస్థాయి విచారణ', ta: 'கள ஆய்வு', hi: 'क्षेत्र सत्यापन' },
+  'GIS VERIFICATION': { te: 'జీఐఎస్ మ్యాప్ పరిశీలన', ta: 'GIS சரிபார்ப்பு', hi: 'जीआईएस सत्यापन' },
+  'DOCUMENT_VERIFICATION': { te: 'పత్రాల పరిశీలన', ta: 'ஆவண சரிபார்ப்பு', hi: 'दस्तावेज़ सत्यापन' },
+  'APPROVED': { te: 'ఆమోదించబడింది', ta: 'ஒப்புதல் அளிக்கப்பட்டது', hi: 'स्वीकृत' },
+  'REJECTED': { te: 'తిరస్కరించబడింది', ta: 'நிராகரிக்கப்பட்டது', hi: 'अस्वीकृत' },
+  'COMPLETED': { te: 'పూర్తయింది', ta: 'முடிவடைந்தது', hi: 'पूर्ण' },
+  'SUBMITTED': { te: 'సమర్పించబడింది', ta: 'சமர்ப்பிக்கப்பட்டது', hi: 'जमा किया गया' }
 };
 
 /**
  * Universal dynamic translation function.
- * Matches exact phrase, case-insensitive, or parses composite templates.
+ * Matches exact phrases, case-insensitive matches, or parses notifications and templates.
  */
 export function translateDynamic(text: string, lng: SupportedLanguage): string {
   if (!text || lng === 'en') return text;
@@ -159,7 +218,187 @@ export function translateDynamic(text: string, lng: SupportedLanguage): string {
     }
   }
 
-  // 3. Composite pattern translation (e.g. "5.53 Acres", "2400 sq.ft", "Survey #101")
+  // 3. Notification Titles: "Approved by {dept}"
+  const approvedByMatch = trimmed.match(/^Approved by (.+)$/i);
+  if (approvedByMatch) {
+    const dept = approvedByMatch[1].trim();
+    const locDept = (DEPT_MAP[dept] && DEPT_MAP[dept][lng]) || dept;
+    if (lng === 'te') return `${locDept} ద్వారా ఆమోదించబడింది`;
+    if (lng === 'ta') return `${locDept} மூலம் அங்கீகரிக்கப்பட்டது`;
+    if (lng === 'hi') return `${locDept} द्वारा स्वीकृत`;
+  }
+
+  // Notification Titles: "Action Required by {dept}"
+  const actionReqMatch = trimmed.match(/^Action Required by (.+)$/i);
+  if (actionReqMatch) {
+    const dept = actionReqMatch[1].trim();
+    const locDept = (DEPT_MAP[dept] && DEPT_MAP[dept][lng]) || dept;
+    if (lng === 'te') return `${locDept} ద్వారా చర్య అవసరం`;
+    if (lng === 'ta') return `${locDept} மூலம் நடவடிக்கை தேவை`;
+    if (lng === 'hi') return `${locDept} द्वारा कार्रवाई अपेक्षित`;
+  }
+
+  // Notification Titles: "Application Rejected by {dept}"
+  const appRejMatch = trimmed.match(/^Application Rejected by (.+)$/i);
+  if (appRejMatch) {
+    const dept = appRejMatch[1].trim();
+    const locDept = (DEPT_MAP[dept] && DEPT_MAP[dept][lng]) || dept;
+    if (lng === 'te') return `${locDept} ద్వారా దరఖాస్తు తిరస్కరించబడింది`;
+    if (lng === 'ta') return `${locDept} மூலம் விண்ணப்பம் நிராகரிக்கப்பட்டது`;
+    if (lng === 'hi') return `${locDept} द्वारा आवेदन अस्वीकृत`;
+  }
+
+  // Notification Titles: "Application {STATUS}"
+  const appStatusMatch = trimmed.match(/^Application ([A-Z_ ]+)$/);
+  if (appStatusMatch) {
+    const st = appStatusMatch[1].trim();
+    const locStatus = (STATUS_MAP[st] && STATUS_MAP[st][lng]) || st;
+    if (lng === 'te') return `దరఖాస్తు: ${locStatus}`;
+    if (lng === 'ta') return `விண்ணப்பம்: ${locStatus}`;
+    if (lng === 'hi') return `आवेदन: ${locStatus}`;
+  }
+
+  // Notification Titles: "New Case File Forwarded to {dept}"
+  const forwardMatch = trimmed.match(/^New Case File Forwarded to (.+)$/i);
+  if (forwardMatch) {
+    const dept = forwardMatch[1].trim();
+    const locDept = (DEPT_MAP[dept] && DEPT_MAP[dept][lng]) || dept;
+    if (lng === 'te') return `${locDept} విభాగానికి కొత్త ఫైల్ పంపబడింది`;
+    if (lng === 'ta') return `${locDept} துறைக்கு புதிய கோப்பு அனுப்பப்பட்டது`;
+    if (lng === 'hi') return `${locDept} को नई केस फाइल भेजी गई`;
+  }
+
+  // 4. Notification Messages: Pattern A: "Your application {token} status has been updated to: {status}. {rest}"
+  const matchA = trimmed.match(/^Your application\s+([\w-]+)\s+status has been updated to:\s*([^.]+)\.\s*(.*)$/i);
+  if (matchA) {
+    const token = matchA[1];
+    const status = matchA[2].trim();
+    const rest = matchA[3].trim();
+    const locStatus = (STATUS_MAP[status] && STATUS_MAP[status][lng]) || status;
+
+    let locRest = rest;
+    if (rest.startsWith('Field verification completed by')) {
+      const by = rest.replace('Field verification completed by', '').trim();
+      if (lng === 'te') locRest = `క్షేత్రస్థాయి పరిశీలన ${by} ద్వారా పూర్తయింది.`;
+      if (lng === 'ta') locRest = `கள ஆய்வு ${by} மூலம் முடிக்கப்பட்டது.`;
+      if (lng === 'hi') locRest = `क्षेत्र सत्यापन ${by} द्वारा पूरा किया गया।`;
+    } else if (rest.startsWith('Officer statutory review completed by')) {
+      const by = rest.replace('Officer statutory review completed by', '').trim();
+      if (lng === 'te') locRest = `అధికారి చట్టబద్ధమైన సమీక్ష ${by} ద్వారా పూర్తయింది.`;
+      if (lng === 'ta') locRest = `அதிகாரி சட்டரீதியான மறுஆய்வு ${by} மூலம் முடிக்கப்பட்டது.`;
+      if (lng === 'hi') locRest = `अधिकारी वैधानिक समीक्षा ${by} द्वारा पूरी की गई।`;
+    }
+
+    if (lng === 'te') return `మీ దరఖాస్తు ${token} స్థితి '${locStatus}' కు నవీకరించబడింది. ${locRest}`;
+    if (lng === 'ta') return `உங்கள் விண்ணப்பம் ${token} நிலை '${locStatus}' என மாற்றப்பட்டது. ${locRest}`;
+    if (lng === 'hi') return `आपके आवेदन ${token} की स्थिति बदलकर '${locStatus}' कर दी गई है। ${locRest}`;
+  }
+
+  // Pattern B: "Final Statutory Clearance granted by {officer}. Order issued and land record synchronized. Remarks: {remarks}"
+  const matchB = trimmed.match(/^Final Statutory Clearance granted by\s+(.+?)\.\s*Order issued and land record synchronized\.\s*Remarks:\s*(.*)$/i);
+  if (matchB) {
+    const officer = matchB[1].trim();
+    const remarks = matchB[2].trim();
+    if (lng === 'te') return `${officer} ద్వారా తుది చట్టబద్ధమైన ఆమోదం లభించింది. ఉత్తర్వు జారీ చేయబడింది మరియు భూమి రికార్డు నవీకరించబడింది. వివరాలు: ${remarks}`;
+    if (lng === 'ta') return `${officer} மூலம் இறுதி சட்டப்பூர்வ அனுமதி வழங்கப்பட்டது. இறுதி ஆணை பிறப்பிக்கப்பட்டு நிலப் பதிவு ஒத்திசைக்கப்பட்டது. குறிப்பு: ${remarks}`;
+    if (lng === 'hi') return `${officer} द्वारा अंतिम वैधानिक स्वीकृति प्रदान की गई। अंतिम आदेश जारी किया गया और भूमि रिकॉर्ड समन्वयित किया गया। विवरण: ${remarks}`;
+  }
+
+  // Pattern C: "Approved by {dept} ({officer}) and transferred to {nextDept} ({nextOfficer}). Remarks: {remarks}"
+  const matchC = trimmed.match(/^Approved by\s+(.+?)\s+and transferred to\s+(.+?)\.\s*Remarks:\s*(.*)$/i);
+  if (matchC) {
+    const from = matchC[1].trim();
+    const to = matchC[2].trim();
+    const remarks = matchC[3].trim();
+    if (lng === 'te') return `${from} ద్వారా ఆమోదించబడి ${to} కు బదిలీ చేయబడింది. వివరాలు: ${remarks}`;
+    if (lng === 'ta') return `${from} மூலம் அங்கீகரிக்கப்பட்டு ${to} க்கு மாற்றப்பட்டது. குறிப்பு: ${remarks}`;
+    if (lng === 'hi') return `${from} द्वारा स्वीकृत और ${to} को अग्रेशित किया गया। विवरण: ${remarks}`;
+  }
+
+  // Pattern D: "Tahsildar {officer} has finalized your case ({token}). All departments have approved. Your official certified land ownership proof & dispute resolution order is now issued to you."
+  const matchD = trimmed.match(/^Tahsildar\s+(.+?)\s+has finalized your case\s*\(([\w-]+)\)\.\s*All departments have approved\.\s*(.*)$/i);
+  if (matchD) {
+    const officer = matchD[1].trim();
+    const token = matchD[2];
+    if (lng === 'te') return `తహశీల్దార్ ${officer} మీ కేసు (${token}) ను పూర్తి చేశారు. అన్ని శాఖలు ఆమోదించాయి. మీ ధృవీకరించిన భూ యాజమాన్య ఉత్తర్వు జారీ చేయబడింది.`;
+    if (lng === 'ta') return `வட்டாட்சியர் ${officer} உங்கள் வழக்கை (${token}) இறுதி செய்துள்ளார். அனைத்து துறைகளும் ஒப்புதல் அளித்துள்ளன. உங்கள் சான்றளிக்கப்பட்ட நில உரிமை ஆணை வழங்கப்பட்டுள்ளது.`;
+    if (lng === 'hi') return `तहसीलदार ${officer} ने आपके मामले (${token}) को अंतिम रूप दे दिया है। सभी विभागों ने स्वीकृति दे दी है। आपका प्रमाणित भूमि स्वामित्व आदेश जारी कर दिया गया है।`;
+  }
+
+  // Pattern E: "Mark all as read (X)"
+  const markAllMatch = trimmed.match(/^Mark all as read\s*\((\d+)\)$/i);
+  if (markAllMatch) {
+    const count = markAllMatch[1];
+    if (lng === 'te') return `అన్నీ చదివినట్లు గుర్తించు (${count})`;
+    if (lng === 'ta') return `அனைத்தையும் படித்ததாகக் குறிக்கவும் (${count})`;
+    if (lng === 'hi') return `सभी को पढ़ा हुआ चिह्नित करें (${count})`;
+  }
+
+  // Notification Titles: "Discrepancy Scrutiny Decision: {action}"
+  const discDecisionMatch = trimmed.match(/^Discrepancy Scrutiny Decision:\s*(.+)$/i);
+  if (discDecisionMatch) {
+    const act = discDecisionMatch[1].trim();
+    if (lng === 'te') return `వ్యత్యాస పరిశీలన నిర్ణయం: ${act}`;
+    if (lng === 'ta') return `வேறுபாடு ஆய்வு முடிவு: ${act}`;
+    if (lng === 'hi') return `विसंगति संवीक्षा निर्णय: ${act}`;
+  }
+
+  // Pattern G: "Your application {token} has been submitted and assigned to Tahsildar {officer}."
+  const matchSubmit = trimmed.match(/^Your application\s+([\w-]+)\s+has been submitted and assigned to Tahsildar\s+(.+?)\.?$/i);
+  if (matchSubmit) {
+    const token = matchSubmit[1];
+    const officer = matchSubmit[2].trim();
+    if (lng === 'te') return `మీ దరఖాస్తు ${token} సమర్పించబడింది మరియు తహశీల్దార్ ${officer} కు కేటాయించబడింది.`;
+    if (lng === 'ta') return `உங்கள் விண்ணப்பம் ${token} சமர்ப்பிக்கப்பட்டு வட்டாட்சியர் ${officer} அவர்களுக்கு ஒதுக்கப்பட்டுள்ளது.`;
+    if (lng === 'hi') return `आपका आवेदन ${token} जमा कर दिया गया है और तहसीलदार ${officer} को सौंपा गया है।`;
+  }
+
+  // Pattern H: "New application {token} for {service} ({village}, Survey #{survey}) requires your action."
+  const matchAssigned = trimmed.match(/^New application\s+([\w-]+)\s+for\s+(.+?)\s+\((.+?),\s*Survey\s*#?([^)]+)\)\s+requires your action\.?$/i);
+  if (matchAssigned) {
+    const token = matchAssigned[1];
+    const service = matchAssigned[2].trim();
+    const village = matchAssigned[3].trim();
+    const survey = matchAssigned[4].trim();
+    if (lng === 'te') return `కొత్త దరఖాస్తు ${token} (${service}, గ్రామం: ${village}, సర్వే #${survey}) మీ చర్య కోసం వేచి ఉంది.`;
+    if (lng === 'ta') return `புதிய விண்ணப்பம் ${token} (${service}, கிராமம்: ${village}, சர்வே எண் #${survey}) உங்கள் நடவடிக்கைக்காக காத்திருக்கிறது.`;
+    if (lng === 'hi') return `नया आवेदन ${token} (${service}, ग्राम: ${village}, खसरा #${survey}) आपकी कार्रवाई के लिए अपेक्षित है।`;
+  }
+
+  // Pattern I: "Application {token} has been verified by {dept} and is now awaiting {nextDept} review."
+  const matchAwaiting = trimmed.match(/^Application\s+([\w-]+)\s+has been verified by\s+(.+?)\s+and is now awaiting\s+(.+?)\s+review\.?$/i);
+  if (matchAwaiting) {
+    const token = matchAwaiting[1];
+    const dept = matchAwaiting[2].trim();
+    const nextDept = matchAwaiting[3].trim();
+    const locDept = (DEPT_MAP[dept] && DEPT_MAP[dept][lng]) || dept;
+    const locNextDept = (DEPT_MAP[nextDept] && DEPT_MAP[nextDept][lng]) || nextDept;
+    if (lng === 'te') return `దరఖాస్తు ${token} ${locDept} ద్వారా పరిశీలించబడింది మరియు ఇప్పుడు ${locNextDept} పరిశీలన కోసం వేచి ఉంది.`;
+    if (lng === 'ta') return `விண்ணப்பம் ${token} ${locDept} மூலம் சரிபார்க்கப்பட்டு இப்போது ${locNextDept} மறுஆய்வுக்காக காத்திருக்கிறது.`;
+    if (lng === 'hi') return `आवेदन ${token} ${locDept} द्वारा सत्यापित किया गया है और अब ${locNextDept} समीक्षा की प्रतीक्षा कर रहा है।`;
+  }
+
+  // Pattern J: "Tahsildar {officer} reviewed the area discrepancy for {token}. {remarks}"
+  const matchDiscRev = trimmed.match(/^Tahsildar\s+(.+?)\s+reviewed the area discrepancy for\s+([\w-]+)\.\s*(.*)$/i);
+  if (matchDiscRev) {
+    const officer = matchDiscRev[1].trim();
+    const token = matchDiscRev[2];
+    const remarks = matchDiscRev[3].trim();
+    if (lng === 'te') return `తహశీల్దార్ ${officer} దరఖాస్తు ${token} కోసం విస్తీర్ణ వ్యత్యాసాన్ని సమీక్షించారు. ${remarks}`;
+    if (lng === 'ta') return `வட்டாட்சியர் ${officer} விண்ணப்பம் ${token} க்கான பரப்பளவு முரண்பாட்டை ஆய்வு செய்தார். ${remarks}`;
+    if (lng === 'hi') return `तहसीलदार ${officer} ने ${token} के लिए क्षेत्रफल विसंगति की समीक्षा की। ${remarks}`;
+  }
+
+  // Pattern F: "Track {token}"
+  const trackMatch = trimmed.match(/^Track\s+([\w-]+)$/i);
+  if (trackMatch) {
+    const token = trackMatch[1];
+    if (lng === 'te') return `${token} ట్రాక్ చేయండి`;
+    if (lng === 'ta') return `${token} கண்காணிக்கவும்`;
+    if (lng === 'hi') return `${token} ट्रैक करें`;
+  }
+
+  // 5. Composite pattern translation (e.g. "5.53 Acres", "2400 sq.ft", "Survey #101")
   const acresMatch = trimmed.match(/^([\d.,]+)\s*Acres$/i);
   if (acresMatch) {
     const val = acresMatch[1];

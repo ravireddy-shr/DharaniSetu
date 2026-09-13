@@ -670,5 +670,20 @@
     "officerSubtitle": "Official administrative credentials and jurisdiction details",
     "citizenSubtitle": "Your verified citizen e-KYC profile, Pattadar passbook, and linked landholdings",
     "eSignReady": "e-Sign Ready"
+  },
+  "notifications": {
+    "title": "Notifications",
+    "citizenSubtitle": "Real-time statutory status updates, revenue officer notices, and verification alerts",
+    "officerSubtitle": "Department assignments, application routing alerts, and statutory notices",
+    "markAllAsRead": "Mark all as read",
+    "markAsRead": "Mark as read",
+    "allCaughtUp": "All caught up",
+    "noNotifications": "No Notifications Yet",
+    "noNotificationsOfficer": "No notifications yet",
+    "citizenEmptyMsg": "You will receive statutory stage updates, DGPS survey schedules, and Tahsildar approvals here.",
+    "officerEmptyMsg": "New applications assigned to your mandal jurisdiction will appear here.",
+    "trackToken": "Track {{token}}",
+    "viewDetails": "View Application Details",
+    "openApplication": "Open Application"
   }
 }

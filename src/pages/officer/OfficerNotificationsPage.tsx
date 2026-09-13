@@ -26,9 +26,9 @@ export function OfficerNotificationsPage() {
     <PageLayout role="officer">
       <DemoBanner />
       <PageHeader
-        title={t('nav.notifications')}
-        subtitle="Department assignments, application routing alerts, and statutory notices"
-        breadcrumb={[{ label: 'Home' }, { label: t('nav.notifications') }]}
+        title={t('nav.notifications', 'Notifications')}
+        subtitle={t('notifications.officerSubtitle', 'Department assignments, application routing alerts, and statutory notices')}
+        breadcrumb={[{ label: t('nav.home', 'Home'), path: '/officer/dashboard' }, { label: t('nav.notifications', 'Notifications') }]}
         action={
           unreadCount > 0 ? (
             <button
@@ -36,7 +36,7 @@ export function OfficerNotificationsPage() {
               className="gov-btn-secondary flex items-center gap-1.5 text-xs"
             >
               <CheckCheck size={14} />
-              <span>Mark all as read</span>
+              <span>{t('notifications.markAllAsRead', 'Mark all as read')} ({unreadCount})</span>
             </button>
           ) : undefined
         }
@@ -46,9 +46,9 @@ export function OfficerNotificationsPage() {
         {notifications.length === 0 ? (
           <div className="gov-card text-center py-12">
             <Bell size={36} className="text-gray-300 mx-auto mb-2" />
-            <p className="text-sm font-semibold text-brand-navy">No notifications yet</p>
+            <p className="text-sm font-semibold text-brand-navy">{t('notifications.noNotificationsOfficer', 'No notifications yet')}</p>
             <p className="text-xs text-brand-muted mt-1">
-              New applications assigned to your mandal jurisdiction will appear here.
+              {t('notifications.officerEmptyMsg', 'New applications assigned to your mandal jurisdiction will appear here.')}
             </p>
           </div>
         ) : (
@@ -73,7 +73,7 @@ export function OfficerNotificationsPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
                     <p className={`text-xs ${!n.isRead ? 'font-bold text-brand-navy' : 'font-semibold text-gray-700'}`}>
-                      {n.title}
+                      {t(n.title)}
                     </p>
                     <span className="text-[10px] text-brand-muted whitespace-nowrap">
                       {formatDate(n.createdAt)}
@@ -81,7 +81,7 @@ export function OfficerNotificationsPage() {
                   </div>
 
                   <p className="text-xs text-gray-600 mt-1 leading-relaxed">
-                    {n.message}
+                    {t(n.message)}
                   </p>
 
                   <div className="flex items-center gap-4 mt-2">
@@ -90,7 +90,7 @@ export function OfficerNotificationsPage() {
                         to={`/officer/applications/${n.applicationId}`}
                         className="text-[11px] text-brand-green font-semibold hover:underline flex items-center gap-1"
                       >
-                        Open Application
+                        {t('notifications.openApplication', 'Open Application')}
                         <ArrowRight size={10} />
                       </Link>
                     )}
@@ -100,7 +100,7 @@ export function OfficerNotificationsPage() {
                         onClick={() => markNotificationRead(n.id)}
                         className="text-[10px] text-brand-muted hover:text-brand-navy ml-auto"
                       >
-                        Mark as read
+                        {t('notifications.markAsRead', 'Mark as read')}
                       </button>
                     )}
                   </div>

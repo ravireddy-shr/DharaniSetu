@@ -22,9 +22,9 @@ export function NotificationsPage() {
     <PageLayout role="citizen">
       <DemoBanner />
       <PageHeader
-        title={t('nav.notifications')}
-        subtitle="Real-time statutory status updates, revenue officer notices, and verification alerts"
-        breadcrumb={[{ label: 'Home', path: '/citizen/dashboard' }, { label: t('nav.notifications') }]}
+        title={t('nav.notifications', 'Notifications')}
+        subtitle={t('notifications.citizenSubtitle', 'Real-time statutory status updates, revenue officer notices, and verification alerts')}
+        breadcrumb={[{ label: t('nav.home', 'Home'), path: '/citizen/dashboard' }, { label: t('nav.notifications', 'Notifications') }]}
         action={
           unreadCount > 0 ? (
             <button
@@ -32,11 +32,11 @@ export function NotificationsPage() {
               className="bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-xs"
             >
               <CheckCheck size={14} />
-              <span>Mark all as read ({unreadCount})</span>
+              <span>{t('notifications.markAllAsRead', 'Mark all as read')} ({unreadCount})</span>
             </button>
           ) : (
             <span className="text-xs font-semibold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">
-              All caught up
+              {t('notifications.allCaughtUp', 'All caught up')}
             </span>
           )
         }
@@ -47,9 +47,9 @@ export function NotificationsPage() {
           {notifications.length === 0 ? (
             <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center shadow-sm">
               <Bell size={40} className="text-slate-300 mx-auto mb-3" />
-              <p className="text-base font-bold text-slate-800">No Notifications Yet</p>
+              <p className="text-base font-bold text-slate-800">{t('notifications.noNotifications', 'No Notifications Yet')}</p>
               <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
-                You will receive statutory stage updates, DGPS survey schedules, and Tahsildar approvals here.
+                {t('notifications.citizenEmptyMsg', 'You will receive statutory stage updates, DGPS survey schedules, and Tahsildar approvals here.')}
               </p>
             </div>
           ) : (
@@ -78,7 +78,7 @@ export function NotificationsPage() {
                     <div className="flex items-center justify-between gap-2 mb-1">
                       <div className="flex items-center gap-2">
                         <p className={`text-sm ${!n.isRead ? 'font-black text-slate-900' : 'font-semibold text-slate-800'}`}>
-                          {n.title}
+                          {t(n.title)}
                         </p>
                         {!n.isRead && (
                           <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
@@ -90,7 +90,7 @@ export function NotificationsPage() {
                     </div>
 
                     <p className="text-xs text-slate-600 leading-relaxed">
-                      {n.message}
+                      {t(n.message)}
                     </p>
 
                     <div className="flex items-center gap-4 mt-3 flex-wrap">
@@ -100,7 +100,7 @@ export function NotificationsPage() {
                           onClick={(e) => { e.stopPropagation(); markNotificationRead(n.id); }}
                           className="text-xs text-emerald-700 hover:text-emerald-800 flex items-center gap-1 font-mono font-bold hover:underline"
                         >
-                          <span>Track {n.tokenNumber}</span>
+                          <span>{t('notifications.trackToken', { token: n.tokenNumber, defaultValue: `Track ${n.tokenNumber}` })}</span>
                           <ExternalLink size={12} />
                         </Link>
                       )}
@@ -111,7 +111,7 @@ export function NotificationsPage() {
                           onClick={(e) => { e.stopPropagation(); markNotificationRead(n.id); }}
                           className="text-xs text-blue-700 hover:text-blue-800 flex items-center gap-1 font-bold hover:underline"
                         >
-                          <span>View Application Details</span>
+                          <span>{t('notifications.viewDetails', 'View Application Details')}</span>
                           <ArrowRight size={12} />
                         </Link>
                       )}
@@ -124,7 +124,7 @@ export function NotificationsPage() {
                           }}
                           className="text-[11px] font-bold text-slate-400 hover:text-slate-700 ml-auto"
                         >
-                          Mark as read
+                          {t('notifications.markAsRead', 'Mark as read')}
                         </button>
                       )}
                     </div>
