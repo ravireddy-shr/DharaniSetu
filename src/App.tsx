@@ -6,6 +6,9 @@ import { ProtectedRoute } from './components/auth/ProtectedRoute';
 import { ToastContainer } from './components/ui/Toast';
 import { LoginPage } from './pages/public/LoginPage';
 import { HomePage } from './pages/public/HomePage';
+import { RouteProgressBar } from './components/layout/RouteProgressBar';
+import { PageTransition } from './components/layout/PageTransition';
+import { RouteLoadingFallback } from './components/common/RouteLoadingFallback';
 import './i18n';
 
 // Public pages
@@ -53,17 +56,6 @@ const AuditLogsPage = lazy(() => import('./pages/admin/AuditLogsPage').then(m =>
 // Shared pages
 const InteroperabilityPage = lazy(() => import('./pages/shared/InteroperabilityPage').then(m => ({ default: m.InteroperabilityPage })));
 
-function LoadingFallback() {
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50">
-      <div className="text-center">
-        <div className="w-8 h-8 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-        <p className="text-xs text-slate-500 font-medium">Loading DharaniSetu...</p>
-      </div>
-    </div>
-  );
-}
-
 export function App() {
   const { isAuthenticated, user } = useAuthStore();
   const syncWithSupabase = useAppStore(state => state.syncWithSupabase);
@@ -74,71 +66,76 @@ export function App() {
 
   return (
     <Router>
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes>
-          {/* Public */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/login" element={
-            isAuthenticated && user
-              ? <Navigate to={
-                  user.role === 'citizen' ? '/citizen/dashboard'
-                  : user.role === 'officer' ? '/officer/dashboard'
-                  : '/admin/dashboard'
-                } replace />
-              : <LoginPage />
-          } />
+      {/* Sleek top loading progress bar on route changes */}
+      <RouteProgressBar />
 
-          {/* Citizen Routes */}
-          <Route path="/citizen/dashboard" element={<ProtectedRoute requiredRole="citizen"><CitizenDashboard /></ProtectedRoute>} />
-          <Route path="/citizen/my-land" element={<ProtectedRoute requiredRole="citizen"><MyLandPage /></ProtectedRoute>} />
-          <Route path="/citizen/gis" element={<ProtectedRoute requiredRole="citizen"><GISPage /></ProtectedRoute>} />
-          <Route path="/citizen/services" element={<ProtectedRoute requiredRole="citizen"><ServicesPage /></ProtectedRoute>} />
-          <Route path="/citizen/apply" element={<ProtectedRoute requiredRole="citizen"><ApplicationFormPage /></ProtectedRoute>} />
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <PageTransition>
+          <Routes>
+            {/* Public */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/login" element={
+              isAuthenticated && user
+                ? <Navigate to={
+                    user.role === 'citizen' ? '/citizen/dashboard'
+                    : user.role === 'officer' ? '/officer/dashboard'
+                    : '/admin/dashboard'
+                  } replace />
+                : <LoginPage />
+            } />
 
-          {/* Dedicated Individual Service Routes */}
-          <Route path="/citizen/apply/registration" element={<ProtectedRoute requiredRole="citizen"><RegistrationApplicationPage /></ProtectedRoute>} />
-          <Route path="/citizen/apply/mutation" element={<ProtectedRoute requiredRole="citizen"><MutationApplicationPage /></ProtectedRoute>} />
-          <Route path="/citizen/apply/conversion" element={<ProtectedRoute requiredRole="citizen"><ConversionApplicationPage /></ProtectedRoute>} />
-          <Route path="/citizen/apply/building" element={<ProtectedRoute requiredRole="citizen"><BuildingApplicationPage /></ProtectedRoute>} />
-          <Route path="/citizen/apply/survey" element={<ProtectedRoute requiredRole="citizen"><SurveyApplicationPage /></ProtectedRoute>} />
-          <Route path="/citizen/apply/grievance" element={<ProtectedRoute requiredRole="citizen"><GrievanceApplicationPage /></ProtectedRoute>} />
-          <Route path="/citizen/apply/correction" element={<ProtectedRoute requiredRole="citizen"><CorrectionApplicationPage /></ProtectedRoute>} />
-          <Route path="/citizen/apply/certificates" element={<ProtectedRoute requiredRole="citizen"><CertificatesApplicationPage /></ProtectedRoute>} />
+            {/* Citizen Routes */}
+            <Route path="/citizen/dashboard" element={<ProtectedRoute requiredRole="citizen"><CitizenDashboard /></ProtectedRoute>} />
+            <Route path="/citizen/my-land" element={<ProtectedRoute requiredRole="citizen"><MyLandPage /></ProtectedRoute>} />
+            <Route path="/citizen/gis" element={<ProtectedRoute requiredRole="citizen"><GISPage /></ProtectedRoute>} />
+            <Route path="/citizen/services" element={<ProtectedRoute requiredRole="citizen"><ServicesPage /></ProtectedRoute>} />
+            <Route path="/citizen/apply" element={<ProtectedRoute requiredRole="citizen"><ApplicationFormPage /></ProtectedRoute>} />
 
-          <Route path="/citizen/applications" element={<ProtectedRoute requiredRole="citizen"><ApplicationsPage /></ProtectedRoute>} />
-          <Route path="/citizen/applications/:id" element={<ProtectedRoute requiredRole="citizen"><ApplicationDetailPage /></ProtectedRoute>} />
-          <Route path="/citizen/track" element={<ProtectedRoute requiredRole="citizen"><TrackApplicationPage /></ProtectedRoute>} />
-          <Route path="/citizen/notifications" element={<ProtectedRoute requiredRole="citizen"><NotificationsPage /></ProtectedRoute>} />
-          <Route path="/citizen/documents" element={<ProtectedRoute requiredRole="citizen"><DocumentsPage /></ProtectedRoute>} />
-          <Route path="/citizen/profile" element={<ProtectedRoute requiredRole="citizen"><CitizenProfilePage /></ProtectedRoute>} />
+            {/* Dedicated Individual Service Routes */}
+            <Route path="/citizen/apply/registration" element={<ProtectedRoute requiredRole="citizen"><RegistrationApplicationPage /></ProtectedRoute>} />
+            <Route path="/citizen/apply/mutation" element={<ProtectedRoute requiredRole="citizen"><MutationApplicationPage /></ProtectedRoute>} />
+            <Route path="/citizen/apply/conversion" element={<ProtectedRoute requiredRole="citizen"><ConversionApplicationPage /></ProtectedRoute>} />
+            <Route path="/citizen/apply/building" element={<ProtectedRoute requiredRole="citizen"><BuildingApplicationPage /></ProtectedRoute>} />
+            <Route path="/citizen/apply/survey" element={<ProtectedRoute requiredRole="citizen"><SurveyApplicationPage /></ProtectedRoute>} />
+            <Route path="/citizen/apply/grievance" element={<ProtectedRoute requiredRole="citizen"><GrievanceApplicationPage /></ProtectedRoute>} />
+            <Route path="/citizen/apply/correction" element={<ProtectedRoute requiredRole="citizen"><CorrectionApplicationPage /></ProtectedRoute>} />
+            <Route path="/citizen/apply/certificates" element={<ProtectedRoute requiredRole="citizen"><CertificatesApplicationPage /></ProtectedRoute>} />
 
-          {/* Officer Routes */}
-          <Route path="/officer/dashboard" element={<ProtectedRoute requiredRole="officer"><OfficerDashboard /></ProtectedRoute>} />
-          <Route path="/officer/applications" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationsPage /></ProtectedRoute>} />
-          <Route path="/officer/applications/:id" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationDetailPage /></ProtectedRoute>} />
-          <Route path="/officer/pending" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationsPage /></ProtectedRoute>} />
-          <Route path="/officer/approvals" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationsPage /></ProtectedRoute>} />
-          <Route path="/officer/completed" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationsPage /></ProtectedRoute>} />
-          <Route path="/officer/gis" element={<ProtectedRoute requiredRole="officer"><OfficerGISPage /></ProtectedRoute>} />
-          <Route path="/officer/interoperability" element={<ProtectedRoute requiredRole="officer"><InteroperabilityPage /></ProtectedRoute>} />
-          <Route path="/officer/notifications" element={<ProtectedRoute requiredRole="officer"><OfficerNotificationsPage /></ProtectedRoute>} />
-          <Route path="/officer/profile" element={<ProtectedRoute requiredRole="officer"><CitizenProfilePage /></ProtectedRoute>} />
+            <Route path="/citizen/applications" element={<ProtectedRoute requiredRole="citizen"><ApplicationsPage /></ProtectedRoute>} />
+            <Route path="/citizen/applications/:id" element={<ProtectedRoute requiredRole="citizen"><ApplicationDetailPage /></ProtectedRoute>} />
+            <Route path="/citizen/track" element={<ProtectedRoute requiredRole="citizen"><TrackApplicationPage /></ProtectedRoute>} />
+            <Route path="/citizen/notifications" element={<ProtectedRoute requiredRole="citizen"><NotificationsPage /></ProtectedRoute>} />
+            <Route path="/citizen/documents" element={<ProtectedRoute requiredRole="citizen"><DocumentsPage /></ProtectedRoute>} />
+            <Route path="/citizen/profile" element={<ProtectedRoute requiredRole="citizen"><CitizenProfilePage /></ProtectedRoute>} />
 
-          {/* Admin Routes */}
-          <Route path="/admin/dashboard" element={<ProtectedRoute requiredRole="admin"><AdminDashboard /></ProtectedRoute>} />
-          <Route path="/admin/users" element={<ProtectedRoute requiredRole="admin"><AdminUsersPage /></ProtectedRoute>} />
-          <Route path="/admin/officers" element={<ProtectedRoute requiredRole="admin"><OfficerManagementPage /></ProtectedRoute>} />
-          <Route path="/admin/jurisdictions" element={<ProtectedRoute requiredRole="admin"><JurisdictionManagementPage /></ProtectedRoute>} />
-          <Route path="/admin/services" element={<ProtectedRoute requiredRole="admin"><ServiceManagementPage /></ProtectedRoute>} />
-          <Route path="/admin/applications" element={<ProtectedRoute requiredRole="admin"><AdminApplicationsPage /></ProtectedRoute>} />
-          <Route path="/admin/audit" element={<ProtectedRoute requiredRole="admin"><AuditLogsPage /></ProtectedRoute>} />
-          <Route path="/admin/gis" element={<ProtectedRoute requiredRole="admin"><OfficerGISPage /></ProtectedRoute>} />
-          <Route path="/admin/interoperability" element={<ProtectedRoute requiredRole="admin"><InteroperabilityPage /></ProtectedRoute>} />
+            {/* Officer Routes */}
+            <Route path="/officer/dashboard" element={<ProtectedRoute requiredRole="officer"><OfficerDashboard /></ProtectedRoute>} />
+            <Route path="/officer/applications" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationsPage /></ProtectedRoute>} />
+            <Route path="/officer/applications/:id" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationDetailPage /></ProtectedRoute>} />
+            <Route path="/officer/pending" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationsPage /></ProtectedRoute>} />
+            <Route path="/officer/approvals" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationsPage /></ProtectedRoute>} />
+            <Route path="/officer/completed" element={<ProtectedRoute requiredRole="officer"><OfficerApplicationsPage /></ProtectedRoute>} />
+            <Route path="/officer/gis" element={<ProtectedRoute requiredRole="officer"><OfficerGISPage /></ProtectedRoute>} />
+            <Route path="/officer/interoperability" element={<ProtectedRoute requiredRole="officer"><InteroperabilityPage /></ProtectedRoute>} />
+            <Route path="/officer/notifications" element={<ProtectedRoute requiredRole="officer"><OfficerNotificationsPage /></ProtectedRoute>} />
+            <Route path="/officer/profile" element={<ProtectedRoute requiredRole="officer"><CitizenProfilePage /></ProtectedRoute>} />
 
-          {/* Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+            {/* Admin Routes */}
+            <Route path="/admin/dashboard" element={<ProtectedRoute requiredRole="admin"><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/users" element={<ProtectedRoute requiredRole="admin"><AdminUsersPage /></ProtectedRoute>} />
+            <Route path="/admin/officers" element={<ProtectedRoute requiredRole="admin"><OfficerManagementPage /></ProtectedRoute>} />
+            <Route path="/admin/jurisdictions" element={<ProtectedRoute requiredRole="admin"><JurisdictionManagementPage /></ProtectedRoute>} />
+            <Route path="/admin/services" element={<ProtectedRoute requiredRole="admin"><ServiceManagementPage /></ProtectedRoute>} />
+            <Route path="/admin/applications" element={<ProtectedRoute requiredRole="admin"><AdminApplicationsPage /></ProtectedRoute>} />
+            <Route path="/admin/audit" element={<ProtectedRoute requiredRole="admin"><AuditLogsPage /></ProtectedRoute>} />
+            <Route path="/admin/gis" element={<ProtectedRoute requiredRole="admin"><OfficerGISPage /></ProtectedRoute>} />
+            <Route path="/admin/interoperability" element={<ProtectedRoute requiredRole="admin"><InteroperabilityPage /></ProtectedRoute>} />
+
+            {/* Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </PageTransition>
       </Suspense>
       <ToastContainer />
     </Router>
