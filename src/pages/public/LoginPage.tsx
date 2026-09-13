@@ -240,48 +240,6 @@ export function LoginPage() {
           </div>
         </form>
 
-        {/* Quick Farmer 1-Click Logins */}
-        <div className="w-full mt-5 pt-4 border-t border-slate-200/80">
-          <p className="text-xs font-bold text-slate-700 uppercase tracking-wider text-center mb-2.5 flex items-center justify-center gap-1.5">
-            <span>🌾</span>
-            <span>Quick Demo Logins (1 Login Per Farmer):</span>
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => {
-                setUserId('m.subba.reddy@farmer.dharanisetu.in');
-                setPassword('farmer123');
-                setError('');
-                toast('info', 'Credentials Loaded', 'Loaded credentials for M. Subba Reddy (3 Lands). Click LOGIN to continue.');
-              }}
-              className="p-2.5 bg-emerald-50/70 hover:bg-emerald-100 text-emerald-950 rounded-2xl border border-emerald-200/80 text-xs font-bold text-left transition-all flex flex-col group shadow-2xs"
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 group-hover:text-emerald-800">M. Subba Reddy</span>
-                <span className="text-[10px] bg-emerald-200/80 text-emerald-900 px-1.5 py-0.2 rounded font-mono font-bold">3 Lands</span>
-              </div>
-              <span className="text-[10px] text-emerald-700 font-mono mt-0.5">2.04 Ac · Surveys 102/C, 114/C, 126/C</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => {
-                setUserId('k.venkata.rao@farmer.dharanisetu.in');
-                setPassword('farmer123');
-                setError('');
-                toast('info', 'Credentials Loaded', 'Loaded credentials for K. Venkata Rao (3 Lands). Click LOGIN to continue.');
-              }}
-              className="p-2.5 bg-emerald-50/70 hover:bg-emerald-100 text-emerald-950 rounded-2xl border border-emerald-200/80 text-xs font-bold text-left transition-all flex flex-col group shadow-2xs"
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-slate-900 group-hover:text-emerald-800">K. Venkata Rao</span>
-                <span className="text-[10px] bg-emerald-200/80 text-emerald-900 px-1.5 py-0.2 rounded font-mono font-bold">3 Lands</span>
-              </div>
-              <span className="text-[10px] text-emerald-700 font-mono mt-0.5">5.53 Ac · Surveys 101/B, 113/B, 125/B</span>
-            </button>
-          </div>
-        </div>
 
         {/* Directory & Help links below the login button */}
         <div className="mt-4 flex flex-col items-center gap-2 text-center w-full">
