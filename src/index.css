@@ -124,7 +124,7 @@
     @apply flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-base font-medium text-slate-700 hover:bg-slate-100 hover:text-[#115E59] transition-colors cursor-pointer;
   }
   .sidebar-item.active {
-    @apply bg-[#F0FDFA] text-[#115E59] font-bold border-l-4 border-[#115E59] shadow-xs pl-3;
+    @apply bg-[#F0FDFA] text-[#115E59] font-bold border-l-4 border-[#115E59] shadow-sm pl-3;
   }
 }
 
