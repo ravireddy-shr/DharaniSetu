@@ -395,7 +395,7 @@ export function GISExplorer({
   };
 
   return (
-    <div className="relative bg-slate-900 rounded-xl overflow-hidden border border-slate-300 font-sans shadow-panel" style={{ height }}>
+    <div className="relative isolate z-0 bg-slate-900 rounded-xl overflow-hidden border border-slate-300 font-sans shadow-panel" style={{ height }}>
       {/* Top Search Toolbar */}
       {showSearch && (
         <div className="absolute top-4 left-4 right-4 md:right-auto md:w-96 z-[400] flex gap-2">

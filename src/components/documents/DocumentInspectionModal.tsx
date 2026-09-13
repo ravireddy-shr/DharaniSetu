@@ -57,7 +57,7 @@ export function DocumentInspectionModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 md:p-6 animate-in fade-in duration-150">
+    <div className="fixed inset-0 z-[100] overflow-y-auto bg-slate-950/80 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 md:p-6 animate-in fade-in duration-150">
       {/* Container Dialog */}
       <div className="bg-white rounded-3xl border border-slate-300 shadow-2xl w-full max-w-5xl overflow-hidden flex flex-col h-[92vh] max-h-[900px]">
         

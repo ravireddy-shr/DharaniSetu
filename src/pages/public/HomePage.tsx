@@ -311,7 +311,7 @@ export function HomePage() {
           </div>
 
           {/* Embedded Satellite Map with Side Land Info Panel */}
-          <div className="rounded-2xl shadow-xl overflow-hidden border border-slate-300">
+          <div className="rounded-2xl shadow-xl overflow-hidden border border-slate-300 relative isolate z-0">
             <GISExplorer height="560px" showSearch={true} showLayerToggle={true} />
           </div>
         </div>

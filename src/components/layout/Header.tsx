@@ -68,7 +68,7 @@ export function Header({ onMenuToggle }: HeaderProps) {
     : 'English';
 
   return (
-    <header className="bg-[#1D0A69] border-b border-[#2A158A] text-white shadow-md sticky top-0 z-40 h-16 flex items-center font-sans">
+    <header className="bg-[#1D0A69] border-b border-[#2A158A] text-white shadow-md sticky top-0 z-50 h-16 flex items-center font-sans">
       <div className="flex items-center justify-between px-4 sm:px-6 h-full w-full max-w-7xl mx-auto">
         {/* Left: Mobile Menu & Logo */}
         <div className="flex items-center gap-3">
