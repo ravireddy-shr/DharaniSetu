@@ -140,30 +140,11 @@ export function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex flex-col font-sans justify-between items-center py-6 px-4">
-      {/* Top Header Branding */}
-      <div className="w-full flex items-center justify-center">
-        <Link to="/" className="flex flex-col items-center group text-center">
-          <div className="flex items-center gap-2">
-            <span className="text-3xl sm:text-4xl font-black tracking-tight text-[#1D0A69]">
-              Dharani<span className="text-[#D97706] ml-0.5">Setu</span>
-            </span>
-          </div>
-          {/* Theme Motto */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-[#D97706] text-xs font-bold mt-1 shadow-xs">
-            <span>🌉</span>
-            <span>{t('nav.tagline', 'The Bridge Between Citizen and Government')}</span>
-          </div>
-          <p className="text-xs text-slate-500 font-medium tracking-wide mt-1">
-            భూమి సేతు · Digital Land Governance & Statutory Registry
-          </p>
-        </Link>
-      </div>
-
       {/* Center Login Container */}
-      <div className="w-full max-w-[420px] flex flex-col items-center my-auto pt-4">
-        {/* Official DharaniSetu Circular Emblem */}
-        <div className="relative mb-3 flex items-center justify-center">
-          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-white shadow-xl border-2 border-[#D97706]/70 flex items-center justify-center group hover:scale-105 transition-transform">
+      <div className="w-full max-w-[440px] flex flex-col items-center my-auto py-4">
+        {/* Official DharaniSetu Circular Emblem & Brand Title */}
+        <Link to="/" className="flex flex-col items-center text-center group mb-4">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full p-1 bg-white shadow-xl border-2 border-[#014723]/30 flex items-center justify-center group-hover:scale-105 transition-transform mb-2.5">
             <img
               src="/logo.png"
               alt="DharaniSetu Official Government Emblem"
@@ -173,10 +154,27 @@ export function LoginPage() {
               }}
             />
           </div>
-        </div>
 
-        {/* Heading: H1 32px bold #1D0A69 */}
-        <h1 className="text-[26px] sm:text-[30px] font-bold text-[#1D0A69] tracking-tight text-center">
+          {/* Name colored according to the logo: Dharani in Forest Green #014723, Setu in Deep Blue #03244F */}
+          <div className="flex items-center gap-1.5">
+            <span className="text-3xl sm:text-4xl font-black tracking-tight">
+              <span className="text-[#014723]">Dharani</span>
+              <span className="text-[#03244F]">Setu</span>
+            </span>
+          </div>
+
+          {/* Theme Motto */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[#014723] text-xs font-bold mt-1.5 shadow-2xs">
+            <span>🌉</span>
+            <span>{t('nav.tagline', 'The Bridge Between Citizen and Government')}</span>
+          </div>
+          <p className="text-xs text-slate-500 font-medium tracking-wide mt-1">
+            భూమి సేతు · Digital Land Governance & Statutory Registry
+          </p>
+        </Link>
+
+        {/* Heading: H1 */}
+        <h1 className="text-[24px] sm:text-[28px] font-bold text-[#1D0A69] tracking-tight text-center">
           Farmer & Official Portal Login
         </h1>
         <p className="text-sm text-slate-600 font-normal text-center mt-0.5 mb-5">
@@ -213,7 +211,7 @@ export function LoginPage() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="•••••••• (Default: farmer123)"
+                placeholder="••••••••"
                 className="w-full rounded-full border-[1.5px] border-[#94A3B8] bg-white px-5 py-3 text-base text-[#0F172A] placeholder-slate-400 focus:outline-none focus:border-[#115E59] focus:ring-2 focus:ring-[#115E59]/25 transition-all shadow-xs"
                 autoComplete="current-password"
               />
@@ -240,8 +238,7 @@ export function LoginPage() {
           </div>
         </form>
 
-
-        {/* Directory & Help links below the login button */}
+        {/* Directory link below the login button */}
         <div className="mt-4 flex flex-col items-center gap-2 text-center w-full">
           <button
             type="button"
@@ -251,10 +248,6 @@ export function LoginPage() {
             <Users size={16} />
             <span>Browse All 48 Farmers & Official Directory</span>
           </button>
-
-          <div className="bg-slate-100/80 px-3.5 py-1.5 rounded-full border border-slate-200/60 text-xs text-slate-600 font-medium">
-            Default Passwords: <span className="text-[#0F172A] font-bold">farmer123</span> (Farmers) · <span className="text-[#0F172A] font-bold">officer123</span> (Officers) · <span className="text-[#0F172A] font-bold">admin123</span> (Admin)
-          </div>
         </div>
       </div>
 
