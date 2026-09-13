@@ -1,0 +1,619 @@
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuthStore } from '../../store/authStore';
+import { DEMO_FARMER_CITIZENS, DEMO_OFFICERS, DEMO_ADMIN } from '../../data/demoData';
+import { toast } from '../../components/ui/Toast';
+import { cn } from '../../utils';
+import {
+  Lock, Mail, KeyRound, Search, X, Users, ArrowRight, ShieldCheck, Check
+} from 'lucide-react';
+
+export function LoginPage() {
+  const navigate = useNavigate();
+  const { user, logout, loginWithPassword } = useAuthStore();
+
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  // Directory Modal (144 Citizens & 40+ Officers)
+  const [showDirectoryModal, setShowDirectoryModal] = useState(false);
+  const [directoryTab, setDirectoryTab] = useState<'citizens' | 'officers'>('citizens');
+  const [citizenSearch, setCitizenSearch] = useState('');
+  const [citizenStateFilter, setCitizenStateFilter] = useState('ALL');
+  const [officerSearch, setOfficerSearch] = useState('');
+  const [officerDeptFilter, setOfficerDeptFilter] = useState('ALL');
+
+  // Submit Login handler
+  const handleLogin = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!userId.trim()) {
+      setError('Please enter your User ID or Email');
+      return;
+    }
+    if (!password.trim()) {
+      setError('Please enter your Password');
+      return;
+    }
+
+    setError('');
+    setLoading(true);
+
+    try {
+      const result = await loginWithPassword(userId, password);
+      if (result.success) {
+        toast('success', 'Login Successful', `Welcome to DharaniSetu`);
+        if (result.role === 'citizen') {
+          navigate('/citizen/dashboard');
+        } else if (result.role === 'officer') {
+          navigate('/officer/dashboard');
+        } else if (result.role === 'admin') {
+          navigate('/admin/dashboard');
+        } else {
+          navigate('/citizen/dashboard');
+        }
+      } else {
+        setError(result.error || 'Invalid credentials. Please try again.');
+      }
+    } catch {
+      setError('Authentication failed. Please check your credentials.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fill citizen credentials into the login form without auto-signing in
+  const handleSelectCitizenCredentials = (citizen: typeof DEMO_FARMER_CITIZENS[0]) => {
+    setUserId(citizen.email);
+    setPassword('citizen123');
+    setError('');
+    setShowDirectoryModal(false);
+    toast('info', 'Credentials Loaded', `Loaded credentials for Citizen ${citizen.name}. Click LOGIN to continue.`);
+  };
+
+  // Fill officer credentials into the login form without auto-signing in
+  const handleSelectOfficerCredentials = (email: string, title: string) => {
+    setUserId(email);
+    setPassword('officer123');
+    setError('');
+    setShowDirectoryModal(false);
+    toast('info', 'Credentials Loaded', `Loaded ${title} credentials (${email}). Click LOGIN to continue.`);
+  };
+
+  // Fill admin credentials into the login form without auto-signing in
+  const handleSelectAdminCredentials = () => {
+    setUserId('admin@dharanisetu.gov.in');
+    setPassword('admin123');
+    setError('');
+    setShowDirectoryModal(false);
+    toast('info', 'Credentials Loaded', 'Loaded Administrator credentials. Click LOGIN to continue.');
+  };
+
+  // If already logged in, show active session notification card
+  if (user) {
+    const userRoleDashboard =
+      user.role === 'citizen'
+        ? '/citizen/dashboard'
+        : user.role === 'officer'
+        ? '/officer/dashboard'
+        : '/admin/dashboard';
+
+    return (
+      <div className="min-h-screen bg-[#F7F9F8] flex flex-col font-sans items-center justify-center p-4">
+        <div className="w-full max-w-sm bg-white rounded-3xl border border-slate-200 shadow-xl p-8 text-center space-y-5">
+          <div className="w-14 h-14 mx-auto rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center">
+            <ShieldCheck size={32} />
+          </div>
+
+          <div>
+            <h2 className="text-xl font-bold text-slate-800">Active Session</h2>
+            <p className="text-xs text-slate-500 mt-1">
+              Currently signed in as <strong className="text-slate-700">{user.name}</strong> ({user.role})
+            </p>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <button
+              onClick={() => navigate(userRoleDashboard)}
+              className="w-full py-3 rounded-full bg-[#10B981] hover:bg-emerald-600 text-white text-sm font-bold shadow-md transition-all"
+            >
+              CONTINUE TO DASHBOARD
+            </button>
+
+            <button
+              onClick={() => {
+                logout();
+                toast('info', 'Signed Out', 'You have been signed out.');
+              }}
+              className="w-full py-2.5 rounded-full border border-slate-300 text-slate-600 hover:bg-slate-50 text-xs font-semibold transition-all"
+            >
+              Sign In with Another Account
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-[#F7F9F8] flex flex-col font-sans justify-between items-center py-6 px-4">
+      {/* Top spacer */}
+      <div className="w-full flex items-center justify-center">
+        {/* DharaniSetu Logo + Branding styled like reference header */}
+        <Link to="/" className="flex flex-col items-center group">
+          <div className="flex items-center gap-2">
+            <span className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-800">
+              <span className="italic font-serif text-[#10B981]">e</span>Dharani<span className="text-[#10B981]">Setu</span>
+            </span>
+          </div>
+          <p className="text-[11px] sm:text-xs text-slate-500 font-semibold tracking-wider uppercase mt-0.5">
+            Sustainable Growth • Sustainable Future
+          </p>
+        </Link>
+      </div>
+
+      {/* Center Login Container matching reference screenshot */}
+      <div className="w-full max-w-[360px] sm:max-w-[400px] flex flex-col items-center my-auto">
+        {/* Illustrated plant foliage art (replicates reference artwork) */}
+        <div className="w-48 h-24 relative flex items-end justify-center mb-1 select-none pointer-events-none">
+          <svg
+            viewBox="0 0 200 100"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-full h-full drop-shadow-xs"
+          >
+            {/* Soft decorative background dots/sparks */}
+            <circle cx="60" cy="30" r="2.5" fill="#A7F3D0" />
+            <circle cx="140" cy="25" r="2" fill="#6EE7B7" />
+            <circle cx="100" cy="15" r="3" fill="#A7F3D0" />
+            <path d="M50 40 L54 44 M50 44 L54 40" stroke="#6EE7B7" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M150 35 L154 39 M150 39 L154 35" stroke="#6EE7B7" strokeWidth="1.5" strokeLinecap="round" />
+
+            {/* Lush leaves layer */}
+            {/* Left background tall blade */}
+            <path
+              d="M65 95 C60 65 65 35 78 20 C76 38 78 68 85 95 Z"
+              fill="#059669"
+            />
+            {/* Right background tall blade */}
+            <path
+              d="M135 95 C140 65 135 35 122 20 C124 38 122 68 115 95 Z"
+              fill="#059669"
+            />
+            {/* Far left spiky leaf */}
+            <path
+              d="M45 95 C40 75 42 50 56 35 C52 52 56 75 62 95 Z"
+              fill="#10B981"
+            />
+            {/* Far right spiky leaf */}
+            <path
+              d="M155 95 C160 75 158 50 144 35 C148 52 144 75 138 95 Z"
+              fill="#10B981"
+            />
+            {/* Center broad leaf with stem */}
+            <path
+              d="M100 95 C90 70 85 45 100 15 C115 45 110 70 100 95 Z"
+              fill="#34D399"
+            />
+            <path
+              d="M100 95 L100 25"
+              stroke="#059669"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+            {/* Left broad leaf */}
+            <path
+              d="M80 95 C65 75 68 55 86 38 C94 58 88 80 82 95 Z"
+              fill="#10B981"
+            />
+            {/* Right broad leaf */}
+            <path
+              d="M120 95 C135 75 132 55 114 38 C106 58 112 80 118 95 Z"
+              fill="#10B981"
+            />
+            {/* Foreground small fresh leaves */}
+            <path
+              d="M75 95 C65 85 68 70 80 62 C85 75 82 88 78 95 Z"
+              fill="#6EE7B7"
+            />
+            <path
+              d="M125 95 C135 85 132 70 120 62 C115 75 118 88 122 95 Z"
+              fill="#6EE7B7"
+            />
+            {/* Vine sprays / dots */}
+            <circle cx="150" cy="55" r="3" fill="#34D399" />
+            <circle cx="158" cy="48" r="2.5" fill="#10B981" />
+            <circle cx="50" cy="55" r="3" fill="#34D399" />
+            <circle cx="42" cy="48" r="2.5" fill="#10B981" />
+          </svg>
+        </div>
+
+        {/* Heading matching screenshot */}
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#10B981] tracking-tight text-center">
+          Login
+        </h1>
+        <p className="text-sm text-slate-500 font-medium text-center mt-1 mb-7">
+          Sign in to continue
+        </p>
+
+        {/* Form Fields matching screenshot */}
+        <form onSubmit={handleLogin} className="w-full space-y-4">
+          {/* User ID Field */}
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5 ml-3">
+              User ID
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+                placeholder="User ID or Email"
+                className="w-full rounded-full border border-slate-300 bg-white px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#10B981] focus:ring-3 focus:ring-[#10B981]/20 transition-all shadow-xs"
+                autoComplete="username"
+              />
+              <Mail size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none" />
+            </div>
+          </div>
+
+          {/* Password Field */}
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5 ml-3">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full rounded-full border border-slate-300 bg-white px-5 py-3.5 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#10B981] focus:ring-3 focus:ring-[#10B981]/20 transition-all shadow-xs"
+                autoComplete="current-password"
+              />
+              <Lock size={16} className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-300 pointer-events-none" />
+            </div>
+          </div>
+
+          {/* Error message */}
+          {error && (
+            <div className="p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-semibold text-center leading-snug">
+              {error}
+            </div>
+          )}
+
+          {/* Green pill LOGIN button matching screenshot */}
+          <div className="pt-2">
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full rounded-full bg-[#10B981] hover:bg-[#059669] active:scale-[0.99] text-white font-bold tracking-wider py-3.5 text-sm shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase"
+            >
+              {loading ? 'LOGGING IN...' : 'LOGIN'}
+            </button>
+          </div>
+        </form>
+
+        {/* Directory & Help links below the login button */}
+        <div className="mt-6 flex flex-col items-center gap-3 text-center">
+          <button
+            type="button"
+            onClick={() => setShowDirectoryModal(true)}
+            className="text-xs sm:text-sm font-semibold text-[#059669] hover:text-[#047857] hover:underline flex items-center gap-1.5 transition-colors"
+          >
+            <Users size={15} />
+            <span>Browse 144 Citizen Logins & Official Directory</span>
+          </button>
+
+          <div className="bg-slate-100/80 px-3.5 py-2 rounded-full border border-slate-200/60 text-[11px] text-slate-500 font-medium">
+            Default Passwords: <span className="text-slate-800 font-bold">citizen123</span> (Citizen) · <span className="text-slate-800 font-bold">officer123</span> (Officer) · <span className="text-slate-800 font-bold">admin123</span> (Admin)
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom status text matching "Can't reach server? Update Server" style */}
+      <div className="text-xs text-slate-400 text-center mt-6">
+        <span>Need assistance? </span>
+        <button
+          type="button"
+          onClick={() => setShowDirectoryModal(true)}
+          className="text-[#10B981] hover:underline font-medium"
+        >
+          View Verified User Directory
+        </button>
+      </div>
+
+      {/* 144 Citizens & Government Officers Directory Modal */}
+      {showDirectoryModal && (
+        <div className="fixed inset-0 z-[1000] bg-slate-950/70 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-4xl rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[88vh]">
+            {/* Modal Header */}
+            <div className="p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-2xl bg-emerald-100 text-[#059669] flex items-center justify-center font-bold">
+                  <Users size={20} />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-extrabold text-slate-900">
+                    144 Verified Citizens & Officials Directory
+                  </h3>
+                  <p className="text-xs text-slate-500">
+                    Select any citizen or government official to auto-fill their credentials into the login form
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowDirectoryModal(false)}
+                className="w-8 h-8 rounded-full bg-slate-200 hover:bg-slate-300 flex items-center justify-center text-slate-600 transition-colors"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* Quick Officer Logins Section */}
+            <div className="p-3 bg-emerald-50/70 border-b border-emerald-100 px-5 space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-emerald-950">Quick Government Officer Logins:</span>
+                <span className="text-[10px] text-emerald-700 font-semibold">Password: officer123</span>
+              </div>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => handleSelectOfficerCredentials('tahsildar@dharanisetu.gov.in', 'Tahsildar')}
+                  className="px-2.5 py-1 bg-emerald-700 hover:bg-emerald-800 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                >
+                  <span>🏛️ Tahsildar</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSelectOfficerCredentials('vro@dharanisetu.gov.in', 'Revenue Officer (VRO)')}
+                  className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                >
+                  <span>📋 Revenue (VRO)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSelectOfficerCredentials('surveyor@dharanisetu.gov.in', 'Cadastral Surveyor')}
+                  className="px-2.5 py-1 bg-teal-600 hover:bg-teal-700 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                >
+                  <span>📐 Surveyor</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSelectOfficerCredentials('subregistrar@dharanisetu.gov.in', 'Sub-Registrar')}
+                  className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                >
+                  <span>📜 Sub-Registrar</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSelectOfficerCredentials('planner@dharanisetu.gov.in', 'Town Planner')}
+                  className="px-2.5 py-1 bg-amber-700 hover:bg-amber-800 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1"
+                >
+                  <span>🏗️ Town Planner</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSelectAdminCredentials}
+                  className="px-2.5 py-1 bg-slate-800 hover:bg-slate-900 text-white rounded-full text-xs font-bold transition-all shadow-xs flex items-center gap-1 ml-auto"
+                >
+                  <span>🛡️ Administrator</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Directory Tabs: Citizens vs Government Officers */}
+            <div className="px-5 pt-3 pb-2 border-b border-slate-200 bg-slate-50/50 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setDirectoryTab('citizens')}
+                className={cn(
+                  'px-4 py-1.5 rounded-xl text-xs font-extrabold transition-all',
+                  directoryTab === 'citizens'
+                    ? 'bg-[#10B981] text-white shadow-xs'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                )}
+              >
+                144 Citizens Directory
+              </button>
+              <button
+                type="button"
+                onClick={() => setDirectoryTab('officers')}
+                className={cn(
+                  'px-4 py-1.5 rounded-xl text-xs font-extrabold transition-all',
+                  directoryTab === 'officers'
+                    ? 'bg-slate-800 text-white shadow-xs'
+                    : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'
+                )}
+              >
+                Government Officers Directory ({DEMO_OFFICERS.length})
+              </button>
+            </div>
+
+            {directoryTab === 'citizens' ? (
+              <>
+                {/* Modal Controls: Search and State Filter for 144 Citizens */}
+                <div className="p-4 border-b border-slate-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="relative w-full sm:w-80">
+                    <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="text"
+                      value={citizenSearch}
+                      onChange={(e) => setCitizenSearch(e.target.value)}
+                      placeholder="Search by citizen name, survey no, village..."
+                      className="w-full pl-9 pr-4 py-2 rounded-full border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-[#10B981] outline-none"
+                      autoFocus
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-1.5 flex-wrap w-full sm:w-auto">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase">Filter State:</span>
+                    {['ALL', 'AP', 'TG', 'TN', 'CG'].map((st) => (
+                      <button
+                        key={st}
+                        onClick={() => setCitizenStateFilter(st)}
+                        className={cn(
+                          'px-3 py-1 rounded-full text-xs font-bold transition-all',
+                          citizenStateFilter === st
+                            ? 'bg-[#10B981] text-white shadow-xs'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                        )}
+                      >
+                        {st === 'ALL' ? 'All 144 Citizens' : st}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Citizens List */}
+                <div className="flex-1 overflow-y-auto p-4 space-y-2 divide-y divide-slate-100">
+                  {DEMO_FARMER_CITIZENS.filter((citizen) => {
+                    const q = citizenSearch.toLowerCase();
+                    const matchSearch =
+                      citizen.name.toLowerCase().includes(q) ||
+                      citizen.email.toLowerCase().includes(q) ||
+                      citizen.surveyNumber.toLowerCase().includes(q) ||
+                      citizen.village.toLowerCase().includes(q) ||
+                      citizen.parcelId.toLowerCase().includes(q);
+                    const matchState = citizenStateFilter === 'ALL' || citizen.state === citizenStateFilter;
+                    return matchSearch && matchState;
+                  }).map((citizen, idx) => (
+                    <div
+                      key={citizen.id}
+                      className="pt-2.5 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl hover:bg-emerald-50/40 transition-colors border border-transparent hover:border-emerald-200"
+                    >
+                      <div className="flex items-start gap-3 min-w-0">
+                        <div className="w-8 h-8 rounded-full bg-emerald-100 text-[#059669] font-bold flex items-center justify-center text-xs flex-shrink-0">
+                          {idx + 1}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm font-bold text-slate-900">{citizen.name}</span>
+                            <span className="font-mono text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100/70 text-[#059669]">
+                              Survey #{citizen.surveyNumber}
+                            </span>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700">
+                              {citizen.parcelId}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-3 text-xs text-slate-500 mt-1 flex-wrap font-mono">
+                            <span className="text-[#059669] font-semibold">{citizen.email}</span>
+                            <span>·</span>
+                            <span>{citizen.village} ({citizen.state})</span>
+                            <span>·</span>
+                            <span>{citizen.totalAreaAcres} Acres</span>
+                            <span>·</span>
+                            <span className="text-slate-400">Passbook: {citizen.passbookNumber}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => handleSelectCitizenCredentials(citizen)}
+                        className="px-4 py-2 bg-[#10B981] hover:bg-[#059669] text-white rounded-full text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 flex-shrink-0"
+                      >
+                        <span>Use Credentials</span>
+                        <ArrowRight size={13} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Officers Controls: Search and Dept Filter */}
+                <div className="p-4 border-b border-slate-100 bg-white flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <div className="relative w-full sm:w-80">
+                    <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+                    <input
+                      type="text"
+                      value={officerSearch}
+                      onChange={(e) => setOfficerSearch(e.target.value)}
+                      placeholder="Search by officer name, designation, department..."
+                      className="w-full pl-9 pr-4 py-2 rounded-full border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-slate-800 outline-none"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-1.5 flex-wrap w-full sm:w-auto">
+                    <span className="text-[10px] font-bold text-slate-400 uppercase">Department:</span>
+                    {['ALL', 'Revenue', 'Tahsildar', 'Survey', 'Registration', 'Town Planning'].map((dept) => (
+                      <button
+                        key={dept}
+                        onClick={() => setOfficerDeptFilter(dept)}
+                        className={cn(
+                          'px-3 py-1 rounded-full text-xs font-bold transition-all',
+                          officerDeptFilter === dept
+                            ? 'bg-slate-800 text-white shadow-xs'
+                            : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                        )}
+                      >
+                        {dept}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Officers List */}
+                <div className="flex-1 overflow-y-auto p-4 space-y-2 divide-y divide-slate-100">
+                  {DEMO_OFFICERS.filter((officer) => {
+                    const q = officerSearch.toLowerCase();
+                    const matchSearch =
+                      officer.name.toLowerCase().includes(q) ||
+                      officer.email.toLowerCase().includes(q) ||
+                      officer.designation.toLowerCase().includes(q) ||
+                      officer.department.toLowerCase().includes(q) ||
+                      officer.jurisdictionMandal.toLowerCase().includes(q);
+                    const matchDept = officerDeptFilter === 'ALL' || officer.department === officerDeptFilter;
+                    return matchSearch && matchDept;
+                  }).map((officer, idx) => (
+                    <div
+                      key={officer.id}
+                      className="pt-2.5 first:pt-0 flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200"
+                    >
+                      <div className="flex items-start gap-3 min-w-0">
+                        <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-800 font-bold flex items-center justify-center text-xs flex-shrink-0">
+                          {idx + 1}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span className="text-sm font-bold text-slate-900">{officer.name}</span>
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                              {officer.department}
+                            </span>
+                            <span className="text-[10px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded-full">
+                              {officer.designation}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-3 text-xs text-slate-500 mt-1 flex-wrap font-mono">
+                            <span className="text-slate-800 font-semibold">{officer.email}</span>
+                            <span>·</span>
+                            <span>Mandal: {officer.jurisdictionMandal}</span>
+                            <span>·</span>
+                            <span>State: {officer.jurisdictionState}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <button
+                        onClick={() => handleSelectOfficerCredentials(officer.email, officer.designation)}
+                        className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-full text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-1.5 flex-shrink-0"
+                      >
+                        <span>Use Credentials</span>
+                        <ArrowRight size={13} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+
+            {/* Modal Footer Note */}
+            <div className="p-3 bg-slate-50 border-t border-slate-200 text-center text-xs text-slate-500">
+              Clicking <strong className="text-slate-700">"Use Credentials"</strong> fills that user's email and password into the login page. Then, click <strong className="text-[#059669]">LOGIN</strong> to sign in.
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DharaniSetu — Comprehensive Project Report | SIH 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #065f46;
+      --primary-dark: #064e3b;
+      --primary-light: #ecfdf5;
+      --navy: #0f172a;
+      --slate: #334155;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --card-bg: #ffffff;
+      --bg: #f8fafc;
+      --saffron: #f59e0b;
+      --accent: #2563eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--slate);
+      line-height: 1.65;
+      padding: 24px;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+
+    /* Header Bar */
+    .top-action-bar {
+      background: var(--navy);
+      color: #ffffff;
+      padding: 14px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .top-action-bar .brand {
+      font-size: 15px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .top-action-bar .brand span.highlight {
+      color: #10b981;
+    }
+
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: #10b981;
+      color: #064e3b;
+    }
+    .btn-primary:hover {
+      background: #059669;
+      color: #ffffff;
+    }
+
+    .btn-outline {
+      background: rgba(255,255,255,0.1);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* Report Hero */
+    .report-hero {
+      background: linear-gradient(135deg, #065f46 0%, #047857 50%, #0f766e 100%);
+      color: #ffffff;
+      padding: 48px 36px;
+      position: relative;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      padding: 5px 12px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+    }
+
+    .report-hero h1 {
+      font-size: 32px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .report-hero p.tagline {
+      font-size: 16px;
+      color: #d1fae5;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .hero-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+      padding-top: 20px;
+      margin-top: 20px;
+      font-size: 12px;
+    }
+
+    .hero-meta-grid div strong {
+      display: block;
+      color: #a7f3d0;
+      text-transform: uppercase;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    /* Body Content */
+    .content-body {
+      padding: 40px 36px;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-top: 36px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: var(--slate);
+      font-size: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 18px 0;
+    }
+
+    @media (max-width: 768px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .card-highlight {
+      background: var(--primary-light);
+      border-color: #a7f3d0;
+    }
+
+    .card h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 13px;
+      margin-bottom: 0;
+      color: var(--slate);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 20px 0;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    th {
+      background: #f1f5f9;
+      color: var(--navy);
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--slate);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    tr:nth-child(even) td {
+      background: #fafbfc;
+    }
+
+    .tag-status {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .status-success { background: #dcfce7; color: #166534; }
+
+    @media print {
+      body {
+        background: #ffffff;
+        padding: 0;
+      }
+      .top-action-bar {
+        display: none !important;
+      }
+      .container {
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="top-action-bar">
+      <div class="brand">
+        🏛️ DHARANI<span class="highlight">SETU</span> · Project Architecture & Implementation Dossier
+      </div>
+      <div class="btn-group">
+        <button onclick="window.print()" class="btn btn-primary">
+          🖨️ Print / Save as PDF
+        </button>
+        <a href="/DharaniSetu_Comprehensive_Project_Report.md" download="DharaniSetu_Comprehensive_Project_Report.md" class="btn btn-outline">
+          📥 Download Markdown (.md)
+        </a>
+      </div>
+    </div>
+
+    <div class="report-hero">
+      <span class="badge-tag">Smart India Hackathon (SIH 2026) · Team Shastra</span>
+      <h1>DHARANISETU (ధరణిసేతు)</h1>
+      <p class="tagline">"One Land. Many Services. A Safer Tomorrow." — Unified Multi-Department Land Governance & Cadastral Interoperability Platform</p>
+
+      <div class="hero-meta-grid">
+        <div>
+          <strong>Problem Statement</strong>
+          Multi-Department Approval Workflow & Interoperability
+        </div>
+        <div>
+          <strong>Architecture Model</strong>
+          DPI (Digital Public Infrastructure)
+        </div>
+        <div>
+          <strong>Jurisdiction Coverage</strong>
+          AP, Telangana, Tamil Nadu, Chandigarh
+        </div>
+        <div>
+          <strong>Validation Engine</strong>
+          AI Document OCR & Cadastral Polygon Scrutiny
+        </div>
+      </div>
+    </div>
+
+    <div class="content-body">
+      <h2>1. Executive Summary & Problem Solved</h2>
+      <p>
+        In traditional Indian land governance, citizens requiring land-related services (such as <strong>Title Mutation, Land Conversion (NALA), Building Permission NOCs, or Boundary Verification</strong>) must apply separately across multiple uncoordinated government departments: <strong>Revenue Department</strong>, <strong>Survey & Settlement</strong>, <strong>Registration & Stamps</strong>, and <strong>Town Planning / Municipalities</strong>.
+      </p>
+      <p>
+        <strong>DharaniSetu</strong> bridges this divide by delivering a unified Digital Public Infrastructure platform featuring a <strong>Single Case File System</strong>, <strong>Dynamic Departmental Workflow Routing</strong>, <strong>Strict Role-Based Access Control (RBAC)</strong>, <strong>360° Cadastral GIS Parcel Intelligence</strong>, and <strong>In-Browser Document Scrutiny</strong>.
+      </p>
+
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <h4>📁 Single Case File Paradigm</h4>
+          <p>Each citizen submission is assigned a single, immutable Application ID (e.g. <code>DS-AP-2026-000450</code>) that moves sequentially through each required departmental desk.</p>
+        </div>
+        <div class="card card-highlight">
+          <h4>🛰️ Cadastral GIS & AI Scrutiny</h4>
+          <p>Seamlessly integrates satellite boundaries, PostGIS geo-polygons, and AI OCR to cross-match Sale Deed declared extent with actual cadastral coordinates.</p>
+        </div>
+      </div>
+
+      <h2>2. Chronological Development Journey (What We Built From Start to Finish)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Milestone</th>
+            <th>Core Objective</th>
+            <th>Delivered Solution & Engineering Implementation</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1. Multilingual Localization</strong></td>
+            <td>Fix broken translations and support regional state languages.</td>
+            <td>Configured <code>react-i18next</code> dictionaries supporting <strong>English, Telugu (తెలుగు), Hindi (हिन्दी), and Tamil (தமிழ்)</strong> across headers, dashboards, and forms.</td>
+            <td><span class="tag-status status-success">Completed</span></td>
+          </tr>
+          <tr>
+            <td><strong>2. Multi-Department Sequential Engine</strong></td>
+            <td>Build approval workflow across departments without breaking existing UI.</td>
+            <td>Implemented stateful department workflow logic in <code>appStore.ts</code> ensuring applications transition sequentially (<code>SUBMITTED</code> &rarr; <code>ROUTED</code> &rarr; <code>APPROVED</code>).</td>
+            <td><span class="tag-status status-success">Completed</span></td>
+          </tr>
+          <tr>
+            <td><strong>3. Dynamic Service Routing</strong></td>
+            <td>Tracking board must dynamically vary based on requested service.</td>
+            <td>Configured dedicated departmental chains for 6 core services (Mutation, Building NOC, Conversion, Boundary Survey, Record Correction, and Grievance).</td>
+            <td><span class="tag-status status-success">Completed</span></td>
+          </tr>
+          <tr>
+            <td><strong>4. Strict RBAC Desk Isolation</strong></td>
+            <td>Officers should only act on their department desk (No cross-approval).</td>
+            <td>Restricted action buttons by officer department (Revenue VRO, Survey Officer, Town Planner, Tahsildar). Added master supervisory control for Administrator.</td>
+            <td><span class="tag-status status-success">Completed</span></td>
+          </tr>
+          <tr>
+            <td><strong>5. Multi-State Parcel Database</strong></td>
+            <td>Provide at least 2 land parcels each for AP, TG, TN, and Chandigarh.</td>
+            <td>Expanded <code>DEMO_PARCELS</code> with authentic survey numbers, subdivision bounds, extents, and market values across all 4 target states.</td>
+            <td><span class="tag-status status-success">Completed</span></td>
+          </tr>
+          <tr>
+            <td><strong>6. Dispute Clearance Gating</strong></td>
+            <td>Issue official Tahsildar clearance order strictly at the end of Land Grievance.</td>
+            <td>Enforced triple-gate validation: issued strictly for Grievance service, only when all departments approve, and viewable exclusively by the applicant citizen.</td>
+            <td><span class="tag-status status-success">Completed</span></td>
+          </tr>
+          <tr>
+            <td><strong>7. Full In-Browser Document Inspection</strong></td>
+            <td>Officers must open & inspect citizen uploaded documents before deciding.</td>
+            <td>Engineered <code>DocumentInspectionModal</code> with zoom/rotation/scrutiny checklist; enabled base64 persistence via <code>FileReader.readAsDataURL</code>.</td>
+            <td><span class="tag-status status-success">Completed</span></td>
+          </tr>
+          <tr>
+            <td><strong>8. SIH Architecture Alignment</strong></td>
+            <td>Verify workflow against presentation slide template.</td>
+            <td>Resolved snake flow errors, separated auxiliary account services, and validated dynamic routing notes for the competition presentation.</td>
+            <td><span class="tag-status status-success">Completed</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>3. Dynamic Department Routing Matrix</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Service</th>
+            <th>Desk Sequence</th>
+            <th>Required Statutory Verifications</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mutation / Ownership Update</strong></td>
+            <td>1. Revenue Officer (VRO) &rarr; 2. Survey Officer &rarr; 3. Tahsildar</td>
+            <td>Title deed validity, Pattadar passbook, physical pegging, final gazette endorsement.</td>
+          </tr>
+          <tr>
+            <td><strong>Building Permission NOC</strong></td>
+            <td>1. Town Planning &rarr; 2. Survey Officer &rarr; 3. Tahsildar</td>
+            <td>Zoning regulation, master plan alignment, road setback demarcation, safety NOC.</td>
+          </tr>
+          <tr>
+            <td><strong>Land Conversion (NALA)</strong></td>
+            <td>1. Revenue Officer (VRO) &rarr; 2. Town Planning &rarr; 3. Tahsildar</td>
+            <td>Agricultural cess clearance, non-agricultural land assessment, statutory conversion order.</td>
+          </tr>
+          <tr>
+            <td><strong>Boundary Demarcation / Survey</strong></td>
+            <td>1. Survey Officer &rarr; 2. Tahsildar</td>
+            <td>Differential GPS field measurement, adjacent neighbor notice, boundary rectification.</td>
+          </tr>
+          <tr>
+            <td><strong>Land Grievance & Disputes</strong></td>
+            <td>1. Revenue Officer (VRO) &rarr; 2. Survey Officer &rarr; 3. Tahsildar</td>
+            <td>Contested petition hearing, encroachment probe, Tahsildar certified clearance order.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>4. Key Technological Innovations</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>🔍 Document Inspection Protocol</h4>
+          <p>Replaced unscrutinized button clicks with a full-screen inspection modal featuring zoom (+/-), 90&deg; rotation, legibility checklists, and decisive <strong>"Verify & Accept"</strong> or <strong>"Reject with Statutory Reason"</strong> controls.</p>
+        </div>
+        <div class="card">
+          <h4>🤖 AI Area Discrepancy Analyzer</h4>
+          <p>Compares Sale Deed OCR extracted extent (e.g. 1.00 Acre) against the satellite cadastral survey polygon (0.90 Acre), alerting the Tahsildar to issue reconciliation directives or order DGPS resurvey.</p>
+        </div>
+      </div>
+
+      <h2>5. Live Demonstration Sequence for SIH Jury</h2>
+      <ol style="margin-left: 20px; font-size: 13px; line-height: 1.8;">
+        <li><strong>Start Platform:</strong> <code>npm run dev</code> (Platform live at <code>http://localhost:5173</code>).</li>
+        <li><strong>Citizen Portal:</strong> Login as Citizen &rarr; Explore GIS 360&deg; parcel &rarr; Submit Land Grievance with uploaded deed &rarr; Obtain Token ID.</li>
+        <li><strong>Revenue Officer (VRO) Desk:</strong> Open application &rarr; Click <em>"Open & Inspect"</em> &rarr; Check deed legibility &rarr; Verify & Approve Revenue stage.</li>
+        <li><strong>Survey Officer Desk:</strong> Verify cadastral boundary & coordinates &rarr; Approve Survey stage.</li>
+        <li><strong>Tahsildar Desk:</strong> Review AI discrepancy & field reports &rarr; Issue final statutory approval.</li>
+        <li><strong>Citizen Clearance:</strong> Log back in as Citizen &rarr; Click <strong>"View Proof"</strong> &rarr; Download official Tahsildar Certified Land Ownership & Dispute Clearance Order with QR code.</li>
+      </ol>
+    </div>
+  </div>
+</body>
+</html>
